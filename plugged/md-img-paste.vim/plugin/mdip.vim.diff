@@ -1,0 +1,30 @@
+diff --git a/plugin/mdip.vim b/plugin/mdip.vim
+index 7591088..baab157 100644
+--- a/plugin/mdip.vim
++++ b/plugin/mdip.vim
+@@ -170,13 +170,6 @@ function! s:RandomName()
+     return l:new_random
+ endfunction
+ 
+-function! s:InputName()
+-    call inputsave()
+-    let name = input('Image name: ')
+-    call inputrestore()
+-    return name
+-endfunction
+-
+ function! g:MarkdownPasteImage(relpath)
+         execute "normal! i![" . g:mdip_tmpname[0:0]
+         let ipos = getcurpos()
+@@ -208,10 +201,7 @@ function! mdip#MarkdownClipboardImage()
+ 
+     let workdir = s:SafeMakeDir()
+     " change temp-file-name and image-name
+-    let g:mdip_tmpname = s:InputName()
+-    if empty(g:mdip_tmpname)
+-      let g:mdip_tmpname = g:mdip_imgname . '_' . s:RandomName()
+-    endif
++    let g:mdip_tmpname = s:RandomName()
+ 
+     let tmpfile = s:SaveFileTMP(workdir, g:mdip_tmpname)
+     if tmpfile == 1
