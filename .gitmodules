@@ -1,0 +1,6 @@
+[submodule "Snips"]
+	path = Snips
+	url = https://github.com/pilgrimlyieu/Snippets.git
+[submodule "pythonx"]
+	path = pythonx
+	url = https://github.com/pilgrimlyieu/Snippets-Dependencies.git
