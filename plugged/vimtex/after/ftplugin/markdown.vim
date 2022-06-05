@@ -1,14 +1,15 @@
+" call vimtex#init()
 call vimtex#options#init()
+call vimtex#syntax#core#init()
+call vimtex#syntax#core#init_highlights()
+call vimtex#context#init_buffer()
 call vimtex#text_obj#init_buffer()
+call vimtex#text_obj#targets#init()
+call vimtex#state#init_buffer()
 call vimtex#cmd#init_buffer()
 call vimtex#motion#init_buffer()
 call vimtex#delim#init_buffer()
 call vimtex#env#init_buffer()
-call vimtex#syntax#core#init()
-call vimtex#syntax#core#init_highlights()
-unlet! b:vimtex_syntax_did_postinit
-let b:vimtex_syntax = {}
-call vimtex#syntax#nested#reset()
 
 function! s:map(ftype, mode, lhs, rhs, ...) abort
   silent execute a:mode . 'map <silent><buffer><nowait>' a:lhs a:rhs

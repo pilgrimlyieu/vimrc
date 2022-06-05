@@ -1,13 +1,14 @@
 {
     "suggest.enablePreview": true,
+    "diagnostic.displayByAle": true,
 
-    "markdown-preview-enhanced.configPath": "C:/Users/Lyieu/vimfiles/extra/.mume",
     "markdown-preview-enhanced.enableScriptExecution": true,
     "markdown-preview-enhanced.previewTheme": "one-dark.css",
     "markdown-preview-enhanced.codeBlockTheme": "monokai.css",
     "markdown-preview-enhanced.mathRenderingOption": "KaTeX",
     "markdown-preview-enhanced.printBackground": true,
     "markdown-preview-enhanced.useGitHubStylePipedLink": true,
+    "markdown-preview-enhanced.configPath": "C:/Users/Lyieu/vimfiles/extra/.mume",
     "markdown-preview-enhanced.enableEmojiSyntax": true,
     "markdown-preview-enhanced.enableCriticMarkupSyntax": true,
     "markdown-preview-enhanced.enableExtendedTableSyntax": true,
@@ -32,5 +33,20 @@
     ],
     "snippets.autoTrigger": false,
     "snippets.shortcut": "Ulti",
-    "snippets.snipmate.enable": false
+    "snippets.snipmate.enable": false,
+    
+    "languageserver": {
+        "autohotkey": {
+            //"module": "C:/Users/Lyieu/vimfiles/extra/vscode-autohotkey2-lsp/server/dist/server.js",
+            "module": "C:/Users/Lyieu/vimfiles/extra/helsmy.ahk-simple-ls-0.8.31/extension/server/out/server.js",
+            "filetypes": [
+                "autohotkey",
+                "autohotkey2"
+            ],
+            "args": ["--node-ipc"],
+            "env": {
+                "AHK2_LS_CONFIG": "{\"locale\":\"zh-cn\",\"InterpreterPath\":\"D:\\\\Program Files\\\\Autohotkey\\\\AutoHotkey.exe\",\"AutoLibInclude\":0}"
+            }
+        }
+    }
 }
