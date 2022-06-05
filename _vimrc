@@ -422,9 +422,6 @@ let g:ale_sign_warning = '--'
 let g:ale_linters = {
 \   'python': ['pylint'],
 \}
-
-nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
-nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
