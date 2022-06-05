@@ -1,26 +1,33 @@
 " Set {{{1
+set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
+set encoding=utf-8
+set mouse=
+set magic
+set smartcase
 set nocompatible
 set laststatus=2
+set showtabline=2
 set history=256
 set autochdir
 set whichwrap=b,s,<,>,[,]
 set backspace=indent,eol,start
 set clipboard+=unnamed
 set winaltkeys=no
-set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
-set encoding=utf-8
 set langmenu=zh_CN
 set cursorline
 set number
 set relativenumber
 set splitbelow
 set splitright
-set guioptions-=T
+set guioptions-=e
 set guioptions-=m
+set guioptions-=b
+set guioptions-=l
 set guioptions-=L
 set guioptions-=r
-set guioptions-=b
-set guioptions-=e
+set guioptions-=R
+set guioptions-=t
+set guioptions-=T
 set nolist
 set autoindent
 set smartindent
@@ -34,6 +41,7 @@ set noshowmode
 set tabstop=4
 set expandtab
 set softtabstop=4
+set shiftwidth=4
 set noswapfile
 set viewoptions-=options
 " }}}
@@ -41,15 +49,39 @@ set viewoptions-=options
 let $LANG = 'en_US.UTF-8'
 
 autocmd GUIEnter * simalt ~x
-augroup autosave_buffer
-  autocmd!
-  autocmd BufWinLeave * silent mkview
-  autocmd BufWinEnter * silent loadview
-augroup END
+
+augroup auto_view
+    autocmd!
+    autocmd BufWinLeave *.* silent mkview
+    autocmd BufWinEnter *.* silent loadview
+    autocmd BufWinLeave _vimrc silent mkview
+    autocmd BufWinEnter _vimrc silent loadview
+augroup end
+
+augroup spell_check
+    autocmd!
+    autocmd FileType tex,markdown,gitcommit setlocal spell spelllang=en_us,cjk
+    autocmd FileType tex,markdown,gitcommit inoremap <silent><C-n> <C-g>u<Esc>[s1z=`'a<C-g>u
+augroup end
+
+let g:python3_host_skip_check = 1
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+let g:clipboard = {
+\ 'name': 'win32yank',
+\ 'copy': {
+\ '+': 'win32yank.exe -i --crlf',
+\ '*': 'win32yank.exe -i --crlf',
+\ },
+\ 'paste': {
+\ '+': 'win32yank.exe -o --lf',
+\ '*': 'win32yank.exe -o --lf',
+\ },
+\ 'cache_enabled': 0,
+\ }
+
 filetype plugin indent on
 syntax enable
-autocmd FileType tex,markdown,gitcommit setlocal spell spelllang=en_us,cjk
-autocmd FileType tex,markdown,gitcommit inoremap <C-m> <C-g>u<Esc>[s1z=`]a<C-g>u
 
 call plug#begin("~/vimfiles/plugged")
 " Plug {{{1
@@ -58,6 +90,8 @@ Plug 'yianwillis/vimcdoc'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+Plug 'maximbaz/lightline-ale'
 Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
@@ -115,22 +149,28 @@ nnoremap H ^
 nnoremap L $
 nnoremap U <C-r>
 nnoremap ; :
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nnoremap : ;
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 nnoremap k gk
 nnoremap gk k
 nnoremap j gj
 nnoremap gj j
-nnoremap Z a<BS><Esc>
+nnoremap Z dl
 inoremap <silent><leader>w <C-o>:w<Cr>
-inoremap <silent><leader>q <C-o>:wq<Cr>
+inoremap <silent><leader>q <C-o>:x<Cr>
+inoremap <silent><leader>c <C-o>:bp<bar>sp<bar>bn<bar>bd<CR>
 inoremap <silent><leader><leader>q <C-o>:wq!<Cr>
 nnoremap <silent><leader>w :w<Cr>
-nnoremap <silent><leader>q :wq<Cr>
+nnoremap <silent><leader>q :x<Cr>
+nnoremap <silent><leader>c :bp<bar>sp<bar>bn<bar>bd<CR>
 nnoremap <silent><leader><leader>q :wq!<Cr>
 nnoremap <expr>0 col('.') == 1 ? '^': '0'
+noremap <silent><leader>/ :noh<Cr>
+map <ScrollWheelUp> <nop>
+map <ScrollWheelDown> <nop>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -145,14 +185,16 @@ nnoremap <expr>0 col('.') == 1 ? '^': '0'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Markdown {{{1
-autocmd FileType markdown inoremap <silent><C-S-w> <C-o>:CocCommand markdown-preview-enhanced.openPreview<Cr>
-autocmd FileType markdown nnoremap <silent><C-S-w> :CocCommand markdown-preview-enhanced.openPreview<Cr>
+autocmd FileType markdown inoremap <silent><C-w> <C-o>:CocCommand markdown-preview-enhanced.openPreview<Cr>
+autocmd FileType markdown inoremap <silent><C-x> <Cr><Cr><hr class="section"><Cr><Cr>
+autocmd FileType markdown nnoremap <silent><C-w> :CocCommand markdown-preview-enhanced.openPreview<Cr>
 
 function! MarkdownTable()
   silent TableFormat
   silent set nowrap
 endfunction
 
+let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_conceal = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_conceal_code_blocks = 0
@@ -194,12 +236,12 @@ let g:tex_conceal = ''
 
 " This is necessary for VimTeX to load properly. The "indent" is optional.
 " Note that most plugin managers will do this automatically.
-" filetype plugin indent on
+filetype plugin indent on
 
 " This enables Vim's and neovim's syntax-related features. Without this, some
 " VimTeX features will not work (see ":help vimtex-requirements" for more
 " info).
-" syntax enable
+syntax enable
 
 " Viewer options: One may configure the viewer either by specifying a built-in
 " viewer method:
@@ -265,7 +307,7 @@ let g:vimtex_quickfix_open_on_warning = 0
 augroup vimtex_config
   autocmd!
   autocmd User VimtexEventQuit call vimtex#compiler#clean(0)
-augroup END
+augroup end
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -281,9 +323,10 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " UltiSnips {{{1
-autocmd FileType snippets nnoremap <C-S-s> ggOclearsnippets<Cr><Esc>
+autocmd FileType snippets nnoremap <C-s> ggOclearsnippets<Cr><Esc>
 
-let g:UltiSnipsExpandTrigger = '<C-A>'
+let g:UltiSnipsExpandTrigger = 'ô'
+let g:UltiSnipsListSnippets = '<C-Tab>'
 let g:UltiSnipsJumpForwardTrigger = '<Tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 let g:UltiSnipsEditSplit = "vertical"
@@ -303,9 +346,11 @@ let g:UltiSnipsSnippetDirectories = ['Snips']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Easy Motion {{{1
-nnoremap <Leader><leader>h <Plug>(easymotion-linebackward)
-nnoremap <Leader><leader>l <Plug>(easymotion-lineforward)
-nnoremap <Leader><leader>. <Plug>(easymotion-repeat)
+nnoremap <leader>j <Plug>(easymotion-j)
+nnoremap <leader>k <Plug>(easymotion-k)
+nnoremap <leader>h <Plug>(easymotion-linebackward)
+nnoremap <leader>l <Plug>(easymotion-lineforward)
+nnoremap <leader>. <Plug>(easymotion-repeat)
 nnoremap / <Plug>(easymotion-sn)
 onoremap / <Plug>(easymotion-tn)
 nnoremap n <Plug>(easymotion-next)
@@ -331,11 +376,32 @@ let g:Lf_WorkingDirectoryMode = 'AF'
 let g:Lf_RootMarkers = ['.git', '.root']
 let g:Lf_DefaultExternalTool = 'rg'
 let g:Lf_PreviewInPopup = 1
+let g:Lf_PreviewResult = {
+            \ 'File': 0,
+            \ 'Buffer': 0,
+            \ 'Mru': 0,
+            \ 'Tag': 0,
+            \ 'BufTag': 1,
+            \ 'Function': 1,
+            \ 'Line': 0,
+            \ 'Colorscheme': 0,
+            \ 'Rg': 1,
+            \ 'Gtags': 0
+            \}
 let g:Lf_StlColorscheme = 'one'
+" let g:Lf_GtagsAutoGenerate = 1
+" let g:Lf_Gtagslabel = 'native-pygments'
+" let $GTAGSLABEL = 'native-pygments'
+" let $GTAGSCONF = 'D:\Program Files\gtags\share\gtags\gtags.conf'
 
+" GTAGS are not equipped yet
+" noremap <unique> <leader>fgd <Plug>LeaderfGtagsDefinition
+" noremap <unique> <leader>fgr <Plug>LeaderfGtagsReference
+" noremap <unique> <leader>fgs <Plug>LeaderfGtagsSymbol
+" noremap <unique> <leader>fgg <Plug>LeaderfGtagsGrep
 noremap <silent><leader>ff :LeaderfSelf<cr>
 noremap <silent><leader>fl :LeaderfLine<cr>
-nmap <unique> <leader>fr <Plug>LeaderfRgPrompt
+noremap <unique> <leader>fr <Plug>LeaderfRgPrompt
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -353,6 +419,12 @@ nmap <unique> <leader>fr <Plug>LeaderfRgPrompt
 " ale {{{1
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
+let g:ale_linters = {
+\   'python': ['pylint'],
+\}
+
+nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
+nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -565,6 +637,9 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Unknown'   :'?',
                 \ }
 let g:NERDTreeGitStatusUseNerdFonts = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsDisableDefaultFolderSymbolColorFromNERDTreeDir = 1
+let g:WebDevIconsDisableDefaultFileSymbolColorFromNERDTreeFile = 1
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -610,18 +685,78 @@ let g:pymode_run_bind = '<F5>'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                                              "
-"                                          LightLine                                           "
+"                                          lightLine                                           "
 "                                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" LightLine {{{1
+" lightLine {{{1
 let g:lightline = {
 \   'colorscheme': 'onedark',
 \   'component': {
 \        'lineinfo': '%2l:%-2c',
 \        'percent': '%2p%%'
 \   },
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ],
+\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+\   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
+\              [ 'lineinfo' ],
+\              [ 'percent' ],
+\              [ 'fileformat', 'fileencoding', 'filetype'] ]
+\ },
+\ 'tabline': {
+\   'left': [ ['buffers'] ],
+\   'right': [ ['close'] ]
+\ },
+\ 'component_expand': {
+\   'buffers': 'lightline#bufferline#buffers',
+\   'linter_checking': 'lightline#ale#checking',
+\   'linter_infos': 'lightline#ale#infos',
+\   'linter_warnings': 'lightline#ale#warnings',
+\   'linter_errors': 'lightline#ale#errors',
+\   'linter_ok': 'lightline#ale#ok',
+\ },
+\ 'component_type': {
+\   'buffers': 'tabsel',
+\   'linter_checking': 'right',
+\   'linter_infos': 'right',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error',
+\   'linter_ok': 'right',
+\ },
+\ 'component_function': {
+\   'gitbranch': 'FugitiveHead'
+\ },
 \}
+
+let g:lightline#ale#indicator_checking = '⏳'
+let g:lightline#ale#indicator_infos = '📜'
+let g:lightline#ale#indicator_errors = '💥'
+let g:lightline#ale#indicator_warnings = '⚡'
+let g:lightline#ale#indicator_ok = '✨'
+let g:lightline#bufferline#show_number = 1
+let g:lightline#bufferline#unicode_symbols = 1
+
+nnoremap <Leader>1 <Plug>lightline#bufferline#go(1)
+nnoremap <Leader>2 <Plug>lightline#bufferline#go(2)
+nnoremap <Leader>3 <Plug>lightline#bufferline#go(3)
+nnoremap <Leader>4 <Plug>lightline#bufferline#go(4)
+nnoremap <Leader>5 <Plug>lightline#bufferline#go(5)
+nnoremap <Leader>6 <Plug>lightline#bufferline#go(6)
+nnoremap <Leader>7 <Plug>lightline#bufferline#go(7)
+nnoremap <Leader>8 <Plug>lightline#bufferline#go(8)
+nnoremap <Leader>9 <Plug>lightline#bufferline#go(9)
+nnoremap <Leader>0 <Plug>lightline#bufferline#go(10)
+nnoremap <Leader>d1 <Plug>lightline#bufferline#delete(1)
+nnoremap <Leader>d2 <Plug>lightline#bufferline#delete(2)
+nnoremap <Leader>d3 <Plug>lightline#bufferline#delete(3)
+nnoremap <Leader>d4 <Plug>lightline#bufferline#delete(4)
+nnoremap <Leader>d5 <Plug>lightline#bufferline#delete(5)
+nnoremap <Leader>d6 <Plug>lightline#bufferline#delete(6)
+nnoremap <Leader>d7 <Plug>lightline#bufferline#delete(7)
+nnoremap <Leader>d8 <Plug>lightline#bufferline#delete(8)
+nnoremap <Leader>d9 <Plug>lightline#bufferline#delete(9)
+nnoremap <Leader>d0 <Plug>lightline#bufferline#delete(10)
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -674,6 +809,7 @@ let g:rainbow_conf = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Indent Line {{{1
+let g:indentLine_fileTypeExclude = ['json', 'markdown']
 let g:indentLine_conceallevel = 2
 let g:indentLine_concealcursor = ''
 let g:indent_guides_guide_size = 1
