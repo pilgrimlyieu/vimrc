@@ -30,7 +30,7 @@
     └─vim
 ```
 
-Put `_vimrc` into `~` and others into `~/vimfiles`. Anything else not shown in the above structure such as `.gitignore` is unnecessary to do so.
+Put `_vimrc` into `~` and others into `~/vimfiles`. Anything else not shown in the above structure such as `.gitmodules` is unnecessary to do so.
 
 ### How to apply `.diff` file?
 
