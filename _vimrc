@@ -346,11 +346,23 @@ let g:UltiSnipsSnippetDirectories = ['Snips']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Easy Motion {{{1
+let g:EasyMotion_enter_jump_first = 1
+
 nnoremap <leader>j <Plug>(easymotion-j)
 nnoremap <leader>k <Plug>(easymotion-k)
 nnoremap <leader>h <Plug>(easymotion-linebackward)
 nnoremap <leader>l <Plug>(easymotion-lineforward)
 nnoremap <leader>. <Plug>(easymotion-repeat)
+nnoremap <leader>f <Plug>(easymotion-f)
+nnoremap <leader>F <Plug>(easymotion-F)
+nnoremap <leader>t <Plug>(easymotion-t)
+nnoremap <leader>T <Plug>(easymotion-T)
+nnoremap <leader><leader>f <Plug>(easymotion-f2)
+nnoremap <leader><leader>F <Plug>(easymotion-F2)
+nnoremap <leader><leader>t <Plug>(easymotion-t2)
+nnoremap <leader><leader>T <Plug>(easymotion-T2)
+nnoremap <leader>s <Plug>(easymotion-s)
+nnoremap <leader>S <Plug>(easymotion-s2)
 nnoremap / <Plug>(easymotion-sn)
 onoremap / <Plug>(easymotion-tn)
 nnoremap n <Plug>(easymotion-next)
