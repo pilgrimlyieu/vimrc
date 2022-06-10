@@ -46,27 +46,31 @@ set noswapfile
 set viewoptions-=options
 " }}}
 
-let $LANG = 'en_US.UTF-8'
-
 autocmd GUIEnter * simalt ~x
 
 augroup auto_view
+" auto_view {{{1
     autocmd!
     autocmd BufWinLeave *.* silent mkview
     autocmd BufWinEnter *.* silent loadview
     autocmd BufWinLeave _vimrc silent mkview
     autocmd BufWinEnter _vimrc silent loadview
+" }}}1
 augroup end
 
 augroup spell_check
+" spell_check {{{1
     autocmd!
     autocmd FileType tex,markdown,gitcommit setlocal spell spelllang=en_us,cjk
     autocmd FileType tex,markdown,gitcommit inoremap <silent><C-n> <C-g>u<Esc>[s1z=`'a<C-g>u
+" }}}1
 augroup end
 
 let g:python3_host_skip_check = 1
 let g:python3_host_prog = '/usr/local/bin/python3'
+let $LANG = 'en_US.UTF-8'
 
+" win-clipboard {{{1
 let g:clipboard = {
 \ 'name': 'win32yank',
 \ 'copy': {
@@ -79,10 +83,12 @@ let g:clipboard = {
 \ },
 \ 'cache_enabled': 0,
 \ }
+" }}}1
 
 filetype plugin indent on
 syntax enable
 
+let g:language_types = ['python', 'javascript', 'vim']
 call plug#begin("~/vimfiles/plugged")
 " Plug {{{1
 Plug 'joshdick/onedark.vim'
@@ -91,10 +97,10 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 'maximbaz/lightline-ale'
+Plug 'maximbaz/lightline-ale', { 'for': g:language_types }
 Plug 'mhinz/vim-startify'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'dense-analysis/ale', { 'for': g:language_types }
 Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/LeaderF'
 Plug 'tpope/vim-fugitive'
@@ -103,12 +109,12 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'easymotion/vim-easymotion'
 Plug 'mg979/vim-visual-multi'
-Plug 'Yggdroot/indentLine'
-Plug 'luochen1990/rainbow'
-Plug 'lervag/vimtex', { 'for': ['tex', 'markdown', 'vim-plug']}
+Plug 'Yggdroot/indentLine', { 'for': g:language_types }
+Plug 'luochen1990/rainbow', { 'for': g:language_types }
+Plug 'lervag/vimtex', { 'for': ['tex', 'markdown'] }
 Plug 'godlygeek/tabular'
-Plug 'preservim/vim-markdown', { 'for': 'markdown'}
-Plug 'ferrine/md-img-paste.vim', { 'for': 'markdown'}
+Plug 'preservim/vim-markdown', { 'for': 'markdown' }
+Plug 'ferrine/md-img-paste.vim', { 'for': 'markdown' }
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " }}}1
 call plug#end()
@@ -158,7 +164,6 @@ nnoremap k gk
 nnoremap gk k
 nnoremap j gj
 nnoremap gj j
-nnoremap Z dl
 inoremap <silent><leader>w <C-o>:w<Cr>
 inoremap <silent><leader>q <C-o>:x<Cr>
 inoremap <silent><leader>c <C-o>:bp<bar>sp<bar>bn<bar>bd<CR>
@@ -377,6 +382,24 @@ nnoremap N <Plug>(easymotion-prev)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                                              "
+"                                       vim-visual-multi                                       "
+"                                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" vim-visual-multi {{{1
+let g:VM_maps = {}
+let g:VM_maps["Add Cursors Down"] = '<C-j>'
+let g:VM_maps["Add Cursors Up"] = '<C-k>'
+" }}}1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                                              "
 "                                           LeaderF                                            "
 "                                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -411,9 +434,9 @@ let g:Lf_StlColorscheme = 'one'
 " noremap <unique> <leader>fgr <Plug>LeaderfGtagsReference
 " noremap <unique> <leader>fgs <Plug>LeaderfGtagsSymbol
 " noremap <unique> <leader>fgg <Plug>LeaderfGtagsGrep
-noremap <silent><leader>ff :LeaderfSelf<cr>
-noremap <silent><leader>fl :LeaderfLine<cr>
-noremap <unique> <leader>fr <Plug>LeaderfRgPrompt
+noremap <silent><leader>lf :LeaderfSelf<cr>
+noremap <silent><leader>ll :LeaderfLine<cr>
+noremap <unique> <leader>lr <Plug>LeaderfRgPrompt
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -530,8 +553,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -543,8 +566,8 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
@@ -556,14 +579,14 @@ nmap <leader>cl  <Plug>(coc-codelens-action)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+" xmap if <Plug>(coc-funcobj-i)
+" omap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap af <Plug>(coc-funcobj-a)
+" xmap ic <Plug>(coc-classobj-i)
+" omap ic <Plug>(coc-classobj-i)
+" xmap ac <Plug>(coc-classobj-a)
+" omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')
@@ -781,6 +804,8 @@ nnoremap <Leader>d0 <Plug>lightline#bufferline#delete(10)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Rainbow {{{1
+let g:rainbow_active = 1
+
 let g:rainbow_conf = {
 \    'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
 \    'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
