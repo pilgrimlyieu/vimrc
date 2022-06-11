@@ -113,8 +113,6 @@ Plug 'mg979/vim-visual-multi'
 Plug 'Yggdroot/indentLine', { 'for': g:language_types }
 Plug 'luochen1990/rainbow', { 'for': g:language_types }
 Plug 'lervag/vimtex', { 'for': ['tex', 'markdown'] }
-Plug 'godlygeek/tabular'
-Plug 'preservim/vim-markdown', { 'for': 'markdown' }
 Plug 'ferrine/md-img-paste.vim', { 'for': 'markdown' }
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " }}}1
@@ -203,12 +201,6 @@ function! MarkdownTable()
   silent TableFormat
   silent set nowrap
 endfunction
-
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_conceal = 1
-let g:vim_markdown_math = 1
-let g:vim_markdown_conceal_code_blocks = 0
-let g:vim_markdown_strikethrough = 1
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -224,7 +216,7 @@ let g:vim_markdown_strikethrough = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Markdown Image Paste {{{1
-autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
+autocmd FileType markdown inoremap <buffer><silent><leader>p <c-o>:call mdip#MarkdownClipboardImage()<CR>
 let g:mdip_imgdir = 'images'
 let g:mdip_imgname = ''
 " }}}1
@@ -394,8 +386,10 @@ nnoremap N <Plug>(easymotion-prev)
 " vim-visual-multi {{{1
 let g:VM_maps = {}
 let g:VM_maps["Exit"] = '<C-c>'
-let g:VM_maps["Add Cursor Down"] = '<C-u>'
-let g:VM_maps["Add Cursor Up"] = '<C-i>'
+let g:VM_maps["Add Cursor Down"] = '<A-s>'
+let g:VM_maps["Add Cursor Up"] = '<A-w>'
+let g:VM_maps["Select l"] = '<A-d>'
+let g:VM_maps["Select h"] = '<A-a>'
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -411,8 +405,7 @@ let g:VM_maps["Add Cursor Up"] = '<C-i>'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " LeaderF {{{1
-let g:Lf_ShortcutF = '<C-A>'
-let g:Lf_ShortcutB = '<C-Q>'
+let g:Lf_ShortcutF = '<space>f'
 let g:Lf_WorkingDirectoryMode = 'AF'
 let g:Lf_RootMarkers = ['.git', '.root']
 let g:Lf_DefaultExternalTool = 'rg'
@@ -442,7 +435,7 @@ let g:Lf_StlColorscheme = 'one'
 " noremap <unique> <leader>fgg <Plug>LeaderfGtagsGrep
 noremap <silent><leader>lf :LeaderfSelf<cr>
 noremap <silent><leader>ll :LeaderfLine<cr>
-noremap <unique> <leader>lr <Plug>LeaderfRgPrompt
+noremap <unique><leader>lr <Plug>LeaderfRgPrompt
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -595,14 +588,14 @@ nmap <leader>cl  <Plug>(coc-codelens-action)
 " omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
+" if has('nvim-0.4.0') || has('patch-8.2.0750')
+"   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"   nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"   inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+"   inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+"   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.

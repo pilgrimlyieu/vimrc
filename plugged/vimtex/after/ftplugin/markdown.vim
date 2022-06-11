@@ -1,8 +1,5 @@
 " call vimtex#init()
 call vimtex#options#init()
-call vimtex#syntax#core#init()
-call vimtex#syntax#core#init_highlights()
-call vimtex#context#init_buffer()
 call vimtex#text_obj#init_buffer()
 call vimtex#text_obj#targets#init()
 call vimtex#state#init_buffer()
