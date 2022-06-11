@@ -1,4 +1,5 @@
 " Set {{{1
+set fileformat=unix
 set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
 set encoding=utf-8
 set mouse=
@@ -160,6 +161,10 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
+inoremap <C-j> <C-o><C-W>j
+inoremap <C-k> <C-o><C-W>k
+inoremap <C-h> <C-o><C-W>h
+inoremap <C-l> <C-o><C-W>l
 nnoremap k gk
 nnoremap gk k
 nnoremap j gj
@@ -388,8 +393,9 @@ nnoremap N <Plug>(easymotion-prev)
 
 " vim-visual-multi {{{1
 let g:VM_maps = {}
-let g:VM_maps["Add Cursors Down"] = '<C-j>'
-let g:VM_maps["Add Cursors Up"] = '<C-k>'
+let g:VM_maps["Exit"] = '<C-c>'
+let g:VM_maps["Add Cursor Down"] = '<C-u>'
+let g:VM_maps["Add Cursor Up"] = '<C-i>'
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -536,7 +542,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if CocAction('hasProvider', 'hover')
