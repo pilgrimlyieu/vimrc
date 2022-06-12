@@ -177,8 +177,8 @@ nnoremap <silent><leader>c :bp<bar>sp<bar>bn<bar>bd<CR>
 nnoremap <silent><leader><leader>q :wq!<Cr>
 nnoremap <expr>0 col('.') == 1 ? '^': '0'
 noremap <silent><leader>/ :noh<Cr>
-map <ScrollWheelUp> <nop>
-map <ScrollWheelDown> <nop>
+" map <ScrollWheelUp> <nop>
+" map <ScrollWheelDown> <nop>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -201,6 +201,8 @@ function! MarkdownTable()
   silent TableFormat
   silent set nowrap
 endfunction
+
+autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -614,7 +616,7 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
@@ -867,10 +869,10 @@ let g:indentLine_enabled = 1
 " Tabout {{{1
 let g:out_of_expression_quick_key = "<End>"
 
-execute "imap " . g:out_of_expression_quick_key . " <C-r>=IncreaseColNumber()<CR>"
-execute "imap " . g:out_of_expression_quick_key[0] . 'S-' . g:out_of_expression_quick_key[1:] . ' <C-r>=DecreaseColNumber()<CR>'
+execute "inoremap <silent>" . g:out_of_expression_quick_key . " <C-r>=IncreaseColNumber()<CR>"
+execute "inoremap <silent>" . g:out_of_expression_quick_key[0] . 'S-' . g:out_of_expression_quick_key[1:] . ' <C-r>=DecreaseColNumber()<CR>'
 
-let s:delimiters_exp = '[\[\]{}()"' . "'" . '<>]'
+let s:delimiters_exp = '[\[\]{}()$&"' . "'" . '<>]'
 
 function! IncreaseColNumber()
     let l:colnum = col('.')
