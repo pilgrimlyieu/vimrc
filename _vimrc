@@ -43,8 +43,9 @@ set tabstop=4
 set expandtab
 set softtabstop=4
 set shiftwidth=4
-set noswapfile
 set viewoptions-=options
+set undodir=D:\.vim\.undo\
+set directory=D:\.vim\.swap\
 " }}}
 
 autocmd GUIEnter * simalt ~x
@@ -143,14 +144,9 @@ inoremap <Esc> <Nop>
 " Key Mappings {{{1
 let g:mapleader = ","
 
-function! Exec(cmd)
-    exe a:cmd
-    return ''
-endfunction
-
 inoremap jk <Esc>
 inoremap kj <Esc>
-nnoremap H ^
+nmap H 0
 nnoremap L $
 nnoremap U <C-r>
 nnoremap ; :
@@ -169,16 +165,16 @@ nnoremap j gj
 nnoremap gj j
 inoremap <silent><leader>w <C-o>:w<Cr>
 inoremap <silent><leader>q <C-o>:x<Cr>
-inoremap <silent><leader>c <C-o>:bp<bar>sp<bar>bn<bar>bd<CR>
+inoremap <silent><leader>c <C-o>:bw<Cr>
 inoremap <silent><leader><leader>q <C-o>:wq!<Cr>
 nnoremap <silent><leader>w :w<Cr>
 nnoremap <silent><leader>q :x<Cr>
-nnoremap <silent><leader>c :bp<bar>sp<bar>bn<bar>bd<CR>
+nnoremap <silent><leader>c :bw<Cr>
 nnoremap <silent><leader><leader>q :wq!<Cr>
 nnoremap <expr>0 col('.') == 1 ? '^': '0'
 noremap <silent><leader>/ :noh<Cr>
-" map <ScrollWheelUp> <nop>
-" map <ScrollWheelDown> <nop>
+noremap <ScrollWheelUp> <nop>
+noremap <ScrollWheelDown> <nop>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -194,13 +190,8 @@ noremap <silent><leader>/ :noh<Cr>
 
 " Markdown {{{1
 autocmd FileType markdown inoremap <silent><C-w> <C-o>:CocCommand markdown-preview-enhanced.openPreview<Cr>
-autocmd FileType markdown inoremap <silent><C-x> <Cr><Cr><hr class="section"><Cr><Cr>
 autocmd FileType markdown nnoremap <silent><C-w> :CocCommand markdown-preview-enhanced.openPreview<Cr>
-
-function! MarkdownTable()
-  silent TableFormat
-  silent set nowrap
-endfunction
+autocmd FileType markdown inoremap <silent><C-x> <Cr><Cr><hr class="section"><Cr><Cr>
 
 autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
 " }}}1
@@ -218,7 +209,8 @@ autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Markdown Image Paste {{{1
-autocmd FileType markdown inoremap <buffer><silent><leader>p <c-o>:call mdip#MarkdownClipboardImage()<CR>
+autocmd FileType markdown inoremap <buffer><silent><leader>p <C-o>:call mdip#MarkdownClipboardImage()<CR>
+
 let g:mdip_imgdir = 'images'
 let g:mdip_imgname = ''
 " }}}1
@@ -492,12 +484,8 @@ set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+" Recently vim can merge signcolumn and number column into one
+set signcolumn=number
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -590,14 +578,12 @@ nmap <leader>cl  <Plug>(coc-codelens-action)
 " omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
-" if has('nvim-0.4.0') || has('patch-8.2.0750')
-"   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-"   nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-"   inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-"   inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-"   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-"   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-" endif
+" nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+" nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+" inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+" vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+" vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
@@ -655,8 +641,11 @@ imap <Plug> <Plug>(coc-snippets-select)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " NerdTree {{{1
-noremap <silent>T :NERDTree<CR>
+nnoremap <silent>T :NERDTree<CR>
 let g:NERDTreeWinSize = 36
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsDisableDefaultFolderSymbolColorFromNERDTreeDir = 1
+let g:WebDevIconsDisableDefaultFileSymbolColorFromNERDTreeFile = 1
 let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Modified'  :'✹',
                 \ 'Staged'    :'✚',
@@ -669,10 +658,6 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Clean'     :'✔︎',
                 \ 'Unknown'   :'?',
                 \ }
-let g:NERDTreeGitStatusUseNerdFonts = 1
-let g:webdevicons_conceal_nerdtree_brackets = 1
-let g:WebDevIconsDisableDefaultFolderSymbolColorFromNERDTreeDir = 1
-let g:WebDevIconsDisableDefaultFileSymbolColorFromNERDTreeFile = 1
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -688,26 +673,26 @@ let g:WebDevIconsDisableDefaultFileSymbolColorFromNERDTreeFile = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Python {{{1
-map <silent><F5> :call CompileRunGcc()<CR>
+" map <silent><F5> :call CompileRunGcc()<CR>
 
-function! CompileRunGcc()
-    exec "w" 
-    if &filetype == 'c' 
-        exec '!g++ % -o %<'
-        exec '!time ./%<'
-    elseif &filetype == 'cpp'
-        exec '!g++ % -o %<'
-        exec '!time ./%<'
-    elseif &filetype == 'python'
-        exec '!time python %'
-    elseif &filetype == 'sh'
-        :!time bash %
-    endif                                                                              
-endfunction
+" function! CompileRunGcc()
+"     exec "w" 
+"     if &filetype == 'c' 
+"         exec '!g++ % -o %<'
+"         exec '!time ./%<'
+"     elseif &filetype == 'cpp'
+"         exec '!g++ % -o %<'
+"         exec '!time ./%<'
+"     elseif &filetype == 'python'
+"         exec '!time python %'
+"     elseif &filetype == 'sh'
+"         :!time bash %
+"     endif                                                                              
+" endfunction
 
-let g:pymode_python = 'python3'
-let g:pymode_breakpoint_bind = '<F4>'
-let g:pymode_run_bind = '<F5>'
+" let g:pymode_python = 'python3'
+" let g:pymode_breakpoint_bind = '<F4>'
+" let g:pymode_run_bind = '<F5>'
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -767,7 +752,7 @@ let g:lightline#ale#indicator_infos = '📜'
 let g:lightline#ale#indicator_errors = '💥'
 let g:lightline#ale#indicator_warnings = '⚡'
 let g:lightline#ale#indicator_ok = '✨'
-let g:lightline#bufferline#show_number = 1
+let g:lightline#bufferline#show_number = 2
 let g:lightline#bufferline#unicode_symbols = 1
 
 nnoremap <Leader>1 <Plug>lightline#bufferline#go(1)
@@ -867,17 +852,14 @@ let g:indentLine_enabled = 1
 " https://stackoverflow.com/questions/20038550/step-over-bracket-parenthesis-etc-with-tab-in-vim
 
 " Tabout {{{1
-let g:out_of_expression_quick_key = "<End>"
-
-execute "inoremap <silent>" . g:out_of_expression_quick_key . " <C-r>=IncreaseColNumber()<CR>"
-execute "inoremap <silent>" . g:out_of_expression_quick_key[0] . 'S-' . g:out_of_expression_quick_key[1:] . ' <C-r>=DecreaseColNumber()<CR>'
+inoremap <silent> <End>   <C-r>=IncreaseColNumber()<CR>
+inoremap <silent> <S-End> <C-r>=DecreaseColNumber()<CR>
 
 let s:delimiters_exp = '[\[\]{}()$&"' . "'" . '<>]'
 
 function! IncreaseColNumber()
-    let l:colnum = col('.')
     let l:line = getline('.')
-    if l:line[col('.') - 1:l:colnum] =~# s:delimiters_exp
+    if l:line[col('.') - 1] =~# s:delimiters_exp
         return "\<Right>"
     endif
 endfunction
