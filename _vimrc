@@ -731,17 +731,12 @@ let g:NERDTreeGitStatusIndicatorMapCustom                       = {
 
 " lightLine {{{1
 let g:lightline = {
-\   'colorscheme': 'onedark',
-\   'component': {
-\        'lineinfo' : '%2l:%-2c',
-\        'percent'  : '%2p%%'
-\   },
+\ 'colorscheme': 'onedark',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ],
-\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-\   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
-\              [ 'lineinfo' ],
-\              [ 'percent' ],
+\             [ 'gitbranch', 'readonly', 'filename' ] ],
+\   'right': [ [ 'lineinfo' ],
+\              [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
 \              [ 'fileformat', 'fileencoding', 'filetype'] ]
 \ },
 \ 'tabline': {
@@ -758,16 +753,30 @@ let g:lightline = {
 \ },
 \ 'component_type': {
 \   'buffers'         : 'tabsel',
-\   'linter_checking' : 'right',
-\   'linter_infos'    : 'right',
 \   'linter_warnings' : 'warning',
 \   'linter_errors'   : 'error',
-\   'linter_ok'       : 'right',
+\   'linter_ok'       : 'ale',
 \ },
 \ 'component_function': {
-\   'gitbranch': 'FugitiveHead'
+\   'gitbranch' : 'LightLineGitBranch',
+\   'lineinfo'  : 'LightLineLineInfo',
 \ },
+\ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+\ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
 \}
+
+function! LightLineGitBranch() 
+    return "\uE0A0" . (exists('*FugitiveHead') ? " " . FugitiveHead() : "")
+endfunction
+
+let g:viewplugins = 'NERD_tree\|\[Plugins\]\|\[coc-explorer\]'
+
+function! LightLineLineInfo()
+  return expand('%:t') =~# g:viewplugins ? '' : printf(' %d/%d | %d/%d', line('.'), line('$'), col('.'), col('$'))
+endfunction
+
+let s:palette = g:lightline#colorscheme#onedark#palette
+let s:palette.tabline.ale = [['#282C34', '#FFE597', 0, 21]]
 
 let g:lightline#ale#indicator_checking     = '⏳'
 let g:lightline#ale#indicator_infos        = '📜'
