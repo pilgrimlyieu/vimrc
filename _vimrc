@@ -101,11 +101,11 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 'maximbaz/lightline-ale', { 'for': g:language_types }
+Plug 'maximbaz/lightline-ale',        { 'for': g:language_types }
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/vim-easy-align'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'dense-analysis/ale', { 'for': g:language_types }
+Plug 'neoclide/coc.nvim',             { 'branch': 'release' }
+Plug 'dense-analysis/ale',            { 'for': g:language_types }
 Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/LeaderF'
 Plug 'tpope/vim-fugitive'
@@ -114,11 +114,11 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'easymotion/vim-easymotion'
 Plug 'mg979/vim-visual-multi'
-Plug 'Yggdroot/indentLine', { 'for': g:language_types }
-Plug 'luochen1990/rainbow', { 'for': g:language_types }
-Plug 'lervag/vimtex', { 'for': ['tex', 'markdown'] }
-Plug 'ferrine/md-img-paste.vim', { 'for': 'markdown' }
-" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'Yggdroot/indentLine',           { 'for': g:language_types }
+Plug 'luochen1990/rainbow',           { 'for': g:language_types }
+Plug 'lervag/vimtex',                 { 'for': ['tex', 'markdown'] }
+Plug 'pilgrimlyieu/md-img-paste.vim', { 'for': 'markdown' }
+" Plug 'python-mode/python-mode',   { 'for': 'python', 'branch': 'develop' }
 " }}}1
 call plug#end()
 
@@ -147,41 +147,41 @@ inoremap <Esc>   <Nop>
 " Key Mappings {{{1
 let g:mapleader = ","
 
-inoremap jk                        <Esc>
-inoremap kj                        <Esc>
-nmap     H                         0
-nnoremap L                         $
-nnoremap U                         <C-r>
-nnoremap ;                         :
-nnoremap :                         ;
-nnoremap <C-j>                     <C-W>j
-nnoremap <C-k>                     <C-W>k
-nnoremap <C-h>                     <C-W>h
-nnoremap <C-l>                     <C-W>l
-nnoremap <C-S-j>                   <C-W>-
-nnoremap <C-S-k>                   <C-W>+
-nnoremap <C-S-h>                   <C-W>>
-nnoremap <C-S-l>                   <C-W><
-inoremap <C-j>                     <C-o><C-W>j
-inoremap <C-k>                     <C-o><C-W>k
-inoremap <C-h>                     <C-o><C-W>h
-inoremap <C-l>                     <C-o><C-W>l
-nnoremap k                         gk
-nnoremap gk                        k
-nnoremap j                         gj
-nnoremap gj                        j
-inoremap <silent><leader>w         <C-o>:w<Cr>
-inoremap <silent><leader>q         <C-o>:x<Cr>
-inoremap <silent><leader>c         <C-o>:bw<Cr>
-inoremap <silent><leader><leader>q <C-o>:q!<Cr>
-nnoremap <silent><leader>w         :w<Cr>
-nnoremap <silent><leader>q         :x<Cr>
-nnoremap <silent><leader>c         :bw<Cr>
-nnoremap <silent><leader><leader>q :q!<Cr>
-nnoremap <expr>0                   col('.') == 1 ? '^': '0'
-noremap  <silent><leader>/         :noh<Cr>
-noremap  <ScrollWheelUp>           <nop>
-noremap  <ScrollWheelDown>         <nop>
+inoremap jk                <Esc>
+inoremap kj                <Esc>
+nmap     H                 0
+nnoremap L                 $
+nnoremap U                 <C-r>
+nnoremap ;                 :
+nnoremap :                 ;
+nnoremap <C-j>             <C-W>j
+nnoremap <C-k>             <C-W>k
+nnoremap <C-h>             <C-W>h
+nnoremap <C-l>             <C-W>l
+nnoremap <C-S-j>           <C-W>-
+nnoremap <C-S-k>           <C-W>+
+nnoremap <C-S-h>           <C-W>>
+nnoremap <C-S-l>           <C-W><
+inoremap <C-j>             <C-o><C-W>j
+inoremap <C-k>             <C-o><C-W>k
+inoremap <C-h>             <C-o><C-W>h
+inoremap <C-l>             <C-o><C-W>l
+nnoremap k                 gk
+nnoremap gk                k
+nnoremap j                 gj
+nnoremap gj                j
+inoremap <silent><leader>w <C-o>:w<Cr>
+inoremap <silent><leader>q <C-o>:x<Cr>
+inoremap <silent><leader>c <C-o>:bw<Cr>
+inoremap <silent><leader>Q <C-o>:q!<Cr>
+nnoremap <silent><leader>w :w<Cr>
+nnoremap <silent><leader>q :x<Cr>
+nnoremap <silent><leader>c :bw<Cr>
+nnoremap <silent><leader>Q :q!<Cr>
+nnoremap <expr>0           col('.') == 1 ? '^': '0'
+noremap  <silent><leader>/ :noh<Cr>
+noremap  <ScrollWheelUp>   <nop>
+noremap  <ScrollWheelDown> <nop>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""
