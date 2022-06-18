@@ -2,6 +2,7 @@
 set fileformat=unix
 set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
 set encoding=utf-8
+set nobomb
 set mouse=
 set magic
 set smartcase
@@ -46,6 +47,7 @@ set shiftwidth=4
 set viewoptions-=options
 set undodir=D:\.vim\.undo\
 set directory=D:\.vim\.swap\
+set shortmess+=F
 " }}}
 
 autocmd GUIEnter * simalt ~x
@@ -53,8 +55,8 @@ autocmd GUIEnter * simalt ~x
 augroup auto_view
 " auto_view {{{1
     autocmd!
-    autocmd BufWinLeave *.* silent mkview
-    autocmd BufWinEnter *.* silent loadview
+    autocmd BufWinLeave *.*    silent mkview
+    autocmd BufWinEnter *.*    silent loadview
     autocmd BufWinLeave _vimrc silent mkview
     autocmd BufWinEnter _vimrc silent loadview
 " }}}1
@@ -69,8 +71,8 @@ augroup spell_check
 augroup end
 
 let g:python3_host_skip_check = 1
-let g:python3_host_prog = '/usr/local/bin/python3'
-let $LANG = 'en_US.UTF-8'
+let g:python3_host_prog       = '/usr/local/bin/python3'
+let $LANG                     = 'en_US.UTF-8'
 
 " win-clipboard {{{1
 let g:clipboard = {
@@ -101,6 +103,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'maximbaz/lightline-ale', { 'for': g:language_types }
 Plug 'mhinz/vim-startify'
+Plug 'junegunn/vim-easy-align'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'dense-analysis/ale', { 'for': g:language_types }
 Plug 'SirVer/ultisnips'
@@ -126,16 +129,16 @@ colorscheme onedark
 """"""""""""""""""""""""""""""""""""""""""""""""
 
 " Key Mappings {{{1
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-inoremap <Up> <Nop>
-inoremap <Down> <Nop>
-inoremap <Left> <Nop>
+noremap  <Up>    <Nop>
+noremap  <Down>  <Nop>
+noremap  <Left>  <Nop>
+noremap  <Right> <Nop>
+inoremap <Up>    <Nop>
+inoremap <Down>  <Nop>
+inoremap <Left>  <Nop>
 inoremap <Right> <Nop>
-nnoremap <Esc> <Nop>
-inoremap <Esc> <Nop>
+nnoremap <Esc>   <Nop>
+inoremap <Esc>   <Nop>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -144,37 +147,41 @@ inoremap <Esc> <Nop>
 " Key Mappings {{{1
 let g:mapleader = ","
 
-inoremap jk <Esc>
-inoremap kj <Esc>
-nmap H 0
-nnoremap L $
-nnoremap U <C-r>
-nnoremap ; :
-nnoremap : ;
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
-inoremap <C-j> <C-o><C-W>j
-inoremap <C-k> <C-o><C-W>k
-inoremap <C-h> <C-o><C-W>h
-inoremap <C-l> <C-o><C-W>l
-nnoremap k gk
-nnoremap gk k
-nnoremap j gj
-nnoremap gj j
-inoremap <silent><leader>w <C-o>:w<Cr>
-inoremap <silent><leader>q <C-o>:x<Cr>
-inoremap <silent><leader>c <C-o>:bw<Cr>
-inoremap <silent><leader><leader>q <C-o>:wq!<Cr>
-nnoremap <silent><leader>w :w<Cr>
-nnoremap <silent><leader>q :x<Cr>
-nnoremap <silent><leader>c :bw<Cr>
-nnoremap <silent><leader><leader>q :wq!<Cr>
-nnoremap <expr>0 col('.') == 1 ? '^': '0'
-noremap <silent><leader>/ :noh<Cr>
-noremap <ScrollWheelUp> <nop>
-noremap <ScrollWheelDown> <nop>
+inoremap jk                        <Esc>
+inoremap kj                        <Esc>
+nmap     H                         0
+nnoremap L                         $
+nnoremap U                         <C-r>
+nnoremap ;                         :
+nnoremap :                         ;
+nnoremap <C-j>                     <C-W>j
+nnoremap <C-k>                     <C-W>k
+nnoremap <C-h>                     <C-W>h
+nnoremap <C-l>                     <C-W>l
+nnoremap <C-S-j>                   <C-W>-
+nnoremap <C-S-k>                   <C-W>+
+nnoremap <C-S-h>                   <C-W>>
+nnoremap <C-S-l>                   <C-W><
+inoremap <C-j>                     <C-o><C-W>j
+inoremap <C-k>                     <C-o><C-W>k
+inoremap <C-h>                     <C-o><C-W>h
+inoremap <C-l>                     <C-o><C-W>l
+nnoremap k                         gk
+nnoremap gk                        k
+nnoremap j                         gj
+nnoremap gj                        j
+inoremap <silent><leader>w         <C-o>:w<Cr>
+inoremap <silent><leader>q         <C-o>:x<Cr>
+inoremap <silent><leader>c         <C-o>:bw<Cr>
+inoremap <silent><leader><leader>q <C-o>:q!<Cr>
+nnoremap <silent><leader>w         :w<Cr>
+nnoremap <silent><leader>q         :x<Cr>
+nnoremap <silent><leader>c         :bw<Cr>
+nnoremap <silent><leader><leader>q :q!<Cr>
+nnoremap <expr>0                   col('.') == 1 ? '^': '0'
+noremap  <silent><leader>/         :noh<Cr>
+noremap  <ScrollWheelUp>           <nop>
+noremap  <ScrollWheelDown>         <nop>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -192,7 +199,6 @@ noremap <ScrollWheelDown> <nop>
 autocmd FileType markdown inoremap <silent><C-w> <C-o>:CocCommand markdown-preview-enhanced.openPreview<Cr>
 autocmd FileType markdown nnoremap <silent><C-w> :CocCommand markdown-preview-enhanced.openPreview<Cr>
 autocmd FileType markdown inoremap <silent><C-x> <Cr><Cr><hr class="section"><Cr><Cr>
-
 autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
 " }}}1
 
@@ -211,7 +217,7 @@ autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
 " Markdown Image Paste {{{1
 autocmd FileType markdown inoremap <buffer><silent><leader>p <C-o>:call mdip#MarkdownClipboardImage()<CR>
 
-let g:mdip_imgdir = 'images'
+let g:mdip_imgdir  = 'images'
 let g:mdip_imgname = ''
 " }}}1
 
@@ -266,7 +272,7 @@ let g:tex_flavor = "latex"
 
 let g:vimtex_texcount_custom_arg = " -ch -total"
 
-au FileType tex map <buffer> <silent> <leader>lw :VimtexCountWords! <CR><CR>
+autocmd FileType tex noremap <buffer> <silent> <leader>lw :VimtexCountWords! <CR><CR>
 
 let g:Tex_ViewRule_pdf = 'D:\Program Files\SumatraPDF\SumatraPDF.exe -reuse-instance -inverse-search "gvim -c \":RemoteOpen +\%l \%f\""'
 
@@ -282,12 +288,12 @@ let g:vimtex_compiler_latexmk_engines = {
     \}
 
 let g:vimtex_compiler_latexmk = {
-    \ 'build_dir' : {-> 'out'},
-    \ 'callback' : 1,
+    \ 'build_dir'  : {-> 'out'},
+    \ 'callback'   : 1,
     \ 'continuous' : 1,
     \ 'executable' : 'latexmk',
-    \ 'hooks' : [],
-    \ 'options' : [
+    \ 'hooks'      : [],
+    \ 'options'    : [
     \   '-verbose',
     \   '-file-line-error',
     \   '-shell-escape',
@@ -296,8 +302,7 @@ let g:vimtex_compiler_latexmk = {
     \ ],
     \}
 
-let g:vimtex_syntax_conceal_disable = 1
-
+let g:vimtex_syntax_conceal_disable   = 1
 let g:vimtex_quickfix_open_on_warning = 0
 
 augroup vimtex_config
@@ -321,12 +326,12 @@ augroup end
 " UltiSnips {{{1
 autocmd FileType snippets nnoremap <C-s> ggOclearsnippets<Cr><Esc>
 
-let g:UltiSnipsExpandTrigger = 'ô'
-let g:UltiSnipsListSnippets = '<C-Tab>'
-let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+let g:UltiSnipsExpandTrigger       = 'ô'
+let g:UltiSnipsListSnippets        = '<C-Tab>'
+let g:UltiSnipsJumpForwardTrigger  = '<Tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
-let g:UltiSnipsEditSplit = "vertical"
-let g:UltiSnipsSnippetDirectories = ['Snips']
+let g:UltiSnipsEditSplit           = "vertical"
+let g:UltiSnipsSnippetDirectories  = ['Snips']
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -344,25 +349,25 @@ let g:UltiSnipsSnippetDirectories = ['Snips']
 " Easy Motion {{{1
 let g:EasyMotion_enter_jump_first = 1
 
-nnoremap <leader>j <Plug>(easymotion-j)
-nnoremap <leader>k <Plug>(easymotion-k)
-nnoremap <leader>h <Plug>(easymotion-linebackward)
-nnoremap <leader>l <Plug>(easymotion-lineforward)
-nnoremap <leader>. <Plug>(easymotion-repeat)
-nnoremap <leader>f <Plug>(easymotion-f)
-nnoremap <leader>F <Plug>(easymotion-F)
-nnoremap <leader>t <Plug>(easymotion-t)
-nnoremap <leader>T <Plug>(easymotion-T)
+nnoremap <leader>j         <Plug>(easymotion-j)
+nnoremap <leader>k         <Plug>(easymotion-k)
+nnoremap <leader>h         <Plug>(easymotion-linebackward)
+nnoremap <leader>l         <Plug>(easymotion-lineforward)
+nnoremap <leader>.         <Plug>(easymotion-repeat)
+nnoremap <leader>f         <Plug>(easymotion-f)
+nnoremap <leader>F         <Plug>(easymotion-F)
+nnoremap <leader>t         <Plug>(easymotion-t)
+nnoremap <leader>T         <Plug>(easymotion-T)
 nnoremap <leader><leader>f <Plug>(easymotion-f2)
 nnoremap <leader><leader>F <Plug>(easymotion-F2)
 nnoremap <leader><leader>t <Plug>(easymotion-t2)
 nnoremap <leader><leader>T <Plug>(easymotion-T2)
-nnoremap <leader>s <Plug>(easymotion-s)
-nnoremap <leader>S <Plug>(easymotion-s2)
-nnoremap / <Plug>(easymotion-sn)
-onoremap / <Plug>(easymotion-tn)
-nnoremap n <Plug>(easymotion-next)
-nnoremap N <Plug>(easymotion-prev)
+nnoremap <leader>s         <Plug>(easymotion-s)
+nnoremap <leader>S         <Plug>(easymotion-s2)
+nnoremap /                 <Plug>(easymotion-sn)
+onoremap /                 <Plug>(easymotion-tn)
+nnoremap n                 <Plug>(easymotion-next)
+nnoremap N                 <Plug>(easymotion-prev)
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -378,12 +383,12 @@ nnoremap N <Plug>(easymotion-prev)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " vim-visual-multi {{{1
-let g:VM_maps = {}
-let g:VM_maps["Exit"] = '<C-c>'
+let g:VM_maps                    = {}
+let g:VM_maps["Exit"]            = '<C-c>'
 let g:VM_maps["Add Cursor Down"] = '<A-s>'
-let g:VM_maps["Add Cursor Up"] = '<A-w>'
-let g:VM_maps["Select l"] = '<A-d>'
-let g:VM_maps["Select h"] = '<A-a>'
+let g:VM_maps["Add Cursor Up"]   = '<A-w>'
+let g:VM_maps["Select l"]        = '<A-d>'
+let g:VM_maps["Select h"]        = '<A-a>'
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -399,37 +404,54 @@ let g:VM_maps["Select h"] = '<A-a>'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " LeaderF {{{1
-let g:Lf_ShortcutF = '<space>f'
+let g:Lf_ShortcutF            = '<space>f'
 let g:Lf_WorkingDirectoryMode = 'AF'
-let g:Lf_RootMarkers = ['.git', '.root']
-let g:Lf_DefaultExternalTool = 'rg'
-let g:Lf_PreviewInPopup = 1
-let g:Lf_PreviewResult = {
-            \ 'File': 0,
-            \ 'Buffer': 0,
-            \ 'Mru': 0,
-            \ 'Tag': 0,
-            \ 'BufTag': 1,
-            \ 'Function': 1,
-            \ 'Line': 0,
-            \ 'Colorscheme': 0,
-            \ 'Rg': 1,
-            \ 'Gtags': 0
+let g:Lf_RootMarkers          = ['.git', '.root']
+let g:Lf_DefaultExternalTool  = 'rg'
+let g:Lf_PreviewInPopup       = 1
+let g:Lf_PreviewResult        = {
+            \ 'File'        : 0,
+            \ 'Buffer'      : 0,
+            \ 'Mru'         : 0,
+            \ 'Tag'         : 0,
+            \ 'BufTag'      : 1,
+            \ 'Function'    : 1,
+            \ 'Line'        : 0,
+            \ 'Colorscheme' : 0,
+            \ 'Rg'          : 1,
+            \ 'Gtags'       : 0
             \}
-let g:Lf_StlColorscheme = 'one'
-" let g:Lf_GtagsAutoGenerate = 1
-" let g:Lf_Gtagslabel = 'native-pygments'
-" let $GTAGSLABEL = 'native-pygments'
-" let $GTAGSCONF = 'D:\Program Files\gtags\share\gtags\gtags.conf'
+let g:Lf_StlColorscheme       = 'one'
+" let g:Lf_GtagsAutoGenerate    = 1
+" let g:Lf_Gtagslabel           = 'native-pygments'
+" let $GTAGSLABEL               = 'native-pygments'
+" let $GTAGSCONF                = 'D:\Program Files\gtags\share\gtags\gtags.conf'
 
 " GTAGS are not equipped yet
-" noremap <unique> <leader>fgd <Plug>LeaderfGtagsDefinition
-" noremap <unique> <leader>fgr <Plug>LeaderfGtagsReference
-" noremap <unique> <leader>fgs <Plug>LeaderfGtagsSymbol
-" noremap <unique> <leader>fgg <Plug>LeaderfGtagsGrep
-noremap <silent><leader>lf :LeaderfSelf<cr>
-noremap <silent><leader>ll :LeaderfLine<cr>
-noremap <unique><leader>lr <Plug>LeaderfRgPrompt
+" noremap <unique><leader>fgd <Plug>LeaderfGtagsDefinition
+" noremap <unique><leader>fgr <Plug>LeaderfGtagsReference
+" noremap <unique><leader>fgs <Plug>LeaderfGtagsSymbol
+" noremap <unique><leader>fgg <Plug>LeaderfGtagsGrep
+noremap <silent><leader>lf  :LeaderfSelf<cr>
+noremap <silent><leader>ll  :LeaderfLine<cr>
+noremap <unique><leader>lr  <Plug>LeaderfRgPrompt
+" }}}1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                                              "
+"                                        vim-easy-align                                        "
+"                                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" vim-easy-align {{{1
+nnoremap ga <Plug>(EasyAlign)
+xnoremap ga <Plug>(EasyAlign)
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -445,9 +467,9 @@ noremap <unique><leader>lr <Plug>LeaderfRgPrompt
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " ale {{{1
-let g:ale_sign_error = '>>'
+let g:ale_sign_error   = '>>'
 let g:ale_sign_warning = '--'
-let g:ale_linters = {
+let g:ale_linters      = {
 \   'python': ['pylint'],
 \}
 " }}}1
@@ -642,11 +664,11 @@ imap <Plug> <Plug>(coc-snippets-select)
 
 " NerdTree {{{1
 nnoremap <silent>T :NERDTree<CR>
-let g:NERDTreeWinSize = 36
-let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:NERDTreeWinSize                                           = 36
+let g:webdevicons_conceal_nerdtree_brackets                     = 1
 let g:WebDevIconsDisableDefaultFolderSymbolColorFromNERDTreeDir = 1
-let g:WebDevIconsDisableDefaultFileSymbolColorFromNERDTreeFile = 1
-let g:NERDTreeGitStatusIndicatorMapCustom = {
+let g:WebDevIconsDisableDefaultFileSymbolColorFromNERDTreeFile  = 1
+let g:NERDTreeGitStatusIndicatorMapCustom                       = {
                 \ 'Modified'  :'✹',
                 \ 'Staged'    :'✚',
                 \ 'Untracked' :'✭',
@@ -711,8 +733,8 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 let g:lightline = {
 \   'colorscheme': 'onedark',
 \   'component': {
-\        'lineinfo': '%2l:%-2c',
-\        'percent': '%2p%%'
+\        'lineinfo' : '%2l:%-2c',
+\        'percent'  : '%2p%%'
 \   },
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ],
@@ -723,48 +745,48 @@ let g:lightline = {
 \              [ 'fileformat', 'fileencoding', 'filetype'] ]
 \ },
 \ 'tabline': {
-\   'left': [ ['buffers'] ],
-\   'right': [ ['close'] ]
+\   'left'  : [ ['buffers'] ],
+\   'right' : [ ['close'] ]
 \ },
 \ 'component_expand': {
-\   'buffers': 'lightline#bufferline#buffers',
-\   'linter_checking': 'lightline#ale#checking',
-\   'linter_infos': 'lightline#ale#infos',
-\   'linter_warnings': 'lightline#ale#warnings',
-\   'linter_errors': 'lightline#ale#errors',
-\   'linter_ok': 'lightline#ale#ok',
+\   'buffers'         : 'lightline#bufferline#buffers',
+\   'linter_checking' : 'lightline#ale#checking',
+\   'linter_infos'    : 'lightline#ale#infos',
+\   'linter_warnings' : 'lightline#ale#warnings',
+\   'linter_errors'   : 'lightline#ale#errors',
+\   'linter_ok'       : 'lightline#ale#ok',
 \ },
 \ 'component_type': {
-\   'buffers': 'tabsel',
-\   'linter_checking': 'right',
-\   'linter_infos': 'right',
-\   'linter_warnings': 'warning',
-\   'linter_errors': 'error',
-\   'linter_ok': 'right',
+\   'buffers'         : 'tabsel',
+\   'linter_checking' : 'right',
+\   'linter_infos'    : 'right',
+\   'linter_warnings' : 'warning',
+\   'linter_errors'   : 'error',
+\   'linter_ok'       : 'right',
 \ },
 \ 'component_function': {
 \   'gitbranch': 'FugitiveHead'
 \ },
 \}
 
-let g:lightline#ale#indicator_checking = '⏳'
-let g:lightline#ale#indicator_infos = '📜'
-let g:lightline#ale#indicator_errors = '💥'
-let g:lightline#ale#indicator_warnings = '⚡'
-let g:lightline#ale#indicator_ok = '✨'
-let g:lightline#bufferline#show_number = 2
+let g:lightline#ale#indicator_checking     = '⏳'
+let g:lightline#ale#indicator_infos        = '📜'
+let g:lightline#ale#indicator_errors       = '💥'
+let g:lightline#ale#indicator_warnings     = '⚡'
+let g:lightline#ale#indicator_ok           = '✨'
+let g:lightline#bufferline#show_number     = 2
 let g:lightline#bufferline#unicode_symbols = 1
 
-nnoremap <Leader>1 <Plug>lightline#bufferline#go(1)
-nnoremap <Leader>2 <Plug>lightline#bufferline#go(2)
-nnoremap <Leader>3 <Plug>lightline#bufferline#go(3)
-nnoremap <Leader>4 <Plug>lightline#bufferline#go(4)
-nnoremap <Leader>5 <Plug>lightline#bufferline#go(5)
-nnoremap <Leader>6 <Plug>lightline#bufferline#go(6)
-nnoremap <Leader>7 <Plug>lightline#bufferline#go(7)
-nnoremap <Leader>8 <Plug>lightline#bufferline#go(8)
-nnoremap <Leader>9 <Plug>lightline#bufferline#go(9)
-nnoremap <Leader>0 <Plug>lightline#bufferline#go(10)
+nnoremap <Leader>1  <Plug>lightline#bufferline#go(1)
+nnoremap <Leader>2  <Plug>lightline#bufferline#go(2)
+nnoremap <Leader>3  <Plug>lightline#bufferline#go(3)
+nnoremap <Leader>4  <Plug>lightline#bufferline#go(4)
+nnoremap <Leader>5  <Plug>lightline#bufferline#go(5)
+nnoremap <Leader>6  <Plug>lightline#bufferline#go(6)
+nnoremap <Leader>7  <Plug>lightline#bufferline#go(7)
+nnoremap <Leader>8  <Plug>lightline#bufferline#go(8)
+nnoremap <Leader>9  <Plug>lightline#bufferline#go(9)
+nnoremap <Leader>0  <Plug>lightline#bufferline#go(10)
 nnoremap <Leader>d1 <Plug>lightline#bufferline#delete(1)
 nnoremap <Leader>d2 <Plug>lightline#bufferline#delete(2)
 nnoremap <Leader>d3 <Plug>lightline#bufferline#delete(3)
@@ -830,12 +852,30 @@ let g:rainbow_conf = {
 
 " Indent Line {{{1
 let g:indentLine_fileTypeExclude = ['json', 'markdown']
-let g:indentLine_conceallevel = 2
-let g:indentLine_concealcursor = ''
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 1
-let g:indentLine_setConceal = 0
-let g:indentLine_enabled = 1
+let g:indentLine_conceallevel    = 2
+let g:indentLine_concealcursor   = ''
+let g:indent_guides_guide_size   = 1
+let g:indent_guides_start_level  = 1
+let g:indentLine_setConceal      = 0
+let g:indentLine_enabled         = 1
+" }}}1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                                              "
+"                                           fugitive                                           "
+"                                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" fugitive {{{1
+nnoremap <silent>mm :G<Cr>
+autocmd FileType fugitive nnoremap <silent>mp :G push<Cr>
+autocmd FileType fugitive nnoremap <silent>mus :G submodules update --remote<Cr>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
