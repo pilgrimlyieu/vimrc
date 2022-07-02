@@ -30,6 +30,7 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=t
 set guioptions-=T
+set guioptions-=g
 set nolist
 set autoindent
 set smartindent
@@ -47,10 +48,23 @@ set shiftwidth=4
 set viewoptions-=options
 set undodir=D:\.vim\.undo\
 set directory=D:\.vim\.swap\
-set shortmess+=F
+set shortmess+=FA
 " }}}
 
-autocmd GUIEnter * simalt ~x
+" WindowsTerminal {{{1
+if &term == 'win32'
+    if exists('+termguicolors')
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+        set termguicolors
+    endif
+    let &t_SI .= "\e[5 q"
+    let &t_SR .= "\e[3 q"
+    let &t_EI .= "\e[0 q"
+    autocmd VimEnter * silent !echo -ne "\e[0 q"
+    autocmd VimLeave * silent !echo -ne "\e[5 q"
+endif
+" }}}1
 
 augroup auto_view
 " auto_view {{{1
@@ -92,7 +106,7 @@ let g:clipboard = {
 filetype plugin indent on
 syntax enable
 
-let g:language_types = ['python', 'javascript', 'vim']
+let g:language_types = ['python', 'javascript', 'vim', 'autohotkey']
 call plug#begin("~/vimfiles/plugged")
 " Plug {{{1
 Plug 'joshdick/onedark.vim'
@@ -118,17 +132,21 @@ Plug 'Yggdroot/indentLine',           { 'for': g:language_types }
 Plug 'luochen1990/rainbow',           { 'for': g:language_types }
 Plug 'lervag/vimtex',                 { 'for': ['tex', 'markdown'] }
 Plug 'pilgrimlyieu/md-img-paste.vim', { 'for': 'markdown' }
-" Plug 'python-mode/python-mode',   { 'for': 'python', 'branch': 'develop' }
+Plug 'python-mode/python-mode',       { 'for': 'python', 'branch': 'develop' }
 " }}}1
 call plug#end()
 
 colorscheme onedark
 
-""""""""""""""""""""""""""""""""""""""""""""""""
-"                Force to Adapt                "
-""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                                              "
+"                                         Key Mappings                                         "
+"                                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Key Mappings {{{1
+let g:mapleader = ","
+
 noremap  <Up>    <Nop>
 noremap  <Down>  <Nop>
 noremap  <Left>  <Nop>
@@ -139,53 +157,59 @@ inoremap <Left>  <Nop>
 inoremap <Right> <Nop>
 nnoremap <Esc>   <Nop>
 inoremap <Esc>   <Nop>
-" }}}1
 
-""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""
+inoremap jk      <Esc>
+inoremap kj      <Esc>
+nnoremap <expr>0 col('.') == 1 ? '^': '0'
+nmap     H       0
+nnoremap L       $
+nnoremap U       <C-r>
+nnoremap ;       :
+nnoremap :       ;
 
-" Key Mappings {{{1
-let g:mapleader = ","
+nnoremap <C-j>   <C-W>j
+nnoremap <C-k>   <C-W>k
+nnoremap <C-h>   <C-W>h
+nnoremap <C-l>   <C-W>l
+inoremap <C-j>   <C-o><C-W>j<Esc>
+inoremap <C-k>   <C-o><C-W>k<Esc>
+inoremap <C-h>   <C-o><C-W>h<Esc>
+inoremap <C-l>   <C-o><C-W>l<Esc>
+nnoremap <C-S-j> <C-W>-
+nnoremap <C-S-k> <C-W>+
+nnoremap <C-S-h> <C-W>>
+nnoremap <C-S-l> <C-W><
 
-inoremap jk                <Esc>
-inoremap kj                <Esc>
-nmap     H                 0
-nnoremap L                 $
-nnoremap U                 <C-r>
-nnoremap ;                 :
-nnoremap :                 ;
-nnoremap <C-j>             <C-W>j
-nnoremap <C-k>             <C-W>k
-nnoremap <C-h>             <C-W>h
-nnoremap <C-l>             <C-W>l
-nnoremap <C-S-j>           <C-W>-
-nnoremap <C-S-k>           <C-W>+
-nnoremap <C-S-h>           <C-W>>
-nnoremap <C-S-l>           <C-W><
-inoremap <C-j>             <C-o><C-W>j
-inoremap <C-k>             <C-o><C-W>k
-inoremap <C-h>             <C-o><C-W>h
-inoremap <C-l>             <C-o><C-W>l
-nnoremap k                 gk
-nnoremap gk                k
-nnoremap j                 gj
-nnoremap gj                j
-inoremap <silent><leader>w <C-o>:w<Cr>
-inoremap <silent><leader>q <C-o>:x<Cr>
-inoremap <silent><leader>c <C-o>:bw<Cr>
-inoremap <silent><leader>Q <C-o>:q!<Cr>
-nnoremap <silent><leader>w :w<Cr>
-nnoremap <silent><leader>q :x<Cr>
-nnoremap <silent><leader>c :bw<Cr>
-nnoremap <silent><leader>Q :q!<Cr>
-nnoremap <expr>0           col('.') == 1 ? '^': '0'
+nnoremap k  gk
+nnoremap gk k
+nnoremap j  gj
+nnoremap gj j
+
+inoremap <silent><leader>w       <C-O>:w<Cr>
+inoremap <silent><leader>q       <C-O>ZZ
+inoremap <silent><leader>c       <C-O>:bw<Cr>
+inoremap <silent><leader>Q       <C-O>ZQ
+nnoremap <silent><leader>w       :w<Cr>
+nnoremap <silent><leader>q       ZZ
+nnoremap <silent><leader>c       :bw<Cr>
+nnoremap <silent><leader>Q       ZQ
+nnoremap <silent><leader><S-Esc> <C-O>:qa!<Cr>
+
+tnoremap <F1>           <C-W>N
+tnoremap <S-F1>         <C-W><C-C>
+tnoremap <silent><S-F5> <C-W>N:bw!<Cr>
+nnoremap <silent><S-F5> :call CloseTerminal()<CR>
+
 noremap  <silent><leader>/ :noh<Cr>
 noremap  <ScrollWheelUp>   <nop>
 noremap  <ScrollWheelDown> <nop>
+inoremap <ScrollWheelUp>   <nop>
+inoremap <ScrollWheelDown> <nop>
 " }}}1
 
-""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
@@ -198,7 +222,7 @@ noremap  <ScrollWheelDown> <nop>
 " Markdown {{{1
 autocmd FileType markdown inoremap <silent><C-w> <C-o>:CocCommand markdown-preview-enhanced.openPreview<Cr>
 autocmd FileType markdown nnoremap <silent><C-w> :CocCommand markdown-preview-enhanced.openPreview<Cr>
-autocmd FileType markdown inoremap <silent><C-x> <Cr><Cr><hr class="section"><Cr><Cr>
+autocmd FileType markdown inoremap <silent><C-x> <Cr><Cr><hr class='section'><Cr><Cr>
 autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
 " }}}1
 
@@ -452,6 +476,8 @@ noremap <unique><leader>lr  <Plug>LeaderfRgPrompt
 " vim-easy-align {{{1
 nnoremap ga <Plug>(EasyAlign)
 xnoremap ga <Plug>(EasyAlign)
+
+let g:easy_align_ignore_groups = ['String']
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -495,7 +521,7 @@ set nobackup
 set nowritebackup
 
 " Give more space for displaying messages.
-set cmdheight=1
+set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -695,26 +721,50 @@ let g:NERDTreeGitStatusIndicatorMapCustom                       = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Python {{{1
-" map <silent><F5> :call CompileRunGcc()<CR>
+nnoremap <silent><F5> :call RunProgram()<CR>
+inoremap <silent><F5> <C-O>:call RunProgram()<CR>
 
-" function! CompileRunGcc()
-"     exec "w" 
-"     if &filetype == 'c' 
-"         exec '!g++ % -o %<'
-"         exec '!time ./%<'
-"     elseif &filetype == 'cpp'
-"         exec '!g++ % -o %<'
-"         exec '!time ./%<'
-"     elseif &filetype == 'python'
-"         exec '!time python %'
-"     elseif &filetype == 'sh'
-"         :!time bash %
-"     endif                                                                              
-" endfunction
+autocmd FileType python,javascript nnoremap <silent><leader>Q :call CloseTerminal()<CR>
 
-" let g:pymode_python = 'python3'
-" let g:pymode_breakpoint_bind = '<F4>'
-" let g:pymode_run_bind = '<F5>'
+let g:terminal_settings = {'vertical': 1}
+
+function! RunProgram()
+    if index(g:language_types, &filetype) >= 0
+        execute 'w' 
+        let l:filename = expand('%')
+        let l:opts     = g:terminal_settings
+
+        if &filetype == 'python'
+            call OpenTerminal()
+            let l:opts.term_name = 'python_terminal'
+            call term_start('python ' . l:filename, l:opts)
+        elseif &filetype == 'javascript'
+            call OpenTerminal()
+            let l:opts.term_name = 'javascript_terminal'
+            call term_start('node '. l:filename, l:opts)
+        elseif &filetype == 'autohotkey'
+            execute '!start "D:/Program Files/AutoHotkey/autohotkey.exe" /r /CP65001 %:p'
+        endif                                                                              
+
+    endif
+endfunction
+
+function! OpenTerminal()
+    let l:windowsWithTerminal = filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") ==# "terminal" || term_getstatus(winbufnr(v:val))')
+    if !empty(l:windowsWithTerminal)
+        execute l:windowsWithTerminal[0] . 'wincmd w'
+        call CloseTerminal()
+    endif
+endfunction
+
+function! CloseTerminal()
+    let l:winnumber = winnr()
+    if getwinvar(l:winnumber, "&buftype") ==# "terminal" || term_getstatus(winbufnr(l:winnumber))
+        execute winbufnr(l:winnumber) . 'bw!'
+    else
+        execute 'q!'
+    endif
+endfunction
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -776,7 +826,7 @@ function! LightLineLineInfo()
 endfunction
 
 let s:palette = g:lightline#colorscheme#onedark#palette
-let s:palette.tabline.ale = [['#282C34', '#FFE597', 0, 21]]
+let s:palette.tabline.ale = [['#282C34', '#92A4A4', 0, 21]]
 
 let g:lightline#ale#indicator_checking     = '⏳'
 let g:lightline#ale#indicator_infos        = '📜'
@@ -863,10 +913,10 @@ let g:rainbow_conf = {
 let g:indentLine_fileTypeExclude = ['json', 'markdown']
 let g:indentLine_conceallevel    = 2
 let g:indentLine_concealcursor   = ''
-let g:indent_guides_guide_size   = 1
-let g:indent_guides_start_level  = 1
 let g:indentLine_setConceal      = 0
 let g:indentLine_enabled         = 1
+let g:indent_guides_guide_size   = 1
+let g:indent_guides_start_level  = 1
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -901,8 +951,8 @@ autocmd FileType fugitive nnoremap <silent>mus :G submodules update --remote<Cr>
 " https://stackoverflow.com/questions/20038550/step-over-bracket-parenthesis-etc-with-tab-in-vim
 
 " Tabout {{{1
-inoremap <silent> <End>   <C-r>=IncreaseColNumber()<CR>
-inoremap <silent> <S-End> <C-r>=DecreaseColNumber()<CR>
+inoremap <silent><End>   <C-r>=IncreaseColNumber()<CR>
+inoremap <silent><S-End> <C-r>=DecreaseColNumber()<CR>
 
 let s:delimiters_exp = '[\[\]{}()$&"' . "'" . '<>]'
 
