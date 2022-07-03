@@ -934,7 +934,7 @@ let g:indent_guides_start_level  = 1
 " fugitive {{{1
 nnoremap <silent>mm :G<Cr>
 autocmd FileType fugitive nnoremap <silent>mp :G push<Cr>
-autocmd FileType fugitive nnoremap <silent>mus :G submodules update --remote<Cr>
+autocmd FileType fugitive nnoremap <silent>mus :G submodule update --remote<Cr>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
