@@ -1,4 +1,5 @@
 " Set {{{1
+set nocompatible
 set fileformat=unix
 set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
 set encoding=utf-8
@@ -6,7 +7,6 @@ set nobomb
 set mouse=
 set magic
 set smartcase
-set nocompatible
 set laststatus=2
 set showtabline=2
 set history=256
@@ -46,9 +46,11 @@ set expandtab
 set softtabstop=4
 set shiftwidth=4
 set viewoptions-=options
+set undofile
 set undodir=D:\.vim\.undo\
 set directory=D:\.vim\.swap\
-set shortmess+=FA
+set shortmess+=F
+set background=dark
 " }}}
 
 " WindowsTerminal {{{1
@@ -109,7 +111,7 @@ syntax enable
 let g:language_types = ['python', 'javascript', 'vim', 'autohotkey']
 call plug#begin("~/vimfiles/plugged")
 " Plug {{{1
-Plug 'joshdick/onedark.vim'
+Plug 'morhetz/gruvbox'
 Plug 'yianwillis/vimcdoc'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -128,15 +130,15 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'easymotion/vim-easymotion'
 Plug 'mg979/vim-visual-multi'
+Plug 'luochen1990/rainbow'
 Plug 'Yggdroot/indentLine',           { 'for': g:language_types }
-Plug 'luochen1990/rainbow',           { 'for': g:language_types }
 Plug 'lervag/vimtex',                 { 'for': ['tex', 'markdown'] }
 Plug 'pilgrimlyieu/md-img-paste.vim', { 'for': 'markdown' }
 Plug 'python-mode/python-mode',       { 'for': 'python', 'branch': 'develop' }
 " }}}1
 call plug#end()
 
-colorscheme onedark
+colorscheme gruvbox
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                                              "
@@ -205,6 +207,10 @@ noremap  <ScrollWheelUp>   <nop>
 noremap  <ScrollWheelDown> <nop>
 inoremap <ScrollWheelUp>   <nop>
 inoremap <ScrollWheelDown> <nop>
+
+nnoremap * :let @/ = ""<CR>:call gruvbox#hls_show()<CR>*
+nnoremap / :let @/ = ""<CR>:call gruvbox#hls_show()<CR>/
+nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -220,8 +226,6 @@ inoremap <ScrollWheelDown> <nop>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Markdown {{{1
-autocmd FileType markdown inoremap <silent><C-w> <C-o>:CocCommand markdown-preview-enhanced.openPreview<Cr>
-autocmd FileType markdown nnoremap <silent><C-w> :CocCommand markdown-preview-enhanced.openPreview<Cr>
 autocmd FileType markdown inoremap <silent><C-x> <Cr><Cr><hr class='section'><Cr><Cr>
 autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
 " }}}1
@@ -432,7 +436,6 @@ let g:Lf_ShortcutF            = '<space>f'
 let g:Lf_WorkingDirectoryMode = 'AF'
 let g:Lf_RootMarkers          = ['.git', '.root']
 let g:Lf_DefaultExternalTool  = 'rg'
-let g:Lf_PreviewInPopup       = 1
 let g:Lf_PreviewResult        = {
             \ 'File'        : 0,
             \ 'Buffer'      : 0,
@@ -445,19 +448,23 @@ let g:Lf_PreviewResult        = {
             \ 'Rg'          : 1,
             \ 'Gtags'       : 0
             \}
-let g:Lf_StlColorscheme       = 'one'
-" let g:Lf_GtagsAutoGenerate    = 1
-" let g:Lf_Gtagslabel           = 'native-pygments'
-" let $GTAGSLABEL               = 'native-pygments'
-" let $GTAGSCONF                = 'D:\Program Files\gtags\share\gtags\gtags.conf'
+let g:Lf_StlColorscheme   = 'gruvbox_material'
+let g:Lf_PopupColorscheme = 'gruvbox_material'
+let g:Lf_WindowPosition   = 'popup'
+let g:Lf_PreviewInPopup   = 1
+
+" let g:Lf_GtagsAutoGenerate = 1
+" let g:Lf_Gtagslabel        = 'native-pygments'
+" let $GTAGSLABEL            = 'native-pygments'
+" let $GTAGSCONF             = 'D:\Program Files\gtags\share\gtags\gtags.conf'
 
 " GTAGS are not equipped yet
 " noremap <unique><leader>fgd <Plug>LeaderfGtagsDefinition
 " noremap <unique><leader>fgr <Plug>LeaderfGtagsReference
 " noremap <unique><leader>fgs <Plug>LeaderfGtagsSymbol
 " noremap <unique><leader>fgg <Plug>LeaderfGtagsGrep
-noremap <silent><leader>lf  :LeaderfSelf<cr>
-noremap <silent><leader>ll  :LeaderfLine<cr>
+noremap <silent><leader>lf  :LeaderfSelf<Cr>
+noremap <silent><leader>ll  :LeaderfLine<Cr>
 noremap <unique><leader>lr  <Plug>LeaderfRgPrompt
 " }}}1
 
@@ -476,8 +483,6 @@ noremap <unique><leader>lr  <Plug>LeaderfRgPrompt
 " vim-easy-align {{{1
 nnoremap ga <Plug>(EasyAlign)
 xnoremap ga <Plug>(EasyAlign)
-
-let g:easy_align_ignore_groups = ['String']
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -513,6 +518,29 @@ let g:ale_linters      = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " coc {{{1
+let g:coc_global_extensions = [
+        \ 'coc-json',
+        \ 'coc-webview',
+        \ 'coc-markdown-preview-enhanced',
+        \ 'coc-git',
+        \ 'coc-highlight',
+        \ 'coc-html',
+        \ 'coc-pyright',
+        \ 'coc-snippets',
+        \ 'coc-ltex',
+        \ 'coc-pairs',
+        \ 'coc-tsserver',
+        \ 'coc-vimlsp',
+        \ 'coc-lists',
+        \]
+
+let g:coc_snippet_next = '<Tab>'
+let g:coc_snippet_prev = '<S-Tab>'
+
+" Git Config
+" [coc-git]
+"     issuesources = github/pilgrimlyieu/School-Note,github/pilgrimlyieu/vimrc,github/pilgrimlyieu/Snippets,github/pilgrimlyieu/Snippets-Dependencies,github/pilgrimlyieu/AutoHotkey-Script,github/pilgrimlyieu/Python-Script
+
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -573,7 +601,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if CocAction('hasProvider', 'hover')
@@ -628,8 +656,8 @@ nmap <leader>cl  <Plug>(coc-codelens-action)
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 " nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 " nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-" inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-" inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 " vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 " vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
@@ -669,11 +697,7 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
-imap <Plug> <Plug>(coc-convert-snippet)
-imap <Plug> <Plug>(coc-snippets-expand)
-imap <Plug> <Plug>(coc-snippets-expand-jump)
-imap <Plug> <Plug>(coc-snippets-select)
+nnoremap <silent><nowait> <space>l  :<C-u>CocList<CR>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -726,11 +750,12 @@ inoremap <silent><F5> <C-O>:call RunProgram()<CR>
 
 autocmd FileType python,javascript nnoremap <silent><leader>Q :call CloseTerminal()<CR>
 
+let g:support_f5_filetypes = ['python', 'javascript', 'autohotkey', 'markdown']
 let g:terminal_settings = {'vertical': 1}
 
 function! RunProgram()
-    if index(g:language_types, &filetype) >= 0
-        execute 'w' 
+    if index(g:support_f5_filetypes, &filetype) >= 0
+        execute 'silent execute "w"'
         let l:filename = expand('%')
         let l:opts     = g:terminal_settings
 
@@ -743,7 +768,9 @@ function! RunProgram()
             let l:opts.term_name = 'javascript_terminal'
             call term_start('node '. l:filename, l:opts)
         elseif &filetype == 'autohotkey'
-            execute '!start "D:/Program Files/AutoHotkey/autohotkey.exe" /r /CP65001 %:p'
+            execute 'silent execute "!start \"D:/Program Files/AutoHotkey/autohotkey.exe\" /restart /CP65001 %:p"'
+        elseif &filetype == 'markdown'
+            execute 'silent execute "CocCommand markdown-preview-enhanced.openPreview"'
         endif                                                                              
 
     endif
@@ -752,7 +779,7 @@ endfunction
 function! OpenTerminal()
     let l:windowsWithTerminal = filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") ==# "terminal" || term_getstatus(winbufnr(v:val))')
     if !empty(l:windowsWithTerminal)
-        execute l:windowsWithTerminal[0] . 'wincmd w'
+        execute 'silent execute "' . l:windowsWithTerminal[0] . 'wincmd w"'
         call CloseTerminal()
     endif
 endfunction
@@ -760,9 +787,9 @@ endfunction
 function! CloseTerminal()
     let l:winnumber = winnr()
     if getwinvar(l:winnumber, "&buftype") ==# "terminal" || term_getstatus(winbufnr(l:winnumber))
-        execute winbufnr(l:winnumber) . 'bw!'
+        execute 'silent execute "' . winbufnr(l:winnumber) . 'bw!"'
     else
-        execute 'q!'
+        execute 'silent execute "q!"'
     endif
 endfunction
 " }}}1
@@ -781,7 +808,7 @@ endfunction
 
 " lightLine {{{1
 let g:lightline = {
-\ 'colorscheme': 'onedark',
+\ 'colorscheme': 'gruvbox',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ],
 \             [ 'gitbranch', 'readonly', 'filename' ] ],
@@ -825,7 +852,7 @@ function! LightLineLineInfo()
   return expand('%:t') =~# g:viewplugins ? '' : printf(' %d/%d | %d/%d', line('.'), line('$'), col('.'), col('$'))
 endfunction
 
-let s:palette = g:lightline#colorscheme#onedark#palette
+let s:palette = g:lightline#colorscheme#gruvbox#palette
 let s:palette.tabline.ale = [['#282C34', '#92A4A4', 0, 21]]
 
 let g:lightline#ale#indicator_checking     = '⏳'
@@ -872,14 +899,16 @@ nnoremap <Leader>d0 <Plug>lightline#bufferline#delete(10)
 
 " Rainbow {{{1
 let g:rainbow_active = 1
-
 let g:rainbow_conf = {
-\    'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-\    'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+\	 'guifgs': ['#858580', '#8FBCBB', '#D08770', '#A3BE8C', '#EBCB8B', '#B48EAD', '#80a880', '#887070'],
+\	 'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
 \    'operators': '_,_',
 \    'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
 \    'separately': {
-\        '*': {},
+\  		 '*': {},
+\  		 'markdown': {
+\  		   	 'parentheses_options': 'containedin=markdownCode contained',
+\  		 },
 \        'tex': {
 \            'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
 \        },

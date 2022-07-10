@@ -1,6 +1,18 @@
 {
+    "list.insertMappings": {
+        "<Tab>": "do:togglemode"
+    },
+    "list.normalMappings": {
+        "<Tab>": "do:togglemode"
+    },
+
     "suggest.enablePreview": true,
     "diagnostic.displayByAle": true,
+
+    "coc.source.issues.shortcut": "[Issue]",
+    "coc.source.issues.filetypes": [
+        "gitcommit"
+    ],
 
     "markdown-preview-enhanced.enableScriptExecution": true,
     "markdown-preview-enhanced.previewTheme": "one-dark.css",
@@ -37,8 +49,7 @@
     
     "languageserver": {
         "autohotkey": {
-            //"module": "C:/Users/Lyieu/vimfiles/extra/vscode-autohotkey2-lsp/server/dist/server.js",
-            "module": "C:/Users/Lyieu/vimfiles/extra/helsmy.ahk-simple-ls-0.8.31/extension/server/out/server.js",
+            "module": "C:/Users/Administrator/vimfiles/extra/helsmy.ahk-simple-ls-0.8.31/extension/server/out/server.js",
             "filetypes": [
                 "autohotkey",
                 "autohotkey2"
