@@ -31,7 +31,6 @@ set guioptions-=R
 set guioptions-=t
 set guioptions-=T
 set guioptions-=g
-set nolist
 set autoindent
 set smartindent
 set foldmethod=marker
@@ -51,6 +50,8 @@ set undodir=D:\.vim\.undo\
 set directory=D:\.vim\.swap\
 set shortmess+=F
 set background=dark
+set listchars=tab:▸-,trail:·,lead:·
+set list
 " }}}
 
 " WindowsTerminal {{{1
@@ -85,10 +86,6 @@ augroup spell_check
     autocmd FileType tex,markdown,gitcommit inoremap <silent><C-n> <C-g>u<Esc>[s1z=`'a<C-g>u
 " }}}1
 augroup end
-
-let g:python3_host_skip_check = 1
-let g:python3_host_prog       = '/usr/local/bin/python3'
-let $LANG                     = 'en_US.UTF-8'
 
 " win-clipboard {{{1
 let g:clipboard = {
@@ -126,7 +123,8 @@ Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/LeaderF'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
+Plug 'tomtomjhj/vim-surround' " Waiting tpope/vim-surround#355 merged
 Plug 'tpope/vim-repeat'
 Plug 'easymotion/vim-easymotion'
 Plug 'mg979/vim-visual-multi'
@@ -207,10 +205,31 @@ noremap  <ScrollWheelUp>   <nop>
 noremap  <ScrollWheelDown> <nop>
 inoremap <ScrollWheelUp>   <nop>
 inoremap <ScrollWheelDown> <nop>
+" }}}1
 
-nnoremap * :let @/ = ""<CR>:call gruvbox#hls_show()<CR>*
-nnoremap / :let @/ = ""<CR>:call gruvbox#hls_show()<CR>/
-nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                                              "
+"                                         vim-surround                                         "
+"                                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Custom Surroundings {{{1
+let g:surround_65288 = "（\r）"
+let g:surround_65289 = "（\r）"
+let g:surround_12304 = "【\r】"
+let g:surround_12305 = "【\r】"
+let g:surround_12298 = "《\r》"
+let g:surround_12299 = "《\r》"
+let g:surround_8216  = "「\r」"
+let g:surround_8217  = "「\r」"
+let g:surround_8220  = "『\r』"
+let g:surround_8221  = "『\r』"
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -228,6 +247,12 @@ nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
 " Markdown {{{1
 autocmd FileType markdown inoremap <silent><C-x> <Cr><Cr><hr class='section'><Cr><Cr>
 autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
+autocmd FileType markdown vnoremap <silent><leader>vl :EasyAlign */\\\@<!<Bar>/<Cr>
+autocmd FileType markdown vnoremap <silent><leader>vr :EasyAlign */\\\@<!<Bar>/ar<Cr>
+autocmd FileType markdown vnoremap <silent><leader>vv :EasyAlign */\\\@<!<Bar>/ac<Cr>
+autocmd FileType markdown nmap     <silent><leader>vl gaip*<C-x>\\\@<!<Bar><Cr>
+autocmd FileType markdown nmap     <silent><leader>vr gaip*<C-a><Bs>r<Cr><C-x>\\\@<!<Bar><Cr>
+autocmd FileType markdown nmap     <silent><leader>vv gaip*<C-a><Bs>c<Cr><C-x>\\\@<!<Bar><Cr>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -658,8 +683,8 @@ nmap <leader>cl  <Plug>(coc-codelens-action)
 " nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
 inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-" vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-" vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
@@ -750,8 +775,10 @@ inoremap <silent><F5> <C-O>:call RunProgram()<CR>
 
 autocmd FileType python,javascript nnoremap <silent><leader>Q :call CloseTerminal()<CR>
 
-let g:support_f5_filetypes = ['python', 'javascript', 'autohotkey', 'markdown']
-let g:terminal_settings = {'vertical': 1}
+let g:python3_host_skip_check = 1
+let g:python3_host_prog       = '/usr/local/bin/python3'
+let g:support_f5_filetypes    = ['python', 'javascript', 'autohotkey', 'markdown']
+let g:terminal_settings       = {'vertical': 1}
 
 function! RunProgram()
     if index(g:support_f5_filetypes, &filetype) >= 0
@@ -963,6 +990,7 @@ let g:indent_guides_start_level  = 1
 " fugitive {{{1
 nnoremap <silent>mm :G<Cr>
 autocmd FileType fugitive nnoremap <silent>mp :G push<Cr>
+autocmd FileType fugitive nnoremap <silent>mq :G pull<Cr>
 autocmd FileType fugitive nnoremap <silent>mus :G submodule update --remote<Cr>
 " }}}1
 
