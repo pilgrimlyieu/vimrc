@@ -17,6 +17,7 @@ set clipboard+=unnamed
 set winaltkeys=no
 set langmenu=zh_CN
 set cursorline
+set hlsearch
 set number
 set relativenumber
 set splitbelow
@@ -123,13 +124,13 @@ Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/LeaderF'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
 " Plug 'tpope/vim-surround'
 Plug 'tomtomjhj/vim-surround' " Waiting tpope/vim-surround#355 merged
-Plug 'tpope/vim-repeat'
 Plug 'easymotion/vim-easymotion'
 Plug 'mg979/vim-visual-multi'
 Plug 'luochen1990/rainbow'
-Plug 'Yggdroot/indentLine',           { 'for': g:language_types }
+Plug 'Yggdroot/indentLine'
 Plug 'lervag/vimtex',                 { 'for': ['tex', 'markdown'] }
 Plug 'pilgrimlyieu/md-img-paste.vim', { 'for': 'markdown' }
 Plug 'python-mode/python-mode',       { 'for': 'python', 'branch': 'develop' }
@@ -167,6 +168,8 @@ nnoremap U       <C-r>
 nnoremap ;       :
 nnoremap :       ;
 
+noremap  <silent><leader>/ :noh<Cr>
+
 nnoremap <C-j>   <C-W>j
 nnoremap <C-k>   <C-W>k
 nnoremap <C-h>   <C-W>h
@@ -177,8 +180,8 @@ inoremap <C-h>   <C-o><C-W>h<Esc>
 inoremap <C-l>   <C-o><C-W>l<Esc>
 nnoremap <C-S-j> <C-W>-
 nnoremap <C-S-k> <C-W>+
-nnoremap <C-S-h> <C-W>>
-nnoremap <C-S-l> <C-W><
+nnoremap <C-S-h> <C-W><
+nnoremap <C-S-l> <C-W>>
 
 nnoremap k  gk
 nnoremap gk k
@@ -200,7 +203,8 @@ tnoremap <S-F1>         <C-W><C-C>
 tnoremap <silent><S-F5> <C-W>N:bw!<Cr>
 nnoremap <silent><S-F5> :call CloseTerminal()<CR>
 
-noremap  <silent><leader>/ :noh<Cr>
+noremap  <S-q>             <Nop>
+inoremap <S-q>             <Nop>
 noremap  <ScrollWheelUp>   <nop>
 noremap  <ScrollWheelDown> <nop>
 inoremap <ScrollWheelUp>   <nop>
@@ -220,16 +224,16 @@ inoremap <ScrollWheelDown> <nop>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Custom Surroundings {{{1
-let g:surround_65288 = "（\r）"
-let g:surround_65289 = "（\r）"
-let g:surround_12304 = "【\r】"
-let g:surround_12305 = "【\r】"
-let g:surround_12298 = "《\r》"
-let g:surround_12299 = "《\r》"
-let g:surround_8216  = "「\r」"
-let g:surround_8217  = "「\r」"
-let g:surround_8220  = "『\r』"
-let g:surround_8221  = "『\r』"
+let g:surround_{char2nr('（')} = "（\r）"
+let g:surround_{char2nr('）')} = "（\r）"
+let g:surround_{char2nr('【')} = "【\r】"
+let g:surround_{char2nr('】')} = "【\r】"
+let g:surround_{char2nr('《')} = "《\r》"
+let g:surround_{char2nr('》')} = "《\r》"
+let g:surround_{char2nr('‘')}  = "「\r」"
+let g:surround_{char2nr('’')}  = "「\r」"
+let g:surround_{char2nr('“')}  = "『\r』"
+let g:surround_{char2nr('”')}  = "『\r』"
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -442,6 +446,8 @@ let g:VM_maps["Add Cursor Down"] = '<A-s>'
 let g:VM_maps["Add Cursor Up"]   = '<A-w>'
 let g:VM_maps["Select l"]        = '<A-d>'
 let g:VM_maps["Select h"]        = '<A-a>'
+let g:VM_maps["Move Left"]       = '<A-S-a>'
+let g:VM_maps["Move Right"]      = '<A-S-d>'
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -457,7 +463,6 @@ let g:VM_maps["Select h"]        = '<A-a>'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " LeaderF {{{1
-let g:Lf_ShortcutF            = '<space>f'
 let g:Lf_WorkingDirectoryMode = 'AF'
 let g:Lf_RootMarkers          = ['.git', '.root']
 let g:Lf_DefaultExternalTool  = 'rg'
@@ -478,19 +483,11 @@ let g:Lf_PopupColorscheme = 'gruvbox_material'
 let g:Lf_WindowPosition   = 'popup'
 let g:Lf_PreviewInPopup   = 1
 
-" let g:Lf_GtagsAutoGenerate = 1
-" let g:Lf_Gtagslabel        = 'native-pygments'
-" let $GTAGSLABEL            = 'native-pygments'
-" let $GTAGSCONF             = 'D:\Program Files\gtags\share\gtags\gtags.conf'
-
-" GTAGS are not equipped yet
-" noremap <unique><leader>fgd <Plug>LeaderfGtagsDefinition
-" noremap <unique><leader>fgr <Plug>LeaderfGtagsReference
-" noremap <unique><leader>fgs <Plug>LeaderfGtagsSymbol
-" noremap <unique><leader>fgg <Plug>LeaderfGtagsGrep
-noremap <silent><leader>lf  :LeaderfSelf<Cr>
-noremap <silent><leader>ll  :LeaderfLine<Cr>
-noremap <unique><leader>lr  <Plug>LeaderfRgPrompt
+noremap <unique><leader>p   <Nop>
+noremap <silent><leader>pp  :LeaderfSelf<Cr>
+noremap <silent><leader>pl  :LeaderfLine<Cr>
+noremap <silent><leader>pf  :LeaderfFile<Cr>
+noremap <unique><leader>pr  <Plug>LeaderfRgPrompt
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -662,10 +659,10 @@ augroup end
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+" nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Run the Code Lens action on the current line.
-nmap <leader>cl  <Plug>(coc-codelens-action)
+" nmap <leader>cl  <Plug>(coc-codelens-action)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
