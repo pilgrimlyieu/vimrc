@@ -109,6 +109,7 @@ syntax enable
 let g:language_types = ['python', 'javascript', 'vim', 'autohotkey']
 call plug#begin("~/vimfiles/plugged")
 " Plug {{{1
+" Plug 'gruvbox-community/gruvbox'
 Plug 'morhetz/gruvbox'
 Plug 'yianwillis/vimcdoc'
 Plug 'scrooloose/nerdtree'
@@ -777,6 +778,8 @@ let g:python3_host_prog       = '/usr/local/bin/python3'
 let g:support_f5_filetypes    = ['python', 'javascript', 'autohotkey', 'markdown']
 let g:terminal_settings       = {'vertical': 1}
 
+highlight Terminal ctermfg=223 ctermbg=235 guifg=#ebdbb2 guibg=#282828
+
 function! RunProgram()
     if index(g:support_f5_filetypes, &filetype) >= 0
         execute 'silent execute "w"'
@@ -826,7 +829,7 @@ endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                                              "
-"                                          lightLine                                           "
+"                                          lightline                                           "
 "                                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
