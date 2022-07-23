@@ -126,14 +126,14 @@ Plug 'Yggdroot/LeaderF'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-" Plug 'tpope/vim-surround'
-Plug 'tomtomjhj/vim-surround' " Waiting tpope/vim-surround#355 merged
+Plug 'pilgrimlyieu/vim-surround'
 Plug 'easymotion/vim-easymotion'
 Plug 'mg979/vim-visual-multi'
 Plug 'luochen1990/rainbow'
 Plug 'Yggdroot/indentLine'
 Plug 'lervag/vimtex',                 { 'for': ['tex', 'markdown'] }
 Plug 'pilgrimlyieu/md-img-paste.vim', { 'for': 'markdown' }
+Plug 'mzlogin/vim-markdown-toc',      { 'for': 'markdown'}
 Plug 'python-mode/python-mode',       { 'for': 'python', 'branch': 'develop' }
 " }}}1
 call plug#end()
@@ -252,12 +252,21 @@ let g:surround_{char2nr('”')}  = "『\r』"
 " Markdown {{{1
 autocmd FileType markdown inoremap <silent><C-x> <Cr><Cr><hr class='section'><Cr><Cr>
 autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
+autocmd FileType markdown inoremap <silent><leader>mo <C-o>:GenTocGFM<Cr>
+autocmd FileType markdown nnoremap <silent><leader>mo <C-o>:GenTocGFM<Cr>
+autocmd FileType markdown inoremap <silent><leader>mt <C-o>:UpdateToc<Cr>
+autocmd FileType markdown nnoremap <silent><leader>mt <C-o>:UpdateToc<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vl :EasyAlign */\\\@<!<Bar>/<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vr :EasyAlign */\\\@<!<Bar>/ar<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vv :EasyAlign */\\\@<!<Bar>/ac<Cr>
 autocmd FileType markdown nmap     <silent><leader>vl gaip*<C-x>\\\@<!<Bar><Cr>
 autocmd FileType markdown nmap     <silent><leader>vr gaip*<C-a><Bs>r<Cr><C-x>\\\@<!<Bar><Cr>
 autocmd FileType markdown nmap     <silent><leader>vv gaip*<C-a><Bs>c<Cr><C-x>\\\@<!<Bar><Cr>
+
+let g:vmt_auto_update_on_save = 0
+let g:vmt_fence_text          = 'TOC Start'
+let g:vmt_fence_closing_text  = 'TOC End'
+let g:vmt_list_item_char      = '-'
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -798,7 +807,7 @@ function! RunProgram()
             execute 'silent execute "!start \"D:/Program Files/AutoHotkey/autohotkey.exe\" /restart /CP65001 %:p"'
         elseif &filetype == 'markdown'
             execute 'silent execute "CocCommand markdown-preview-enhanced.openPreview"'
-        endif                                                                              
+        endif
 
     endif
 endfunction
