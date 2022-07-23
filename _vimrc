@@ -253,9 +253,9 @@ let g:surround_{char2nr('”')}  = "『\r』"
 autocmd FileType markdown inoremap <silent><C-x> <Cr><Cr><hr class='section'><Cr><Cr>
 autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
 autocmd FileType markdown inoremap <silent><leader>mo <C-o>:GenTocGFM<Cr>
-autocmd FileType markdown nnoremap <silent><leader>mo <C-o>:GenTocGFM<Cr>
+autocmd FileType markdown nnoremap <silent><leader>mo :GenTocGFM<Cr>
 autocmd FileType markdown inoremap <silent><leader>mt <C-o>:UpdateToc<Cr>
-autocmd FileType markdown nnoremap <silent><leader>mt <C-o>:UpdateToc<Cr>
+autocmd FileType markdown nnoremap <silent><leader>mt :UpdateToc<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vl :EasyAlign */\\\@<!<Bar>/<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vr :EasyAlign */\\\@<!<Bar>/ar<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vv :EasyAlign */\\\@<!<Bar>/ac<Cr>
