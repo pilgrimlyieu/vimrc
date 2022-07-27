@@ -4,12 +4,11 @@ set fileformat=unix
 set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
 set encoding=utf-8
 set nobomb
-set mouse=
 set magic
 set smartcase
 set laststatus=2
 set showtabline=2
-set history=256
+set history=512
 set autochdir
 set whichwrap=b,s,<,>,[,]
 set backspace=indent,eol,start
@@ -49,11 +48,21 @@ set viewoptions-=options
 set undofile
 set undodir=D:\.vim\.undo\
 set directory=D:\.vim\.swap\
+set viewdir=D:\.vim\.view\
 set shortmess+=F
 set background=dark
-set listchars=tab:▸-,trail:·,lead:·
+set listchars=tab:!!,trail:·,lead:·
 set list
+set gdefault
+let $LANG = 'en_US'
 " }}}
+
+augroup auto_IM
+" auto_IM (only for GVim) {{{1
+    autocmd! InsertLeave * set imdisable
+    autocmd! InsertEnter * set noimdisable
+" }}}1
+augroup end    
 
 " WindowsTerminal {{{1
 if &term == 'win32'
@@ -73,9 +82,9 @@ endif
 augroup auto_view
 " auto_view {{{1
     autocmd!
-    autocmd BufWinLeave *.*    silent mkview
+    autocmd BufWinLeave *.*    mkview
     autocmd BufWinEnter *.*    silent loadview
-    autocmd BufWinLeave _vimrc silent mkview
+    autocmd BufWinLeave _vimrc mkview
     autocmd BufWinEnter _vimrc silent loadview
 " }}}1
 augroup end
@@ -128,6 +137,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'pilgrimlyieu/vim-surround'
 Plug 'easymotion/vim-easymotion'
+Plug 'ZSaberLv0/vim-easymotion-chs'
 Plug 'mg979/vim-visual-multi'
 Plug 'luochen1990/rainbow'
 Plug 'Yggdroot/indentLine'
@@ -147,7 +157,7 @@ colorscheme gruvbox
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Key Mappings {{{1
-let g:mapleader = ","
+let g:mapleader = " "
 
 noremap  <Up>    <Nop>
 noremap  <Down>  <Nop>
@@ -157,19 +167,26 @@ inoremap <Up>    <Nop>
 inoremap <Down>  <Nop>
 inoremap <Left>  <Nop>
 inoremap <Right> <Nop>
-nnoremap <Esc>   <Nop>
-inoremap <Esc>   <Nop>
+nnoremap <Space> <Nop>
 
 inoremap jk      <Esc>
 inoremap kj      <Esc>
-nnoremap <expr>0 col('.') == 1 ? '^': '0'
-nmap     H       0
-nnoremap L       $
+inoremap jj      <Esc>
+inoremap kk      <Esc>
 nnoremap U       <C-r>
 nnoremap ;       :
-nnoremap :       ;
+nnoremap :       ,
+nnoremap ,       ;
+nnoremap <expr>0 col('.') == 1 ? '^' : '0'
+nmap     H       0
+nmap     L       $
+omap     H       0
+omap     L       $
 
-noremap  <silent><leader>/ :noh<Cr>
+nnoremap <silent><leader>/ :noh<Cr>
+vnoremap /                 /\v
+nnoremap ?                 ?\v
+vnoremap ?                 ?\v
 
 nnoremap <C-j>   <C-W>j
 nnoremap <C-k>   <C-W>k
@@ -189,10 +206,14 @@ nnoremap gk k
 nnoremap j  gj
 nnoremap gj j
 
-inoremap <silent><leader>w       <C-O>:w<Cr>
-inoremap <silent><leader>q       <C-O>ZZ
-inoremap <silent><leader>c       <C-O>:bw<Cr>
-inoremap <silent><leader>Q       <C-O>ZQ
+inoremap <silent><C-s>           <C-O>:w<Cr>
+inoremap <silent><C-q>           <C-O>ZZ
+inoremap <silent><C-S-c>         <C-O>:bw<Cr>
+inoremap <silent><C-S-q>         <C-O>ZQ
+nnoremap <silent><C-s>           <C-O>:w<Cr>
+nnoremap <silent><C-q>           <C-O>ZZ
+nnoremap <silent><C-S-c>         <C-O>:bw<Cr>
+nnoremap <silent><C-S-q>         <C-O>ZQ
 nnoremap <silent><leader>w       :w<Cr>
 nnoremap <silent><leader>q       ZZ
 nnoremap <silent><leader>c       :bw<Cr>
@@ -204,10 +225,12 @@ tnoremap <S-F1>         <C-W><C-C>
 tnoremap <silent><S-F5> <C-W>N:bw!<Cr>
 nnoremap <silent><S-F5> :call CloseTerminal()<CR>
 
-noremap  <S-q>             <Nop>
-inoremap <S-q>             <Nop>
-noremap  <ScrollWheelUp>   <nop>
-noremap  <ScrollWheelDown> <nop>
+nnoremap Q  <Nop>
+nnoremap gq Q
+
+" set mouse=
+" noremap  <ScrollWheelUp>   <nop>
+" noremap  <ScrollWheelDown> <nop>
 inoremap <ScrollWheelUp>   <nop>
 inoremap <ScrollWheelDown> <nop>
 " }}}1
@@ -250,11 +273,13 @@ let g:surround_{char2nr('”')}  = "『\r』"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Markdown {{{1
-autocmd FileType markdown inoremap <silent><C-x> <Cr><Cr><hr class='section'><Cr><Cr>
-autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
-autocmd FileType markdown inoremap <silent><leader>mo <C-o>:GenTocGFM<Cr>
-autocmd FileType markdown nnoremap <silent><leader>mo :GenTocGFM<Cr>
-autocmd FileType markdown inoremap <silent><leader>mt <C-o>:UpdateToc<Cr>
+function! Execute(cmd)
+    execute a:cmd
+    return ''
+endfunction
+
+autocmd FileType markdown inoremap <silent><C-x>      <Cr><Cr><hr class='section'><Cr><Cr>
+autocmd FileType markdown inoremap <silent><C-m>      <C-o>:UpdateToc<Cr>
 autocmd FileType markdown nnoremap <silent><leader>mt :UpdateToc<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vl :EasyAlign */\\\@<!<Bar>/<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vr :EasyAlign */\\\@<!<Bar>/ar<Cr>
@@ -262,6 +287,10 @@ autocmd FileType markdown vnoremap <silent><leader>vv :EasyAlign */\\\@<!<Bar>/a
 autocmd FileType markdown nmap     <silent><leader>vl gaip*<C-x>\\\@<!<Bar><Cr>
 autocmd FileType markdown nmap     <silent><leader>vr gaip*<C-a><Bs>r<Cr><C-x>\\\@<!<Bar><Cr>
 autocmd FileType markdown nmap     <silent><leader>vv gaip*<C-a><Bs>c<Cr><C-x>\\\@<!<Bar><Cr>
+
+autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
+
+autocmd FileType markdown inoreabbrev <silent>toc <C-r>=Execute('GenTocGFM')<Cr>
 
 let g:vmt_auto_update_on_save = 0
 let g:vmt_fence_text          = 'TOC Start'
@@ -282,7 +311,7 @@ let g:vmt_list_item_char      = '-'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Markdown Image Paste {{{1
-autocmd FileType markdown inoremap <buffer><silent><leader>p <C-o>:call mdip#MarkdownClipboardImage()<CR>
+autocmd FileType markdown inoremap <buffer><silent><C-p> <C-o>:call mdip#MarkdownClipboardImage()<CR>
 
 let g:mdip_imgdir  = 'images'
 let g:mdip_imgname = ''
@@ -391,8 +420,6 @@ augroup end
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " UltiSnips {{{1
-autocmd FileType snippets nnoremap <C-s> ggOclearsnippets<Cr><Esc>
-
 let g:UltiSnipsExpandTrigger       = 'ô'
 let g:UltiSnipsListSnippets        = '<C-Tab>'
 let g:UltiSnipsJumpForwardTrigger  = '<Tab>'
@@ -431,8 +458,8 @@ nnoremap <leader><leader>t <Plug>(easymotion-t2)
 nnoremap <leader><leader>T <Plug>(easymotion-T2)
 nnoremap <leader>s         <Plug>(easymotion-s)
 nnoremap <leader>S         <Plug>(easymotion-s2)
-nnoremap /                 <Plug>(easymotion-sn)
-onoremap /                 <Plug>(easymotion-tn)
+nnoremap /                 <Plug>(easymotion-sn)\v
+onoremap /                 <Plug>(easymotion-tn)\v
 nnoremap n                 <Plug>(easymotion-next)
 nnoremap N                 <Plug>(easymotion-prev)
 " }}}1
@@ -490,14 +517,15 @@ let g:Lf_PreviewResult        = {
             \}
 let g:Lf_StlColorscheme   = 'gruvbox_material'
 let g:Lf_PopupColorscheme = 'gruvbox_material'
-let g:Lf_WindowPosition   = 'popup'
+let g:Lf_WindowPosition   = 'popup' " Use <leader>pt to switch between 'popup' & 'bottom' to avoid 'Replace can not be used in popout window' issue
 let g:Lf_PreviewInPopup   = 1
 
-noremap <unique><leader>p   <Nop>
-noremap <silent><leader>pp  :LeaderfSelf<Cr>
-noremap <silent><leader>pl  :LeaderfLine<Cr>
-noremap <silent><leader>pf  :LeaderfFile<Cr>
-noremap <unique><leader>pr  <Plug>LeaderfRgPrompt
+noremap <unique><leader>p        <Nop>
+noremap <silent><leader>pp       :LeaderfSelf<Cr>
+noremap <silent><leader>pl       :LeaderfLine<Cr>
+noremap <silent><leader>pf       :LeaderfFile<Cr>
+noremap <unique><leader>pr       <Plug>LeaderfRgPrompt
+noremap <expr><silent><leader>pt ":let g:Lf_WindowPosition = '" . (g:Lf_WindowPosition == "popup" ? "bottom" : "popup") . "'<Cr>"
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -695,8 +723,8 @@ vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+" nmap <silent> <C-s> <Plug>(coc-range-select)
+" xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocActionAsync('format')
@@ -714,22 +742,22 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-nnoremap <silent><nowait> <space>l  :<C-u>CocList<CR>
+" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" nnoremap <silent><nowait> <space>l  :<C-u>CocList<CR>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -784,31 +812,35 @@ autocmd FileType python,javascript nnoremap <silent><leader>Q :call CloseTermina
 
 let g:python3_host_skip_check = 1
 let g:python3_host_prog       = '/usr/local/bin/python3'
-let g:support_f5_filetypes    = ['python', 'javascript', 'autohotkey', 'markdown']
 let g:terminal_settings       = {'vertical': 1}
 
 highlight default link Terminal Normal
 
 function! RunProgram()
-    if index(g:support_f5_filetypes, &filetype) >= 0
-        execute 'silent execute "w"'
-        let l:filename = expand('%')
-        let l:opts     = g:terminal_settings
+    if &filetype == ''
+        return
+    endif
 
-        if &filetype == 'python'
-            call OpenTerminal()
-            let l:opts.term_name = 'python_terminal'
-            call term_start('python ' . l:filename, l:opts)
-        elseif &filetype == 'javascript'
-            call OpenTerminal()
-            let l:opts.term_name = 'javascript_terminal'
-            call term_start('node '. l:filename, l:opts)
-        elseif &filetype == 'autohotkey'
-            execute 'silent execute "!start \"D:/Program Files/AutoHotkey/autohotkey.exe\" /restart /CP65001 %:p"'
-        elseif &filetype == 'markdown'
-            execute 'silent execute "CocCommand markdown-preview-enhanced.openPreview"'
-        endif
+    execute 'silent execute "w"'
+    let l:filename = expand('%')
+    let l:opts     = g:terminal_settings
 
+    if &filetype == 'python'
+        call OpenTerminal()
+        let l:opts.term_name = 'python_terminal'
+        call term_start('python ' . l:filename, l:opts)
+    elseif &filetype == 'javascript'
+        call OpenTerminal()
+        let l:opts.term_name = 'javascript_terminal'
+        call term_start('node '. l:filename, l:opts)
+    elseif &filetype == 'autohotkey'
+        execute 'silent execute "!start \"D:/Program Files/AutoHotkey/autohotkey.exe\" /restart /CP65001 %:p"'
+    elseif &filetype == 'markdown'
+        execute 'silent execute "CocCommand markdown-preview-enhanced.openPreview"'
+    else
+        call OpenTerminal()
+        let l:opts.term_name = 'Terminal'
+        call term_start('cmd', l:opts)
     endif
 endfunction
 
