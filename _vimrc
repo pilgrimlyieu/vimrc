@@ -57,13 +57,6 @@ set gdefault
 let $LANG = 'en_US'
 " }}}
 
-augroup auto_IM
-" auto_IM (only for GVim) {{{1
-    autocmd! InsertLeave * set imdisable
-    autocmd! InsertEnter * set noimdisable
-" }}}1
-augroup end    
-
 " WindowsTerminal {{{1
 if &term == 'win32'
     if exists('+termguicolors')
@@ -78,6 +71,13 @@ if &term == 'win32'
     autocmd VimLeave * silent !echo -ne "\e[5 q"
 endif
 " }}}1
+
+augroup auto_IM
+" auto_IM (only for GVim) {{{1
+    autocmd! InsertLeave * set imdisable
+    autocmd! InsertEnter * set noimdisable
+" }}}1
+augroup end    
 
 augroup auto_view
 " auto_view {{{1
@@ -159,6 +159,11 @@ colorscheme gruvbox
 " Key Mappings {{{1
 let g:mapleader = " "
 
+function! Execute(cmd)
+    execute a:cmd
+    return ''
+endfunction
+
 noremap  <Up>    <Nop>
 noremap  <Down>  <Nop>
 noremap  <Left>  <Nop>
@@ -192,10 +197,10 @@ nnoremap <C-j>   <C-W>j
 nnoremap <C-k>   <C-W>k
 nnoremap <C-h>   <C-W>h
 nnoremap <C-l>   <C-W>l
-inoremap <C-j>   <C-o><C-W>j<Esc>
-inoremap <C-k>   <C-o><C-W>k<Esc>
-inoremap <C-h>   <C-o><C-W>h<Esc>
-inoremap <C-l>   <C-o><C-W>l<Esc>
+inoremap <silent><C-j>   <C-r>=Execute('normal! <C-v><C-w>j<C-v><Esc>')<Cr>
+inoremap <silent><C-k>   <C-r>=Execute('normal! <C-v><C-w>k<C-v><Esc>')<Cr>
+inoremap <silent><C-h>   <C-r>=Execute('normal! <C-v><C-w>h<C-v><Esc>')<Cr>
+inoremap <silent><C-l>   <C-r>=Execute('normal! <C-v><C-w>l<C-v><Esc>')<Cr>
 nnoremap <C-S-j> <C-W>-
 nnoremap <C-S-k> <C-W>+
 nnoremap <C-S-h> <C-W><
@@ -206,19 +211,19 @@ nnoremap gk k
 nnoremap j  gj
 nnoremap gj j
 
-inoremap <silent><C-s>           <C-O>:w<Cr>
-inoremap <silent><C-q>           <C-O>ZZ
-inoremap <silent><C-S-c>         <C-O>:bw<Cr>
-inoremap <silent><C-S-q>         <C-O>ZQ
-nnoremap <silent><C-s>           <C-O>:w<Cr>
-nnoremap <silent><C-q>           <C-O>ZZ
-nnoremap <silent><C-S-c>         <C-O>:bw<Cr>
-nnoremap <silent><C-S-q>         <C-O>ZQ
-nnoremap <silent><leader>w       :w<Cr>
-nnoremap <silent><leader>q       ZZ
-nnoremap <silent><leader>c       :bw<Cr>
-nnoremap <silent><leader>Q       ZQ
-nnoremap <silent><leader><S-Esc> <C-O>:qa!<Cr>
+inoremap <silent><C-s>     <C-r>=Execute('w')<Cr>
+inoremap <silent><C-q>     <C-r>=Execute('normal ZZ')<Cr>
+inoremap <silent><C-S-c>   <C-r>=Execute('bw')<Cr>
+inoremap <silent><C-S-q>   <C-r>=Execute('normal ZQ')<Cr>
+nnoremap <silent><C-s>     :w<Cr>
+nnoremap <silent><C-q>     ZZ
+nnoremap <silent><C-S-c>   :bw<Cr>
+nnoremap <silent><C-S-q>   ZQ
+nnoremap <silent><leader>w :w<Cr>
+nnoremap <silent><leader>q ZZ
+nnoremap <silent><leader>c :bw<Cr>
+nnoremap <silent><leader>Q ZQ
+nnoremap <silent><S-Esc>   :qa!<Cr>
 
 tnoremap <F1>           <C-W>N
 tnoremap <S-F1>         <C-W><C-C>
@@ -273,13 +278,8 @@ let g:surround_{char2nr('”')}  = "『\r』"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Markdown {{{1
-function! Execute(cmd)
-    execute a:cmd
-    return ''
-endfunction
-
 autocmd FileType markdown inoremap <silent><C-x>      <Cr><Cr><hr class='section'><Cr><Cr>
-autocmd FileType markdown inoremap <silent><C-m>      <C-o>:UpdateToc<Cr>
+autocmd FileType markdown inoremap <silent><C-m>      <C-r>=Execute('UpdateToc')<Cr>
 autocmd FileType markdown nnoremap <silent><leader>mt :UpdateToc<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vl :EasyAlign */\\\@<!<Bar>/<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vr :EasyAlign */\\\@<!<Bar>/ar<Cr>
@@ -311,7 +311,7 @@ let g:vmt_list_item_char      = '-'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Markdown Image Paste {{{1
-autocmd FileType markdown inoremap <buffer><silent><C-p> <C-o>:call mdip#MarkdownClipboardImage()<CR>
+autocmd FileType markdown inoremap <buffer><silent><C-p> <C-r>=Execute('call mdip#MarkdownClipboardImage()')<Cr>
 
 let g:mdip_imgdir  = 'images'
 let g:mdip_imgname = ''
@@ -806,7 +806,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom                       = {
 
 " Python {{{1
 nnoremap <silent><F5> :call RunProgram()<CR>
-inoremap <silent><F5> <C-O>:call RunProgram()<CR>
+inoremap <silent><F5> <C-r>=Execute('call RunProgram()')<Cr>
 
 autocmd FileType python,javascript nnoremap <silent><leader>Q :call CloseTerminal()<CR>
 
