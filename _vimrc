@@ -51,9 +51,11 @@ set directory=D:\.vim\.swap\
 set viewdir=D:\.vim\.view\
 set shortmess+=F
 set background=dark
-set listchars=tab:!!,trail:·,lead:·
+set listchars=tab:!>,trail:·,lead:·
 set list
 set gdefault
+set titlestring=GVim\ Mode:\ %{mode()}\ \&\ Sever\ Name:\ %{v:servername}
+
 let $LANG = 'en_US'
 " }}}
 
@@ -71,13 +73,6 @@ if &term == 'win32'
     autocmd VimLeave * silent !echo -ne "\e[5 q"
 endif
 " }}}1
-
-augroup auto_IM
-" auto_IM (only for GVim) {{{1
-    autocmd! InsertLeave * set imdisable
-    autocmd! InsertEnter * set noimdisable
-" }}}1
-augroup end    
 
 augroup auto_view
 " auto_view {{{1
@@ -118,7 +113,6 @@ syntax enable
 let g:language_types = ['python', 'javascript', 'vim', 'autohotkey']
 call plug#begin("~/vimfiles/plugged")
 " Plug {{{1
-" Plug 'gruvbox-community/gruvbox'
 Plug 'morhetz/gruvbox'
 Plug 'yianwillis/vimcdoc'
 Plug 'scrooloose/nerdtree'
@@ -182,6 +176,8 @@ nnoremap U       <C-r>
 nnoremap ;       :
 nnoremap :       ,
 nnoremap ,       ;
+nnoremap `       '
+nnoremap '       `
 nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nmap     H       0
 nmap     L       $
@@ -193,36 +189,36 @@ vnoremap /                 /\v
 nnoremap ?                 ?\v
 vnoremap ?                 ?\v
 
-nnoremap <C-j>   <C-W>j
-nnoremap <C-k>   <C-W>k
-nnoremap <C-h>   <C-W>h
-nnoremap <C-l>   <C-W>l
-inoremap <silent><C-j>   <C-r>=Execute('normal! <C-v><C-w>j<C-v><Esc>')<Cr>
-inoremap <silent><C-k>   <C-r>=Execute('normal! <C-v><C-w>k<C-v><Esc>')<Cr>
-inoremap <silent><C-h>   <C-r>=Execute('normal! <C-v><C-w>h<C-v><Esc>')<Cr>
-inoremap <silent><C-l>   <C-r>=Execute('normal! <C-v><C-w>l<C-v><Esc>')<Cr>
-nnoremap <C-S-j> <C-W>-
-nnoremap <C-S-k> <C-W>+
-nnoremap <C-S-h> <C-W><
-nnoremap <C-S-l> <C-W>>
+inoremap <silent><C-j> <C-r>=Execute('normal! <C-v><C-w>j<C-v><Esc>')<Cr>
+inoremap <silent><C-k> <C-r>=Execute('normal! <C-v><C-w>k<C-v><Esc>')<Cr>
+inoremap <silent><C-h> <C-r>=Execute('normal! <C-v><C-w>h<C-v><Esc>')<Cr>
+inoremap <silent><C-l> <C-r>=Execute('normal! <C-v><C-w>l<C-v><Esc>')<Cr>
+nnoremap <C-j>         <C-W>j
+nnoremap <C-k>         <C-W>k
+nnoremap <C-h>         <C-W>h
+nnoremap <C-l>         <C-W>l
+nnoremap <C-S-j>       <C-W>-
+nnoremap <C-S-k>       <C-W>+
+nnoremap <C-S-h>       <C-W><
+nnoremap <C-S-l>       <C-W>>
 
 nnoremap k  gk
 nnoremap gk k
 nnoremap j  gj
 nnoremap gj j
 
+nnoremap <C-q>             ZZ
+nnoremap <C-S-q>           ZQ
+nnoremap <leader>q         ZZ
+nnoremap <leader>Q         ZQ
 inoremap <silent><C-s>     <C-r>=Execute('w')<Cr>
-inoremap <silent><C-q>     <C-r>=Execute('normal ZZ')<Cr>
+inoremap <silent><C-q>     <C-r>=Execute('x')<Cr>
+inoremap <silent><C-S-q>   <C-r>=Execute('q!')<Cr>
 inoremap <silent><C-S-c>   <C-r>=Execute('bw')<Cr>
-inoremap <silent><C-S-q>   <C-r>=Execute('normal ZQ')<Cr>
 nnoremap <silent><C-s>     :w<Cr>
-nnoremap <silent><C-q>     ZZ
 nnoremap <silent><C-S-c>   :bw<Cr>
-nnoremap <silent><C-S-q>   ZQ
 nnoremap <silent><leader>w :w<Cr>
-nnoremap <silent><leader>q ZZ
-nnoremap <silent><leader>c :bw<Cr>
-nnoremap <silent><leader>Q ZQ
+nnoremap <silent><leader>C :bw<Cr>
 nnoremap <silent><S-Esc>   :qa!<Cr>
 
 tnoremap <F1>           <C-W>N
@@ -233,9 +229,9 @@ nnoremap <silent><S-F5> :call CloseTerminal()<CR>
 nnoremap Q  <Nop>
 nnoremap gq Q
 
-" set mouse=
-" noremap  <ScrollWheelUp>   <nop>
-" noremap  <ScrollWheelDown> <nop>
+set mouse=
+noremap  <ScrollWheelUp>   <nop>
+noremap  <ScrollWheelDown> <nop>
 inoremap <ScrollWheelUp>   <nop>
 inoremap <ScrollWheelDown> <nop>
 " }}}1
@@ -279,14 +275,16 @@ let g:surround_{char2nr('”')}  = "『\r』"
 
 " Markdown {{{1
 autocmd FileType markdown inoremap <silent><C-x>      <Cr><Cr><hr class='section'><Cr><Cr>
-autocmd FileType markdown inoremap <silent><C-m>      <C-r>=Execute('UpdateToc')<Cr>
+autocmd FileType markdown inoremap <silent><C-p>      <C-r>=Execute('call mdip#MarkdownClipboardImage()')<Cr>
+autocmd FileType markdown inoremap <silent><C-d>      <C-r>=Execute('let [b:l, b:c] = [getline("."), col(".")]')<Cr><C-r>=Execute('normal ' . ((b:l[b:c - 8 : b:c - 3] == '\right' <Bar><Bar> (b:l[b:c - 3 : b:c - 2] == '\}' && b:l[b:c - 9 : b:c - 4] == '\right')) ? '8' : '2') . 'htdf' . b:l[b:c - 2] . 'l')<Cr>
+autocmd FileType markdown inoremap <silent><C-t>      <C-r>=Execute('UpdateToc')<Cr>
 autocmd FileType markdown nnoremap <silent><leader>mt :UpdateToc<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vl :EasyAlign */\\\@<!<Bar>/<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vr :EasyAlign */\\\@<!<Bar>/ar<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vv :EasyAlign */\\\@<!<Bar>/ac<Cr>
-autocmd FileType markdown nmap     <silent><leader>vl gaip*<C-x>\\\@<!<Bar><Cr>
-autocmd FileType markdown nmap     <silent><leader>vr gaip*<C-a><Bs>r<Cr><C-x>\\\@<!<Bar><Cr>
-autocmd FileType markdown nmap     <silent><leader>vv gaip*<C-a><Bs>c<Cr><C-x>\\\@<!<Bar><Cr>
+autocmd FileType markdown nnoremap <silent><leader>vl <Plug>(EasyAlign)ip*<C-x>\\\@<!<Bar><Cr>
+autocmd FileType markdown nnoremap <silent><leader>vr <Plug>(EasyAlign)ip*<C-a><Bs>r<Cr><C-x>\\\@<!<Bar><Cr>
+autocmd FileType markdown nnoremap <silent><leader>vv <Plug>(EasyAlign)ip*<C-a><Bs>c<Cr><C-x>\\\@<!<Bar><Cr>
 
 autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
 
@@ -296,25 +294,8 @@ let g:vmt_auto_update_on_save = 0
 let g:vmt_fence_text          = 'TOC Start'
 let g:vmt_fence_closing_text  = 'TOC End'
 let g:vmt_list_item_char      = '-'
-" }}}1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                                                              "
-"                                         md-img-paste                                         "
-"                                                                                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Markdown Image Paste {{{1
-autocmd FileType markdown inoremap <buffer><silent><C-p> <C-r>=Execute('call mdip#MarkdownClipboardImage()')<Cr>
-
-let g:mdip_imgdir  = 'images'
-let g:mdip_imgname = ''
+let g:mdip_imgdir             = 'images'
+let g:mdip_imgname            = ''
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -401,10 +382,10 @@ let g:vimtex_compiler_latexmk = {
 let g:vimtex_syntax_conceal_disable   = 1
 let g:vimtex_quickfix_open_on_warning = 0
 
-augroup vimtex_config
-  autocmd!
-  autocmd User VimtexEventQuit call vimtex#compiler#clean(0)
-augroup end
+" augroup vimtex_config
+"   autocmd!
+"   autocmd User VimtexEventQuit call vimtex#compiler#clean(0)
+" augroup end
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -542,7 +523,10 @@ noremap <expr><silent><leader>pt ":let g:Lf_WindowPosition = '" . (g:Lf_WindowPo
 
 " vim-easy-align {{{1
 nnoremap ga <Plug>(EasyAlign)
-xnoremap ga <Plug>(EasyAlign)
+vnoremap ga <Plug>(EasyAlign)
+
+vnoremap <silent>g: :EasyAlign */\\\@<!:\(=\)\@!/{'l':0}<Cr>
+nnoremap <silent>g: <Plug>(EasyAlign)ip*<C-l>0<Cr><C-x>\\\@<!:\(=\)\@!<Cr>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -967,6 +951,7 @@ nnoremap <Leader>d0 <Plug>lightline#bufferline#delete(10)
 
 " Rainbow {{{1
 let g:rainbow_active = 1
+
 let g:rainbow_conf = {
 \    'guifgs': ['#858580', '#8FBCBB', '#D08770', '#A3BE8C', '#EBCB8B', '#B48EAD', '#80a880', '#887070'],
 \    'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
