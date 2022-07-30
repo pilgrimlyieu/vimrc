@@ -8,7 +8,7 @@ set magic
 set smartcase
 set laststatus=2
 set showtabline=2
-set history=512
+set history=1024
 set autochdir
 set whichwrap=b,s,<,>,[,]
 set backspace=indent,eol,start
@@ -17,8 +17,11 @@ set winaltkeys=no
 set langmenu=zh_CN
 set cursorline
 set hlsearch
+set incsearch
 set number
 set relativenumber
+set wrap
+set linebreak
 set splitbelow
 set splitright
 set guioptions-=e
@@ -158,15 +161,15 @@ function! Execute(cmd)
     return ''
 endfunction
 
-noremap  <Up>    <Nop>
-noremap  <Down>  <Nop>
-noremap  <Left>  <Nop>
-noremap  <Right> <Nop>
-inoremap <Up>    <Nop>
-inoremap <Down>  <Nop>
-inoremap <Left>  <Nop>
-inoremap <Right> <Nop>
-nnoremap <Space> <Nop>
+" noremap  <Up>    <Nop>
+" noremap  <Down>  <Nop>
+" noremap  <Left>  <Nop>
+" noremap  <Right> <Nop>
+" inoremap <Up>    <Nop>
+" inoremap <Down>  <Nop>
+" inoremap <Left>  <Nop>
+" inoremap <Right> <Nop>
+" nnoremap <Space> <Nop>
 
 inoremap jk      <Esc>
 inoremap kj      <Esc>
@@ -178,11 +181,11 @@ nnoremap :       ,
 nnoremap ,       ;
 nnoremap `       '
 nnoremap '       `
+nnoremap H       0
+onoremap H       0
+nnoremap     L       $
+onoremap     L       $
 nnoremap <expr>0 col('.') == 1 ? '^' : '0'
-nmap     H       0
-nmap     L       $
-omap     H       0
-omap     L       $
 
 nnoremap <silent><leader>/ :noh<Cr>
 vnoremap /                 /\v
@@ -206,6 +209,8 @@ nnoremap k  gk
 nnoremap gk k
 nnoremap j  gj
 nnoremap gj j
+
+nnoremap gA ga
 
 nnoremap <C-q>             ZZ
 nnoremap <C-S-q>           ZQ
@@ -279,9 +284,9 @@ autocmd FileType markdown inoremap <silent><C-p>      <C-r>=Execute('call mdip#M
 autocmd FileType markdown inoremap <silent><C-d>      <C-r>=Execute('let [b:l, b:c] = [getline("."), col(".")]')<Cr><C-r>=Execute('normal ' . ((b:l[b:c - 8 : b:c - 3] == '\right' <Bar><Bar> (b:l[b:c - 3 : b:c - 2] == '\}' && b:l[b:c - 9 : b:c - 4] == '\right')) ? '8' : '2') . 'htdf' . b:l[b:c - 2] . 'l')<Cr>
 autocmd FileType markdown inoremap <silent><C-t>      <C-r>=Execute('UpdateToc')<Cr>
 autocmd FileType markdown nnoremap <silent><leader>mt :UpdateToc<Cr>
-autocmd FileType markdown vnoremap <silent><leader>vl :EasyAlign */\\\@<!<Bar>/<Cr>
-autocmd FileType markdown vnoremap <silent><leader>vr :EasyAlign */\\\@<!<Bar>/ar<Cr>
-autocmd FileType markdown vnoremap <silent><leader>vv :EasyAlign */\\\@<!<Bar>/ac<Cr>
+autocmd FileType markdown vnoremap <silent><leader>vl <Plug>(EasyAlign)*<C-x>\\\@<!<Bar><Cr>
+autocmd FileType markdown vnoremap <silent><leader>vr <Plug>(EasyAlign)*<C-a><Bs>r<Cr><C-x>\\\@<!<Bar><Cr>
+autocmd FileType markdown vnoremap <silent><leader>vv <Plug>(EasyAlign)*<C-a><Bs>c<Cr><C-x>\\\@<!<Bar><Cr>
 autocmd FileType markdown nnoremap <silent><leader>vl <Plug>(EasyAlign)ip*<C-x>\\\@<!<Bar><Cr>
 autocmd FileType markdown nnoremap <silent><leader>vr <Plug>(EasyAlign)ip*<C-a><Bs>r<Cr><C-x>\\\@<!<Bar><Cr>
 autocmd FileType markdown nnoremap <silent><leader>vv <Plug>(EasyAlign)ip*<C-a><Bs>c<Cr><C-x>\\\@<!<Bar><Cr>
@@ -525,8 +530,10 @@ noremap <expr><silent><leader>pt ":let g:Lf_WindowPosition = '" . (g:Lf_WindowPo
 nnoremap ga <Plug>(EasyAlign)
 vnoremap ga <Plug>(EasyAlign)
 
-vnoremap <silent>g: :EasyAlign */\\\@<!:\(=\)\@!/{'l':0}<Cr>
-nnoremap <silent>g: <Plug>(EasyAlign)ip*<C-l>0<Cr><C-x>\\\@<!:\(=\)\@!<Cr>
+nnoremap <silent>g:             <Plug>(EasyAlign)ip*<C-l>0<Cr><C-x>\\\@<!:\(=\)\@!<Cr>
+vnoremap <silent>g:             <Plug>(EasyAlign)*<C-l>0<Cr><C-x>\\\@<!:\(=\)\@!<Cr>
+nnoremap <silent><expr>g<Space> '<C-u><Plug>(EasyAlign)ip' . v:count1 . ' <Cr>'
+vnoremap <silent><expr>g<Space> '<Plug>(EasyAlign)' . v:count1 . ' <Cr>'
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
