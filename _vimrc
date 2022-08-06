@@ -41,7 +41,7 @@ set guifont=JetBrains_Mono:h15
 set guifontwide=Microsoft_Yahei_Mono:h15
 set conceallevel=2
 set wildmenu
-set scrolloff=9
+set scrolloff=10
 set noshowmode
 set tabstop=4
 set expandtab
@@ -49,9 +49,12 @@ set softtabstop=4
 set shiftwidth=4
 set viewoptions-=options
 set undofile
-set undodir=D:\.vim\.undo\
-set directory=D:\.vim\.swap\
-set viewdir=D:\.vim\.view\
+set backup
+set backupdir=G:Temp\.vim\.backup\
+set backupcopy=yes
+set undodir=G:\Temp\.vim\.undo\
+set directory=G:\Temp\.vim\.swap\
+set viewdir=G:\Temp\.vim\.view\
 set shortmess+=F
 set background=dark
 set listchars=tab:!>,trail:·,lead:·
@@ -84,6 +87,7 @@ augroup auto_view
     autocmd BufWinEnter *.*    silent loadview
     autocmd BufWinLeave _vimrc mkview
     autocmd BufWinEnter _vimrc silent loadview
+    autocmd BufWritePre *      let &bex = '@' . substitute(expand('%:p:h'),'[\,/,:]','%','g') . '@' . strftime("%Y%m%d%H")
 " }}}1
 augroup end
 
@@ -161,16 +165,6 @@ function! Execute(cmd)
     return ''
 endfunction
 
-" noremap  <Up>    <Nop>
-" noremap  <Down>  <Nop>
-" noremap  <Left>  <Nop>
-" noremap  <Right> <Nop>
-" inoremap <Up>    <Nop>
-" inoremap <Down>  <Nop>
-" inoremap <Left>  <Nop>
-" inoremap <Right> <Nop>
-" nnoremap <Space> <Nop>
-
 inoremap jk      <Esc>
 inoremap kj      <Esc>
 inoremap jj      <Esc>
@@ -181,10 +175,10 @@ nnoremap :       ,
 nnoremap ,       ;
 nnoremap `       '
 nnoremap '       `
-nnoremap H       0
+noremap  H       0
 onoremap H       0
-nnoremap     L       $
-onoremap     L       $
+noremap  L       $
+onoremap L       $
 nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 
 nnoremap <silent><leader>/ :noh<Cr>
@@ -212,16 +206,16 @@ nnoremap gj j
 
 nnoremap gA ga
 
-nnoremap <C-q>             ZZ
-nnoremap <C-S-q>           ZQ
-nnoremap <leader>q         ZZ
-nnoremap <leader>Q         ZQ
 inoremap <silent><C-s>     <C-r>=Execute('w')<Cr>
 inoremap <silent><C-q>     <C-r>=Execute('x')<Cr>
 inoremap <silent><C-S-q>   <C-r>=Execute('q!')<Cr>
 inoremap <silent><C-S-c>   <C-r>=Execute('bw')<Cr>
+nnoremap <C-q>             ZZ
+nnoremap <C-S-q>           ZQ
 nnoremap <silent><C-s>     :w<Cr>
 nnoremap <silent><C-S-c>   :bw<Cr>
+nnoremap <leader>q         ZZ
+nnoremap <leader>Q         ZQ
 nnoremap <silent><leader>w :w<Cr>
 nnoremap <silent><leader>C :bw<Cr>
 nnoremap <silent><S-Esc>   :qa!<Cr>
@@ -281,7 +275,6 @@ let g:surround_{char2nr('”')}  = "『\r』"
 " Markdown {{{1
 autocmd FileType markdown inoremap <silent><C-x>      <Cr><Cr><hr class='section'><Cr><Cr>
 autocmd FileType markdown inoremap <silent><C-p>      <C-r>=Execute('call mdip#MarkdownClipboardImage()')<Cr>
-autocmd FileType markdown inoremap <silent><C-d>      <C-r>=Execute('let [b:l, b:c] = [getline("."), col(".")]')<Cr><C-r>=Execute('normal ' . ((b:l[b:c - 8 : b:c - 3] == '\right' <Bar><Bar> (b:l[b:c - 3 : b:c - 2] == '\}' && b:l[b:c - 9 : b:c - 4] == '\right')) ? '8' : '2') . 'htdf' . b:l[b:c - 2] . 'l')<Cr>
 autocmd FileType markdown inoremap <silent><C-t>      <C-r>=Execute('UpdateToc')<Cr>
 autocmd FileType markdown nnoremap <silent><leader>mt :UpdateToc<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vl <Plug>(EasyAlign)*<C-x>\\\@<!<Bar><Cr>
@@ -291,9 +284,9 @@ autocmd FileType markdown nnoremap <silent><leader>vl <Plug>(EasyAlign)ip*<C-x>\
 autocmd FileType markdown nnoremap <silent><leader>vr <Plug>(EasyAlign)ip*<C-a><Bs>r<Cr><C-x>\\\@<!<Bar><Cr>
 autocmd FileType markdown nnoremap <silent><leader>vv <Plug>(EasyAlign)ip*<C-a><Bs>c<Cr><C-x>\\\@<!<Bar><Cr>
 
-autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
+autocmd FileType markdown inoreabbr <silent>toc <C-r>=Execute('GenTocGFM')<Cr>
 
-autocmd FileType markdown inoreabbrev <silent>toc <C-r>=Execute('GenTocGFM')<Cr>
+autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
 
 let g:vmt_auto_update_on_save = 0
 let g:vmt_fence_text          = 'TOC Start'
@@ -317,15 +310,6 @@ let g:mdip_imgname            = ''
 
 " TeX {{{1
 let g:tex_conceal = ''
-
-" This is necessary for VimTeX to load properly. The "indent" is optional.
-" Note that most plugin managers will do this automatically.
-filetype plugin indent on
-
-" This enables Vim's and neovim's syntax-related features. Without this, some
-" VimTeX features will not work (see ":help vimtex-requirements" for more
-" info).
-syntax enable
 
 " Viewer options: One may configure the viewer either by specifying a built-in
 " viewer method:
@@ -532,8 +516,8 @@ vnoremap ga <Plug>(EasyAlign)
 
 nnoremap <silent>g:             <Plug>(EasyAlign)ip*<C-l>0<Cr><C-x>\\\@<!:\(=\)\@!<Cr>
 vnoremap <silent>g:             <Plug>(EasyAlign)*<C-l>0<Cr><C-x>\\\@<!:\(=\)\@!<Cr>
-nnoremap <silent><expr>g<Space> '<C-u><Plug>(EasyAlign)ip' . v:count1 . ' <Cr>'
-vnoremap <silent><expr>g<Space> '<Plug>(EasyAlign)' . v:count1 . ' <Cr>'
+nnoremap <silent><expr>g<Space> '<C-u><Plug>(EasyAlign)ip' . v:count1 . ' \<Cr>'
+vnoremap <silent><expr>g<Space> '<Plug>(EasyAlign)' . v:count1 . ' \<Cr>'
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -551,9 +535,6 @@ vnoremap <silent><expr>g<Space> '<Plug>(EasyAlign)' . v:count1 . ' <Cr>'
 " ale {{{1
 let g:ale_sign_error   = '>>'
 let g:ale_sign_warning = '--'
-let g:ale_linters      = {
-\   'python': ['pylint'],
-\}
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -596,8 +577,8 @@ let g:coc_snippet_prev = '<S-Tab>'
 set hidden
 
 " Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
+" set nobackup
+" set nowritebackup
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -606,24 +587,28 @@ set cmdheight=2
 " delays and poor user experience.
 set updatetime=300
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-" Recently vim can merge signcolumn and number column into one
 set signcolumn=number
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <C-z>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<C-z>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<C-z>" :
       \ coc#refresh()
-inoremap <expr><C-S-z> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><C-S-z> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <C-c> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
@@ -634,11 +619,6 @@ if has('nvim')
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <C-c> pumvisible() ? coc#_select_confirm()
-                             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -652,9 +632,9 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
-function! s:show_documentation()
+function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
@@ -675,7 +655,7 @@ nmap <leader>rn <Plug>(coc-rename)
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typEscript,json setl formatexpr=CocAction('formatSelected')
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
@@ -707,8 +687,8 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 " nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 " nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(1)\<Cr>" : "\<Right>"
+inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<C-r>=coc#float#scroll(0)\<Cr>" : "\<Left>"
 vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
@@ -1022,8 +1002,9 @@ let g:indent_guides_start_level  = 1
 
 " fugitive {{{1
 nnoremap <silent>mm :G<Cr>
-autocmd FileType fugitive nnoremap <silent>mp :G push<Cr>
-autocmd FileType fugitive nnoremap <silent>mq :G pull<Cr>
+
+autocmd FileType fugitive nnoremap <silent>mp  :G push<Cr>
+autocmd FileType fugitive nnoremap <silent>mq  :G pull<Cr>
 autocmd FileType fugitive nnoremap <silent>mus :G submodule update --remote<Cr>
 " }}}1
 
