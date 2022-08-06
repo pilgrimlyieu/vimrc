@@ -49,9 +49,6 @@ set softtabstop=4
 set shiftwidth=4
 set viewoptions-=options
 set undofile
-set backup
-set backupdir=G:Temp\.vim\.backup\
-set backupcopy=yes
 set undodir=G:\Temp\.vim\.undo\
 set directory=G:\Temp\.vim\.swap\
 set viewdir=G:\Temp\.vim\.view\
@@ -87,7 +84,6 @@ augroup auto_view
     autocmd BufWinEnter *.*    silent loadview
     autocmd BufWinLeave _vimrc mkview
     autocmd BufWinEnter _vimrc silent loadview
-    autocmd BufWritePre *      let &bex = '@' . substitute(expand('%:p:h'),'[\,/,:]','%','g') . '@' . strftime("%Y%m%d%H")
 " }}}1
 augroup end
 
@@ -162,7 +158,7 @@ let g:mapleader = " "
 
 function! Execute(cmd)
     execute a:cmd
-    return ''
+    return  ''
 endfunction
 
 inoremap jk      <Esc>
