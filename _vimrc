@@ -158,7 +158,7 @@ let g:mapleader = " "
 
 function! Execute(cmd)
     execute a:cmd
-    return  ''
+    return ''
 endfunction
 
 inoremap jk      <Esc>
@@ -215,6 +215,11 @@ nnoremap <leader>Q         ZQ
 nnoremap <silent><leader>w :w<Cr>
 nnoremap <silent><leader>C :bw<Cr>
 nnoremap <silent><S-Esc>   :qa!<Cr>
+vnoremap <C-q>             <Esc>ZZ
+vnoremap <C-S-q>           <Esc>ZQ
+vnoremap <silent><C-s>     <Esc>:w<Cr>
+vnoremap <silent><C-S-c>   <Esc>:bw<Cr>
+vnoremap <silent><S-Esc>   <Esc>:qa!<Cr>
 
 tnoremap <F1>           <C-W>N
 tnoremap <S-F1>         <C-W><C-C>
@@ -546,6 +551,7 @@ let g:ale_sign_warning = '--'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " coc {{{1
+let g:cpc_data_home = 'C:/Users/Lyieu/vimfiles/extra/coc'
 let g:coc_global_extensions = [
         \ 'coc-json',
         \ 'coc-webview',
@@ -573,8 +579,8 @@ let g:coc_snippet_prev = '<S-Tab>'
 set hidden
 
 " Some servers have issues with backup files, see #649.
-" set nobackup
-" set nowritebackup
+set nobackup
+set nowritebackup
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -779,7 +785,7 @@ autocmd FileType python,javascript nnoremap <silent><leader>Q :call CloseTermina
 
 let g:python3_host_skip_check = 1
 let g:python3_host_prog       = '/usr/local/bin/python3'
-let g:terminal_settings       = {'vertical': 1}
+let g:terminal_settings       = {'vertical': 1, 'term_cols': 60}
 
 highlight default link Terminal Normal
 
@@ -793,20 +799,29 @@ function! RunProgram()
     let l:opts     = g:terminal_settings
 
     if &filetype == 'python'
-        call OpenTerminal()
+        let l:term_col = OpenTerminal()
         let l:opts.term_name = 'python_terminal'
+        if l:term_col
+            let l:opts.term_cols = l:term_col
+        endif
         call term_start('python ' . l:filename, l:opts)
     elseif &filetype == 'javascript'
-        call OpenTerminal()
+        let l:term_col = OpenTerminal()
         let l:opts.term_name = 'javascript_terminal'
+        if l:term_col
+            let l:opts.term_cols = l:term_col
+        endif
         call term_start('node '. l:filename, l:opts)
     elseif &filetype == 'autohotkey'
         execute 'silent execute "!start \"D:/Program Files/AutoHotkey/autohotkey.exe\" /restart /CP65001 %:p"'
     elseif &filetype == 'markdown'
         execute 'silent execute "CocCommand markdown-preview-enhanced.openPreview"'
     else
-        call OpenTerminal()
+        let l:term_col = OpenTerminal()
         let l:opts.term_name = 'Terminal'
+        if l:term_col
+            let l:opts.term_cols = l:term_col
+        endif
         call term_start('cmd', l:opts)
     endif
 endfunction
@@ -815,7 +830,9 @@ function! OpenTerminal()
     let l:windowsWithTerminal = filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") ==# "terminal" || term_getstatus(winbufnr(v:val))')
     if !empty(l:windowsWithTerminal)
         execute 'silent execute "' . l:windowsWithTerminal[0] . 'wincmd w"'
+        let l:current_col = winwidth(l:windowsWithTerminal[0])
         call CloseTerminal()
+        return l:current_col
     endif
 endfunction
 
