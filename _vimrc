@@ -142,10 +142,13 @@ Plug 'lervag/vimtex',                 { 'for': ['tex', 'markdown'] }
 Plug 'pilgrimlyieu/md-img-paste.vim', { 'for': 'markdown' }
 Plug 'mzlogin/vim-markdown-toc',      { 'for': 'markdown'}
 Plug 'python-mode/python-mode',       { 'for': 'python', 'branch': 'develop' }
+Plug 'rrethy/vim-hexokinase',         { 'do': 'make hexokinase' }
+Plug 'vim-autoformat/vim-autoformat'
 " }}}1
 call plug#end()
 
 colorscheme gruvbox
+let g:Hexokinase_highlighters = ['backgroundfull']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                                              "
@@ -166,6 +169,7 @@ inoremap kj      <Esc>
 inoremap jj      <Esc>
 inoremap kk      <Esc>
 nnoremap U       <C-r>
+vnoremap ;       :
 nnoremap ;       :
 nnoremap :       ,
 nnoremap ,       ;
@@ -551,14 +555,15 @@ let g:ale_sign_warning = '--'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " coc {{{1
-let g:cpc_data_home = 'C:/Users/Lyieu/vimfiles/extra/coc'
+let g:coc_data_home = 'C:/Users/Lyieu/vimfiles/extra/coc'
 let g:coc_global_extensions = [
         \ 'coc-json',
+        \ 'coc-css',
+        \ 'coc-html',
         \ 'coc-webview',
         \ 'coc-markdown-preview-enhanced',
         \ 'coc-git',
         \ 'coc-highlight',
-        \ 'coc-html',
         \ 'coc-pyright',
         \ 'coc-snippets',
         \ 'coc-ltex',
@@ -1019,6 +1024,23 @@ nnoremap <silent>mm :G<Cr>
 autocmd FileType fugitive nnoremap <silent>mp  :G push<Cr>
 autocmd FileType fugitive nnoremap <silent>mq  :G pull<Cr>
 autocmd FileType fugitive nnoremap <silent>mus :G submodule update --remote<Cr>
+" }}}1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                                              "
+"                                          autoformat                                          "
+"                                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" autoformat {{{1
+noremap <silent><F3> :Autoformat<Cr>
+" npm install -g js-beautify
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
