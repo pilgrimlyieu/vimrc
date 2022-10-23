@@ -166,8 +166,6 @@ endfunction
 
 inoremap jk      <Esc>
 inoremap kj      <Esc>
-inoremap jj      <Esc>
-inoremap kk      <Esc>
 nnoremap U       <C-r>
 vnoremap ;       :
 nnoremap ;       :
@@ -213,16 +211,16 @@ inoremap <silent><C-S-c>   <C-r>=Execute('bw')<Cr>
 nnoremap <C-q>             ZZ
 nnoremap <C-S-q>           ZQ
 nnoremap <silent><C-s>     :w<Cr>
-nnoremap <silent><C-S-c>   :bw<Cr>
+" nnoremap <silent><C-S-c>   :bw<Cr>
 nnoremap <leader>q         ZZ
 nnoremap <leader>Q         ZQ
 nnoremap <silent><leader>w :w<Cr>
-nnoremap <silent><leader>C :bw<Cr>
+" nnoremap <silent><leader>C :bw<Cr>
 nnoremap <silent><S-Esc>   :qa!<Cr>
 vnoremap <C-q>             <Esc>ZZ
 vnoremap <C-S-q>           <Esc>ZQ
 vnoremap <silent><C-s>     <Esc>:w<Cr>
-vnoremap <silent><C-S-c>   <Esc>:bw<Cr>
+" vnoremap <silent><C-S-c>   <Esc>:bw<Cr>
 vnoremap <silent><S-Esc>   <Esc>:qa!<Cr>
 
 tnoremap <F1>           <C-W>N
@@ -376,6 +374,11 @@ let g:vimtex_compiler_latexmk = {
 let g:vimtex_syntax_conceal_disable   = 1
 let g:vimtex_quickfix_open_on_warning = 0
 
+let g:vimtex_toggle_fractions = {
+        \ 'frac': 'dfrac',
+        \ 'dfrac': 'frac',
+        \}
+
 " augroup vimtex_config
 "   autocmd!
 "   autocmd User VimtexEventQuit call vimtex#compiler#clean(0)
@@ -521,6 +524,8 @@ vnoremap ga <Plug>(EasyAlign)
 
 nnoremap <silent>g:             <Plug>(EasyAlign)ip*<C-l>0<Cr><C-x>\\\@<!:\(=\)\@!<Cr>
 vnoremap <silent>g:             <Plug>(EasyAlign)*<C-l>0<Cr><C-x>\\\@<!:\(=\)\@!<Cr>
+nnoremap <silent>g=             <Plug>(EasyAlign)ip=<Cr>
+vnoremap <silent>g=             <Plug>(EasyAlign)*=<Cr>
 nnoremap <silent><expr>g<Space> '<C-u><Plug>(EasyAlign)ip' . v:count1 . ' \<Cr>'
 vnoremap <silent><expr>g<Space> '<Plug>(EasyAlign)' . v:count1 . ' \<Cr>'
 " }}}1
