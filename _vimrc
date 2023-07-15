@@ -60,6 +60,7 @@ set gdefault
 set titlestring=GVim\ Mode:\ %{mode()}\ \&\ Sever\ Name:\ %{v:servername}
 
 let $LANG = 'en_US'
+let &pythonthreedll = 'D:\Program Files\Python\python310.dll'
 " }}}
 
 " WindowsTerminal {{{1
@@ -223,7 +224,7 @@ vnoremap <silent><C-s>     <Esc>:w<Cr>
 " vnoremap <silent><C-S-c>   <Esc>:bw<Cr>
 vnoremap <silent><S-Esc>   <Esc>:qa!<Cr>
 
-tnoremap <F1>           <C-W>N
+tnoremap <F1>           <C-\><C-N>
 tnoremap <S-F1>         <C-W><C-C>
 tnoremap <silent><S-F5> <C-W>N:bw!<Cr>
 nnoremap <silent><S-F5> :call CloseTerminal()<CR>
@@ -560,7 +561,7 @@ let g:ale_sign_warning = '--'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " coc {{{1
-let g:coc_data_home = 'C:/Users/Lyieu/vimfiles/extra/coc'
+let g:coc_data_home = $USERPROFILE . '/vimfiles/extra/coc'
 let g:coc_global_extensions = [
         \ 'coc-json',
         \ 'coc-css',
@@ -804,7 +805,7 @@ function! RunProgram()
         return
     endif
 
-    execute 'silent execute "w"'
+    silent execute 'w'
     let l:filename = expand('%')
     let l:opts     = g:terminal_settings
 
@@ -823,9 +824,12 @@ function! RunProgram()
         endif
         call term_start('node '. l:filename, l:opts)
     elseif &filetype == 'autohotkey'
-        execute 'silent execute "!start \"D:/Program Files/AutoHotkey/autohotkey.exe\" /restart /CP65001 %:p"'
+        let l:autohotkey_ux_path = $ProgramFiles . '/AutoHotkey/UX/'
+        silent execute '!start "' . l:autohotkey_ux_path . 'AutoHotkeyUX.exe" "' . l:autohotkey_ux_path . 'launcher.ahk" /restart %:p'
     elseif &filetype == 'markdown'
-        execute 'silent execute "CocCommand markdown-preview-enhanced.openPreview"'
+        silent execute 'CocCommand markdown-preview-enhanced.openPreview'
+    elseif &filetype == 'dosbatch'
+        silent !%
     else
         let l:term_col = OpenTerminal()
         let l:opts.term_name = 'Terminal'
@@ -839,7 +843,7 @@ endfunction
 function! OpenTerminal()
     let l:windowsWithTerminal = filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") ==# "terminal" || term_getstatus(winbufnr(v:val))')
     if !empty(l:windowsWithTerminal)
-        execute 'silent execute "' . l:windowsWithTerminal[0] . 'wincmd w"'
+        silent execute l:windowsWithTerminal[0] . 'wincmd w'
         let l:current_col = winwidth(l:windowsWithTerminal[0])
         call CloseTerminal()
         return l:current_col
@@ -849,9 +853,9 @@ endfunction
 function! CloseTerminal()
     let l:winnumber = winnr()
     if getwinvar(l:winnumber, "&buftype") ==# "terminal" || term_getstatus(winbufnr(l:winnumber))
-        execute 'silent execute "' . winbufnr(l:winnumber) . 'bw!"'
+        silent execute winbufnr(l:winnumber) . 'bw!'
     else
-        execute 'silent execute "q!"'
+        silent execute 'q!'
     endif
 endfunction
 " }}}1
