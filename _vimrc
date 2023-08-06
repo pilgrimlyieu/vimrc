@@ -119,7 +119,7 @@ call plug#begin("~/vimfiles/plugged")
 " Plug {{{1
 Plug 'morhetz/gruvbox'
 Plug 'yianwillis/vimcdoc'
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
@@ -270,7 +270,7 @@ let g:surround_{char2nr('”')}  = "『\r』"
 
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                                              "
 "                                           Markdown                                           "
 "                                                                                              "
@@ -358,7 +358,7 @@ let g:vimtex_compiler_latexmk_engines = {
     \}
 
 let g:vimtex_compiler_latexmk = {
-    \ 'build_dir'  : {-> 'out'},
+    \ 'out_dir'  : {-> 'out'},
     \ 'callback'   : 1,
     \ 'continuous' : 1,
     \ 'executable' : 'latexmk',
@@ -405,6 +405,8 @@ let g:UltiSnipsJumpForwardTrigger  = '<Tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 let g:UltiSnipsEditSplit           = "vertical"
 let g:UltiSnipsSnippetDirectories  = ['Snips']
+" Debug
+nnoremap <silent><C-d> <Esc>:call UltiSnips#RefreshSnippets()<Cr>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
