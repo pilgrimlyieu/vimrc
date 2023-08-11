@@ -57,7 +57,7 @@ set background=dark
 set listchars=tab:!>,trail:·,lead:·
 set list
 set gdefault
-set titlestring=GVim\ Mode:\ %{mode()}\ \&\ Sever\ Name:\ %{v:servername}
+set titlestring=%{mode()}\&%{v:servername}
 
 let $LANG = 'en_US'
 let &pythonthreedll = 'D:\Program Files\Python\python310.dll'
@@ -277,7 +277,7 @@ let g:surround_{char2nr('”')}  = "『\r』"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Markdown {{{1
-autocmd FileType markdown inoremap <silent><C-x>      <Cr><Cr><hr class='section'><Cr><Cr>
+" autocmd FileType markdown inoremap <silent><C-x>      <Cr><Cr><hr class='section'><Cr><Cr>
 autocmd FileType markdown inoremap <silent><C-p>      <C-r>=Execute('call mdip#MarkdownClipboardImage()')<Cr>
 autocmd FileType markdown inoremap <silent><C-t>      <C-r>=Execute('UpdateToc')<Cr>
 autocmd FileType markdown nnoremap <silent><leader>mt :UpdateToc<Cr>
@@ -399,10 +399,10 @@ let g:vimtex_toggle_fractions = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " UltiSnips {{{1
-let g:UltiSnipsExpandTrigger       = 'ô'
-let g:UltiSnipsListSnippets        = '<C-Tab>'
-let g:UltiSnipsJumpForwardTrigger  = '<Tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+let g:UltiSnipsExpandTrigger       = '<C-w>'
+let g:UltiSnipsListSnippets        = '<S-Tab>'
+let g:UltiSnipsJumpForwardTrigger  = 'ô'
+let g:UltiSnipsJumpBackwardTrigger = '<S-ô>'
 let g:UltiSnipsEditSplit           = "vertical"
 let g:UltiSnipsSnippetDirectories  = ['Snips']
 " Debug
@@ -616,7 +616,7 @@ inoremap <silent><expr> <C-z>
       \ coc#pum#visible() ? coc#pum#next(1):
       \ CheckBackspace() ? "\<C-z>" :
       \ coc#refresh()
-inoremap <expr><C-S-z> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr><C-S-z> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
@@ -817,17 +817,17 @@ function! RunProgram()
         if l:term_col
             let l:opts.term_cols = l:term_col
         endif
-        call term_start('python ' . l:filename, l:opts)
+        call term_start('python "' . l:filename . '"', l:opts)
     elseif &filetype == 'javascript'
         let l:term_col = OpenTerminal()
         let l:opts.term_name = 'javascript_terminal'
         if l:term_col
             let l:opts.term_cols = l:term_col
         endif
-        call term_start('node '. l:filename, l:opts)
+        call term_start('node "'. l:filename . '"', l:opts)
     elseif &filetype == 'autohotkey'
         let l:autohotkey_ux_path = $ProgramFiles . '/AutoHotkey/UX/'
-        silent execute '!start "' . l:autohotkey_ux_path . 'AutoHotkeyUX.exe" "' . l:autohotkey_ux_path . 'launcher.ahk" /restart %:p'
+        silent execute '!start "' . l:autohotkey_ux_path . 'AutoHotkeyUX.exe" "' . l:autohotkey_ux_path . 'launcher.ahk" /restart "%:p"'
     elseif &filetype == 'markdown'
         silent execute 'CocCommand markdown-preview-enhanced.openPreview'
     elseif &filetype == 'dosbatch'
