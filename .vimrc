@@ -49,9 +49,9 @@ set softtabstop=4
 set shiftwidth=4
 set viewoptions-=options
 set undofile
-set undodir=G:\Temp\.vim\.undo\
-set directory=G:\Temp\.vim\.swap\
-set viewdir=G:\Temp\.vim\.view\
+set undodir=D:\Temp\.vim\.undo\
+set directory=D:\Temp\.vim\.swap\
+set viewdir=D:\Temp\.vim\.view\
 set shortmess+=F
 set background=dark
 set listchars=tab:!>,trail:·,lead:·
@@ -59,7 +59,7 @@ set list
 set gdefault
 set titlestring=%{mode()}\&%{v:servername}
 
-let $LANG = 'en_US'
+let $LANG = 'en_US.UTF-8'
 let &pythonthreedll = 'D:\Program Files\Python\python310.dll'
 " }}}
 
@@ -179,6 +179,8 @@ onoremap H       0
 noremap  L       $
 onoremap L       $
 nnoremap <expr>0 col('.') == 1 ? '^' : '0'
+nnoremap <C-f> <C-d>
+nnoremap <C-b> <C-u>
 
 nnoremap <silent><leader>/ :noh<Cr>
 vnoremap /                 /\v
@@ -438,7 +440,7 @@ nnoremap <leader><leader>F <Plug>(easymotion-F2)
 nnoremap <leader><leader>t <Plug>(easymotion-t2)
 nnoremap <leader><leader>T <Plug>(easymotion-T2)
 nnoremap <leader>s         <Plug>(easymotion-s)
-nnoremap <leader>S         <Plug>(easymotion-s2)
+nnoremap s                 <Plug>(easymotion-s2)
 nnoremap /                 <Plug>(easymotion-sn)\v
 onoremap /                 <Plug>(easymotion-tn)\v
 nnoremap n                 <Plug>(easymotion-next)
@@ -458,14 +460,20 @@ nnoremap N                 <Plug>(easymotion-prev)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " vim-visual-multi {{{1
+let g:VM_theme = 'spacegray'
+
 let g:VM_maps                    = {}
 let g:VM_maps["Exit"]            = '<C-c>'
 let g:VM_maps["Add Cursor Down"] = '<A-s>'
 let g:VM_maps["Add Cursor Up"]   = '<A-w>'
 let g:VM_maps["Select l"]        = '<A-d>'
 let g:VM_maps["Select h"]        = '<A-a>'
+let g:VM_maps["Select j"]        = '<A-S-s>'
+let g:VM_maps["Select k"]        = '<A-S-w>'
 let g:VM_maps["Move Left"]       = '<A-S-a>'
 let g:VM_maps["Move Right"]      = '<A-S-d>'
+let g:VM_maps["Undo"]            = 'u'
+let g:VM_maps["Redo"]            = 'U'
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -579,6 +587,7 @@ let g:coc_global_extensions = [
         \ 'coc-tsserver',
         \ 'coc-vimlsp',
         \ 'coc-lists',
+        \ 'coc-vimtex',
         \]
 
 let g:coc_snippet_next = '<Tab>'
