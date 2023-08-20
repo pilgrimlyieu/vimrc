@@ -399,12 +399,16 @@ let g:vimtex_toggle_fractions = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " UltiSnips {{{1
-let g:UltiSnipsExpandTrigger       = '<C-e>'
 let g:UltiSnipsListSnippets        = '<S-Tab>'
-let g:UltiSnipsJumpForwardTrigger  = 'ô'
-let g:UltiSnipsJumpBackwardTrigger = '<S-ô>'
 let g:UltiSnipsEditSplit           = "vertical"
 let g:UltiSnipsSnippetDirectories  = ['Snips']
+
+inoremap <silent><F2>      <C-R>=UltiSnips#ExpandSnippet()<Cr>
+snoremap <silent><F2>      <Esc>:call UltiSnips#ExpandSnippet()<Cr>
+inoremap <silent><M-F12>   <C-R>=UltiSnips#JumpForwards()<Cr>
+snoremap <silent><M-F12>   <Esc>:call UltiSnips#JumpForwards()<Cr>
+inoremap <silent><M-S-F12> <C-R>=UltiSnips#JumpBackwards()<Cr>
+snoremap <silent><M-S-F12> <Esc>:call UltiSnips#JumpBackwards()<Cr>
 " Debug
 nnoremap <silent><C-d> <Esc>:call UltiSnips#RefreshSnippets()<Cr>
 " }}}1
