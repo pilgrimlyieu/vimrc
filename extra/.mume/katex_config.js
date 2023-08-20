@@ -12,7 +12,7 @@ module.exports = {
       "\\circle": "\\odot",//圆
       "\\circled": "\\textcircled{\\footnotesize\\text{#1}}",//圆圈
       //3 运算符
-      "\\d": "\\mathop{}\\!\\mathrm{d}​​​​",//微分符号
+      "\\d": "\\mathop{}\\!\\mathrm{d}",//微分符号
       "\\pd": "\\mathop{}\\!\\partial",//偏微分符号
       "\\as": "\\bigg\\vert",//代入符号
       "\\c": "\\operatorname{C}",//组合符号
@@ -44,8 +44,6 @@ module.exports = {
       "\\AnkiDroid": "\\mathcal{A}\\bm{n}\\mathrm{k}\\mathtt{i}\\mathbb{D}r\\mathbf{o}\\mathfrak{i}\\mathsf{d}",//AnkiDroid
       "\\GeoGebra": "\\mathbb{G}\\mathrm{e}\\mathbf{o}\\mathcal{G}\\mathscr{e}\\mathsf{b}\\mathfrak{r}a",//GeoGebra
       "\\Markdown": "\\mathcal{M}\\mathbf{a}\\mathfrak{r}\\bm{k}\\mathscr{D}\\mathrm{o}w\\mathtt{d}",//MarkDown
-      "\\ID": "\\mathrm{Internet Detox}",//网络脱瘾
-      "\\GN": "\\mathrm{Good Night}",//拒绝熬夜
       //9 特殊
       ////I 化学
       //////① 轨道表示式

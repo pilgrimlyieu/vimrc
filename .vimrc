@@ -10,7 +10,7 @@ set laststatus=2
 set showtabline=2
 set history=1024
 set autochdir
-set whichwrap=b,s,<,>,[,]
+set whichwrap=b,<,>,[,]
 set backspace=indent,eol,start
 set clipboard+=unnamed
 set winaltkeys=no
@@ -38,7 +38,7 @@ set autoindent
 set smartindent
 set foldmethod=marker
 set guifont=JetBrains_Mono:h15
-set guifontwide=Microsoft_Yahei_Mono:h15
+set guifontwide=Sarasa_Mono_SC:h15
 set conceallevel=2
 set wildmenu
 set scrolloff=10
@@ -81,10 +81,8 @@ endif
 augroup auto_view
 " auto_view {{{1
     autocmd!
-    autocmd BufWinLeave *.*    mkview
-    autocmd BufWinEnter *.*    silent loadview
-    autocmd BufWinLeave _vimrc mkview
-    autocmd BufWinEnter _vimrc silent loadview
+    autocmd BufWinLeave *.* mkview
+    autocmd BufWinEnter *.* silent loadview
 " }}}1
 augroup end
 
@@ -401,7 +399,7 @@ let g:vimtex_toggle_fractions = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " UltiSnips {{{1
-let g:UltiSnipsExpandTrigger       = '<C-w>'
+let g:UltiSnipsExpandTrigger       = '<C-e>'
 let g:UltiSnipsListSnippets        = '<S-Tab>'
 let g:UltiSnipsJumpForwardTrigger  = 'ô'
 let g:UltiSnipsJumpBackwardTrigger = '<S-ô>'
@@ -460,7 +458,7 @@ nnoremap N                 <Plug>(easymotion-prev)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " vim-visual-multi {{{1
-let g:VM_theme = 'spacegray'
+let g:VM_theme = 'iceblue'
 
 let g:VM_maps                    = {}
 let g:VM_maps["Exit"]            = '<C-c>'
@@ -468,8 +466,6 @@ let g:VM_maps["Add Cursor Down"] = '<A-s>'
 let g:VM_maps["Add Cursor Up"]   = '<A-w>'
 let g:VM_maps["Select l"]        = '<A-d>'
 let g:VM_maps["Select h"]        = '<A-a>'
-let g:VM_maps["Select j"]        = '<A-S-s>'
-let g:VM_maps["Select k"]        = '<A-S-w>'
 let g:VM_maps["Move Left"]       = '<A-S-a>'
 let g:VM_maps["Move Right"]      = '<A-S-d>'
 let g:VM_maps["Undo"]            = 'u'
@@ -597,15 +593,9 @@ let g:coc_snippet_prev = '<S-Tab>'
 " [coc-git]
 "     issuesources = github/pilgrimlyieu/School-Note,github/pilgrimlyieu/vimrc,github/pilgrimlyieu/Snippets,github/pilgrimlyieu/Snippets-Dependencies,github/pilgrimlyieu/AutoHotkey-Script,github/pilgrimlyieu/Python-Script
 
-" TextEdit might fail if hidden is not set.
-set hidden
-
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
-
-" Give more space for displaying messages.
-set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -614,9 +604,6 @@ set updatetime=300
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=number
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -638,11 +625,7 @@ function! CheckBackspace() abort
 endfunction
 
 " Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+inoremap <silent><expr> <c-@> coc#refresh()
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -684,29 +667,36 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Applying codeAction to the selected region.
+" Applying code actions to the selected code block
 " Example: `<leader>aap` for current paragraph
 " xmap <leader>a  <Plug>(coc-codeaction-selected)
 " nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
+" Remap keys for applying code actions at the cursor position
+nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+" Remap keys for apply code actions affect whole buffer
+nmap <leader>as  <Plug>(coc-codeaction-source)
+" Apply the most preferred quickfix action to fix diagnostic on the current line
 " nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Remap keys for applying refactor code actions
+nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 
 " Run the Code Lens action on the current line.
 " nmap <leader>cl  <Plug>(coc-codelens-action)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-" xmap if <Plug>(coc-funcobj-i)
-" omap if <Plug>(coc-funcobj-i)
-" xmap af <Plug>(coc-funcobj-a)
-" omap af <Plug>(coc-funcobj-a)
-" xmap ic <Plug>(coc-classobj-i)
-" omap ic <Plug>(coc-classobj-i)
-" xmap ac <Plug>(coc-classobj-a)
-" omap ac <Plug>(coc-classobj-a)
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 " nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
@@ -769,11 +759,8 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 
 " NerdTree {{{1
 nnoremap <silent>T :NERDTree<CR>
-let g:NERDTreeWinSize                                           = 36
-let g:webdevicons_conceal_nerdtree_brackets                     = 1
-let g:WebDevIconsDisableDefaultFolderSymbolColorFromNERDTreeDir = 1
-let g:WebDevIconsDisableDefaultFileSymbolColorFromNERDTreeFile  = 1
-let g:NERDTreeGitStatusIndicatorMapCustom                       = {
+let g:NERDTreeWinSize                     = 36
+let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Modified'  :'✹',
                 \ 'Staged'    :'✚',
                 \ 'Untracked' :'✭',
@@ -1087,6 +1074,7 @@ function! IncreaseColNumber()
     if l:line[col('.') - 1] =~# s:delimiters_exp
         return "\<Right>"
     endif
+    return ""
 endfunction
 
 function! DecreaseColNumber()
@@ -1094,6 +1082,7 @@ function! DecreaseColNumber()
     if l:line[col('.') - 2] =~# s:delimiters_exp
         return "\<Left>"
     endif
+    return ""
 endfunction
 " }}}1
 
