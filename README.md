@@ -1,4 +1,4 @@
-# vimrc
+# vimrc (OUTDATED)
 
 - AUTHOR: **PilgrimLyieu**
 - OS: **Windows 10**

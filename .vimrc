@@ -25,15 +25,12 @@ set linebreak
 set splitbelow
 set splitright
 set guioptions-=e
+set guioptions-=g
 set guioptions-=m
-set guioptions-=b
-set guioptions-=l
-set guioptions-=L
 set guioptions-=r
-set guioptions-=R
+set guioptions-=L
 set guioptions-=t
 set guioptions-=T
-set guioptions-=g
 set autoindent
 set smartindent
 set foldmethod=marker
@@ -60,23 +57,8 @@ set gdefault
 set titlestring=%{mode()}\&%{v:servername}
 
 let $LANG = 'en_US.UTF-8'
-let &pythonthreedll = 'D:\Program Files\Python\python310.dll'
+let &pythonthreedll = 'D:\Program Files\Python\Python310\python310.dll'
 " }}}
-
-" WindowsTerminal {{{1
-if &term == 'win32'
-    if exists('+termguicolors')
-        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-        set termguicolors
-    endif
-    let &t_SI .= "\e[5 q"
-    let &t_SR .= "\e[3 q"
-    let &t_EI .= "\e[0 q"
-    autocmd VimEnter * silent !echo -ne "\e[0 q"
-    autocmd VimLeave * silent !echo -ne "\e[5 q"
-endif
-" }}}1
 
 augroup auto_view
 " auto_view {{{1
@@ -378,7 +360,7 @@ let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_toggle_fractions = {
         \ 'frac': 'dfrac',
         \ 'dfrac': 'frac',
-        \}
+    \}
 
 " augroup vimtex_config
 "   autocmd!
@@ -1068,8 +1050,8 @@ noremap <silent><F3> :Autoformat<Cr>
 " https://stackoverflow.com/questions/20038550/step-over-bracket-parenthesis-etc-with-tab-in-vim
 
 " Tabout {{{1
-inoremap <silent><End>   <C-r>=IncreaseColNumber()<CR>
-inoremap <silent><S-End> <C-r>=DecreaseColNumber()<CR>
+inoremap <silent><M-F12>   <C-r>=IncreaseColNumber()<CR>
+inoremap <silent><M-S-F12> <C-r>=DecreaseColNumber()<CR>
 
 let s:delimiters_exp = '[\[\]{}()$&"' . "'" . '<>]'
 
