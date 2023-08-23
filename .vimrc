@@ -387,10 +387,10 @@ let g:UltiSnipsSnippetDirectories  = ['Snips']
 
 inoremap <silent><F2>      <C-R>=UltiSnips#ExpandSnippet()<Cr>
 snoremap <silent><F2>      <Esc>:call UltiSnips#ExpandSnippet()<Cr>
-inoremap <silent><M-F12>   <C-R>=UltiSnips#JumpForwards()<Cr>
-snoremap <silent><M-F12>   <Esc>:call UltiSnips#JumpForwards()<Cr>
-inoremap <silent><M-S-F12> <C-R>=UltiSnips#JumpBackwards()<Cr>
-snoremap <silent><M-S-F12> <Esc>:call UltiSnips#JumpBackwards()<Cr>
+inoremap <silent><C-F12>   <C-R>=UltiSnips#JumpForwards()<Cr>
+snoremap <silent><C-F12>   <Esc>:call UltiSnips#JumpForwards()<Cr>
+inoremap <silent><C-S-F12> <C-R>=UltiSnips#JumpBackwards()<Cr>
+snoremap <silent><C-S-F12> <Esc>:call UltiSnips#JumpBackwards()<Cr>
 " Debug
 nnoremap <silent><C-d> <Esc>:call UltiSnips#RefreshSnippets()<Cr>
 " }}}1
