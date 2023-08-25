@@ -381,16 +381,12 @@ let g:vimtex_toggle_fractions = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " UltiSnips {{{1
-let g:UltiSnipsListSnippets        = '<S-Tab>'
+let g:UltiSnipsListSnippets        = "<S-Tab>"
 let g:UltiSnipsEditSplit           = "vertical"
-let g:UltiSnipsSnippetDirectories  = ['Snips']
-
-inoremap <silent><F2>            <C-r>=UltiSnips#ExpandSnippet()<Cr>
-snoremap <silent><F2>            <Esc>:call UltiSnips#ExpandSnippet()<Cr>
-snoremap <silent><A-F12>         <Esc>:call UltiSnips#JumpForwards()<Cr>
-snoremap <silent><A-S-F12>       <Esc>:call UltiSnips#JumpBackwards()<Cr>
-inoremap <silent><expr><A-F12>   "<C-r>=" . (UltiSnips#CanJumpForwards() ? "UltiSnips#JumpForwards" : "IncreaseColNumber") . "()<Cr>"
-inoremap <silent><expr><A-S-F12> "<C-r>=" . (UltiSnips#CanJumpBackwards() ? "UltiSnips#JumpBackwards" : "DecreaseColNumber") . "()<Cr>"
+let g:UltiSnipsSnippetDirectories  = ["Snips"]
+let g:UltiSnipsExpandTrigger       = "<C-A-F12>"
+let g:UltiSnipsJumpForwardTrigger  = "<A-F12>"
+let g:UltiSnipsJumpBackwardTrigger = "<A-S-F12>"
 " Debug
 nnoremap <silent><C-d> <Esc>:call UltiSnips#RefreshSnippets()<Cr>
 
@@ -1051,6 +1047,9 @@ noremap <silent><F3> :Autoformat<Cr>
 " https://stackoverflow.com/questions/20038550/step-over-bracket-parenthesis-etc-with-tab-in-vim
 
 " Tabout {{{1
+inoremap <silent><A-F12>   <C-r>=IncreaseColNumber()<Cr>
+inoremap <silent><A-S-F12> <C-r>=DecreaseColNumber()<Cr>
+
 let s:delimiters_exp = '[\[\]{}()$&"' . "'" . '<>]'
 
 function! IncreaseColNumber()
