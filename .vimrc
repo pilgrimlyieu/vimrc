@@ -381,7 +381,7 @@ let g:vimtex_toggle_fractions = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " UltiSnips {{{1
-let g:UltiSnipsListSnippets        = "<S-Tab>"
+let g:UltiSnipsListSnippets        = "<C-S-A-F12>"
 let g:UltiSnipsEditSplit           = "vertical"
 let g:UltiSnipsSnippetDirectories  = ["Snips"]
 let g:UltiSnipsExpandTrigger       = "<C-A-F12>"
