@@ -381,9 +381,9 @@ let g:vimtex_toggle_fractions = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " UltiSnips {{{1
-let g:UltiSnipsListSnippets        = "<C-S-A-F12>"
 let g:UltiSnipsEditSplit           = "vertical"
 let g:UltiSnipsSnippetDirectories  = ["Snips"]
+let g:UltiSnipsListSnippets        = "<C-S-A-F12>"
 let g:UltiSnipsExpandTrigger       = "<C-A-F12>"
 let g:UltiSnipsJumpForwardTrigger  = "<A-F12>"
 let g:UltiSnipsJumpBackwardTrigger = "<A-S-F12>"
@@ -1049,6 +1049,8 @@ noremap <silent><F3> :Autoformat<Cr>
 " Tabout {{{1
 inoremap <silent><A-F12>   <C-r>=IncreaseColNumber()<Cr>
 inoremap <silent><A-S-F12> <C-r>=DecreaseColNumber()<Cr>
+inoremap <silent><End>     <C-r>=IncreaseColNumber()<Cr>
+inoremap <silent><S-End>   <C-r>=DecreaseColNumber()<Cr>
 
 let s:delimiters_exp = '[\[\]{}()$&"' . "'" . '<>]'
 
