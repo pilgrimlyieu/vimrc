@@ -162,6 +162,9 @@ nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <C-f> <C-d>
 nnoremap <C-b> <C-u>
 
+nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
+nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
+
 nnoremap <silent><leader>/ :noh<Cr>
 vnoremap /                 /\v
 nnoremap ?                 ?\v
