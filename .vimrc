@@ -46,9 +46,9 @@ set softtabstop=4
 set shiftwidth=4
 set viewoptions-=options
 set undofile
-set undodir=D:\Temp\.vim\.undo\
-set directory=D:\Temp\.vim\.swap\
-set viewdir=D:\Temp\.vim\.view\
+set undodir=D:\Temp\vim\.undo\
+set directory=D:\Temp\vim\.swap\
+set viewdir=D:\Temp\vim\.view\
 set shortmess+=F
 set background=dark
 set listchars=tab:!>,trail:·,lead:·
