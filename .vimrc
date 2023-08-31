@@ -35,7 +35,7 @@ set autoindent
 set smartindent
 set foldmethod=marker
 set guifont=JetBrains_Mono:h15
-set guifontwide=Sarasa_Mono_SC:h15
+set guifontwide=Microsoft_YaHei_Mono:h15
 set conceallevel=2
 set wildmenu
 set scrolloff=10
@@ -57,7 +57,7 @@ set gdefault
 set titlestring=%{mode()}\&%{v:servername}
 
 let $LANG = 'en_US.UTF-8'
-let &pythonthreedll = 'D:\Program Files\Python\Python310\python310.dll'
+let &pythonthreedll = 'D:\Software\Python\Python310\python310.dll'
 " }}}
 
 augroup auto_view
@@ -329,7 +329,7 @@ let g:vimtex_texcount_custom_arg = " -ch -total"
 
 autocmd FileType tex noremap <buffer> <silent> <leader>lw :VimtexCountWords! <CR><CR>
 
-let g:Tex_ViewRule_pdf = 'D:\Program Files\SumatraPDF\SumatraPDF.exe -reuse-instance -inverse-search "gvim -c \":RemoteOpen +\%l \%f\""'
+let g:Tex_ViewRule_pdf = 'D:\Software\SumatraPDF\SumatraPDF.exe -reuse-instance -inverse-search "gvim -c \":RemoteOpen +\%l \%f\""'
 
 let g:vimtex_compiler_latexmk_engines = {
     \ '_'                : '-pdf',
