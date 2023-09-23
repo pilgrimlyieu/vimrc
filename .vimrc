@@ -387,9 +387,11 @@ let g:vimtex_toggle_fractions = {
 let g:UltiSnipsEditSplit           = "vertical"
 let g:UltiSnipsSnippetDirectories  = ["Snips"]
 let g:UltiSnipsListSnippets        = "<C-S-A-F12>"
-let g:UltiSnipsExpandTrigger       = "<C-A-F12>"
+let g:UltiSnipsExpandTrigger       = "<A-F12>"
 let g:UltiSnipsJumpForwardTrigger  = "<A-F12>"
 let g:UltiSnipsJumpBackwardTrigger = "<A-S-F12>"
+inoremap <silent><C-A-F12> <C-r>=UltiSnips#JumpForwards()<Cr>
+snoremap <silent><C-A-F12> <Esc>:call UltiSnips#JumpForwards()<Cr>
 " Debug
 nnoremap <silent><C-d> <Esc>:call UltiSnips#RefreshSnippets()<Cr>
 
@@ -410,25 +412,25 @@ nnoremap <silent><C-d> <Esc>:call UltiSnips#RefreshSnippets()<Cr>
 " Easy Motion {{{1
 let g:EasyMotion_enter_jump_first = 1
 
-nnoremap <leader>j         <Plug>(easymotion-j)
-nnoremap <leader>k         <Plug>(easymotion-k)
-nnoremap <leader>h         <Plug>(easymotion-linebackward)
-nnoremap <leader>l         <Plug>(easymotion-lineforward)
-nnoremap <leader>.         <Plug>(easymotion-repeat)
-nnoremap <leader>f         <Plug>(easymotion-f)
-nnoremap <leader>F         <Plug>(easymotion-F)
-nnoremap <leader>t         <Plug>(easymotion-t)
-nnoremap <leader>T         <Plug>(easymotion-T)
-nnoremap <leader><leader>f <Plug>(easymotion-f2)
-nnoremap <leader><leader>F <Plug>(easymotion-F2)
-nnoremap <leader><leader>t <Plug>(easymotion-t2)
-nnoremap <leader><leader>T <Plug>(easymotion-T2)
-nnoremap <leader>s         <Plug>(easymotion-s)
-nnoremap s                 <Plug>(easymotion-s2)
-nnoremap /                 <Plug>(easymotion-sn)\v
-onoremap /                 <Plug>(easymotion-tn)\v
-nnoremap n                 <Plug>(easymotion-next)
-nnoremap N                 <Plug>(easymotion-prev)
+nmap <leader>j         <Plug>(easymotion-j)
+nmap <leader>k         <Plug>(easymotion-k)
+nmap <leader>h         <Plug>(easymotion-linebackward)
+nmap <leader>l         <Plug>(easymotion-lineforward)
+nmap <leader>.         <Plug>(easymotion-repeat)
+nmap <leader>f         <Plug>(easymotion-f)
+nmap <leader>F         <Plug>(easymotion-F)
+nmap <leader>t         <Plug>(easymotion-t)
+nmap <leader>T         <Plug>(easymotion-T)
+nmap <leader><leader>f <Plug>(easymotion-f2)
+nmap <leader><leader>F <Plug>(easymotion-F2)
+nmap <leader><leader>t <Plug>(easymotion-t2)
+nmap <leader><leader>T <Plug>(easymotion-T2)
+nmap <leader>s         <Plug>(easymotion-s)
+nmap s                 <Plug>(easymotion-s2)
+nmap /                 <Plug>(easymotion-sn)\v
+omap /                 <Plug>(easymotion-tn)\v
+nmap n                 <Plug>(easymotion-next)
+nmap N                 <Plug>(easymotion-prev)
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
