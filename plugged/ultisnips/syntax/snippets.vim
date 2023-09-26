@@ -74,8 +74,10 @@ syn match snipSnippetTrigger "\S\+" contained nextgroup=snipSnippetDocString,sni
 " trailing " as the doc comment, and once for the case of the multiword
 " delimiter using " that has more constraints
 syn match snipSnippetTrigger ,".\{-}"\ze\%(\s\+"\%(\s*\S\)\@=[^"]*\%("\s\+[^"[:space:]]\+\|"\)\=\)\=\s*$, contained nextgroup=snipSnippetDocString skipwhite
+" MODIFIED START
 " syn match snipSnippetTrigger ,\%(\(\S\).\{-}\1\|\S\+\)\ze\%(\s\+"[^"]*\%("\s\+\%("[^"]\+"\s\+[^"[:space:]]*e[^"[:space:]]*\)\|"\)\=\)\=\s*$, contained nextgroup=snipSnippetDocContextString skipwhite
 " syn match snipSnippetTrigger ,\([^"[:space:]]\).\{-}\1\%(\s*$\)\@!\ze\%(\s\+"[^"]*\%("\s\+\%("[^"]\+"\s\+[^"[:space:]]*e[^"[:space:]]*\|[^"[:space:]]\+\)\|"\)\=\)\=\s*$, contained nextgroup=snipSnippetDocString skipwhite
+" MODIFIED END
 syn match snipSnippetTriggerInvalid ,\S\@=.\{-}\S\ze\%(\s\+"[^"]*\%("\s\+[^"[:space:]]\+\s*\|"\s*\)\=\|\s*\)$, contained nextgroup=snipSnippetDocString skipwhite
 syn match snipSnippetDocString ,"[^"]*", contained nextgroup=snipSnippetOptions skipwhite
 syn match snipSnippetDocContextString ,"[^"]*", contained nextgroup=snipSnippetContext skipwhite
@@ -98,6 +100,7 @@ syn cluster snipTabStopTokens add=snipCommand
 " Otherwise, we can't track the balanced braces properly.
 
 syn region snipCommandSyntaxOverride start="\%(\\[{}\\$`]\|\_[^`"{]\)*\ze{" skip="\\[{}\\$`]" end="\ze`" contained transparent
+" syn region snipCommandSyntaxOverride start="\%(\\[{}\\$`]\|\_[^`"{]\)*\ze{" skip="\\[{}\\$`]" end="\ze`" contained contains=snipBalancedBraces transparent
 
 " Tab Stops {{{4
 
