@@ -125,6 +125,7 @@ Plug 'mzlogin/vim-markdown-toc',      { 'for': 'markdown'}
 Plug 'python-mode/python-mode',       { 'for': 'python', 'branch': 'develop' }
 Plug 'rrethy/vim-hexokinase',         { 'do': 'make hexokinase' }
 Plug 'vim-autoformat/vim-autoformat'
+Plug 'github/copilot.vim'
 " }}}1
 call plug#end()
 
@@ -386,23 +387,22 @@ let g:vimtex_toggle_fractions = {
 " UltiSnips {{{1
 let g:ulti_expand_or_jump_res = 0
 function! Ulti_JumpOrExpand_and_getRes()
-  call UltiSnips#JumpOrExpandSnippet()
+  call UltiSnips#ExpandSnippetOrJump()
   return g:ulti_expand_or_jump_res
 endfunction
 
 let g:UltiSnipsEditSplit           = "vertical"
-let g:UltiSnipsSnippetDirectories  = ["Snips"]
+let g:UltiSnipsSnippetDirectories  = [$HOME . "/vimfiles/Snips"]
 let g:UltiSnipsListSnippets        = "<C-S-A-F12>"
 let g:UltiSnipsExpandTrigger       = "<A-F12>"
 let g:UltiSnipsJumpBackwardTrigger = "<A-S-F12>"
 
 inoremap <silent><A-F12>   <C-r>=(Ulti_JumpOrExpand_and_getRes() > 0) ? "" : IncreaseColNumber()<Cr>
 snoremap <silent><A-F12>   <Esc>:exec (Ulti_JumpOrExpand_and_getRes() > 0) ? "" : IncreaseColNumber()<Cr>
-inoremap <silent><C-A-F12> <C-r>=UltiSnips#ExpandSnippet()<Cr>
-snoremap <silent><C-A-F12> <Esc>:call UltiSnips#ExpandSnippet()<Cr>
+inoremap <silent><C-A-F12> <C-r>=UltiSnips#JumpForwards()<Cr>
+snoremap <silent><C-A-F12> <Esc>:call UltiSnips#JumpForwards()<Cr>
 " Debug
 nnoremap <silent><C-d> <Esc>:call UltiSnips#RefreshSnippets()<Cr>
-
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1045,6 +1045,22 @@ autocmd FileType fugitive nnoremap <silent>mus :G submodule update --remote<Cr>
 noremap <silent><F3> :Autoformat<Cr>
 " npm install -g js-beautify
 " }}}1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                                              "
+"                                            Copilot                                           "
+"                                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:copilot_filetypes = {
+    \ 'gitcommit': v:true,
+    \}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
