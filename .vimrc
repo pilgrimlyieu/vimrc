@@ -168,10 +168,10 @@ vnoremap /                 /\v
 nnoremap ?                 ?\v
 vnoremap ?                 ?\v
 
-inoremap <silent><C-j> <C-r>=Execute('normal! <C-v><C-w>j<C-v><Esc>')<Cr>
-inoremap <silent><C-k> <C-r>=Execute('normal! <C-v><C-w>k<C-v><Esc>')<Cr>
-inoremap <silent><C-h> <C-r>=Execute('normal! <C-v><C-w>h<C-v><Esc>')<Cr>
-inoremap <silent><C-l> <C-r>=Execute('normal! <C-v><C-w>l<C-v><Esc>')<Cr>
+inoremap <silent><C-j> <Esc><C-w>ja
+inoremap <silent><C-k> <Esc><C-w>ka
+inoremap <silent><C-h> <Esc><C-w>ha
+inoremap <silent><C-l> <Esc><C-w>la
 nnoremap <C-j>         <C-W>j
 nnoremap <C-k>         <C-W>k
 nnoremap <C-h>         <C-W>h
@@ -188,10 +188,10 @@ nnoremap gj j
 
 nnoremap gA ga
 
-inoremap <silent><C-s>     <C-r>=Execute('w')<Cr>
-inoremap <silent><C-q>     <C-r>=Execute('x')<Cr>
-inoremap <silent><C-S-q>   <C-r>=Execute('q!')<Cr>
-inoremap <silent><C-S-c>   <C-r>=Execute('bw')<Cr>
+inoremap <silent><C-s>     <Esc>:w<Cr>
+inoremap <silent><C-q>     <Esc>:x<Cr>
+inoremap <silent><C-S-q>   <Esc>:q!<Cr>
+inoremap <silent><C-S-c>   <Esc>:bw<Cr>
 nnoremap <C-q>             ZZ
 nnoremap <C-S-q>           ZQ
 nnoremap <silent><C-s>     :w<Cr>
