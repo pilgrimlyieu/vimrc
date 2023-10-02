@@ -562,6 +562,8 @@ let g:ale_sign_warning = '--'
 " coc {{{1
 let g:coc_data_home = $USERPROFILE . '/vimfiles/extra/coc'
 let g:coc_global_extensions = [
+        \ 'coc-explorer',
+        \ 'coc-yank',
         \ 'coc-json',
         \ 'coc-css',
         \ 'coc-html',
@@ -570,6 +572,7 @@ let g:coc_global_extensions = [
         \ 'coc-git',
         \ 'coc-highlight',
         \ 'coc-pyright',
+        \ 'coc-pydocstring',
         \ 'coc-snippets',
         \ 'coc-ltex',
         \ 'coc-pairs',
@@ -577,10 +580,14 @@ let g:coc_global_extensions = [
         \ 'coc-vimlsp',
         \ 'coc-lists',
         \ 'coc-vimtex',
+        \ 'coc-copilot',
+        \ 'coc-clangd',
+        \ 'coc-cmake',
+        \ 'coc-clang-format-style-options',
         \]
 
-let g:coc_snippet_next = '<Tab>'
-let g:coc_snippet_prev = '<S-Tab>'
+nnoremap <silent><leader>E :CocCommand explorer<Cr>
+nnoremap <silent><leader>y :<C-u>CocList -A --normal yank<Cr>
 
 " Git Config
 " [coc-git]
@@ -846,25 +853,25 @@ let g:lightline = {
 \ },
 \ 'tabline': {
 \   'left'  : [ ['buffers'] ],
-\   'right' : [ ['close'] ]
+\   'right' : [ ]
 \ },
 \ 'component_expand': {
-\   'buffers'         : 'lightline#bufferline#buffers',
-\   'linter_checking' : 'lightline#ale#checking',
-\   'linter_infos'    : 'lightline#ale#infos',
-\   'linter_warnings' : 'lightline#ale#warnings',
-\   'linter_errors'   : 'lightline#ale#errors',
-\   'linter_ok'       : 'lightline#ale#ok',
+\   'buffers'        : 'lightline#bufferline#buffers',
+\   'linter_checking': 'lightline#ale#checking',
+\   'linter_infos'   : 'lightline#ale#infos',
+\   'linter_warnings': 'lightline#ale#warnings',
+\   'linter_errors'  : 'lightline#ale#errors',
+\   'linter_ok'      : 'lightline#ale#ok',
 \ },
 \ 'component_type': {
-\   'buffers'         : 'tabsel',
-\   'linter_warnings' : 'warning',
-\   'linter_errors'   : 'error',
-\   'linter_ok'       : 'ale',
+\   'buffers'        : 'tabsel',
+\   'linter_warnings': 'warning',
+\   'linter_errors'  : 'error',
+\   'linter_ok'      : 'ale',
 \ },
 \ 'component_function': {
-\   'gitbranch' : 'LightLineGitBranch',
-\   'lineinfo'  : 'LightLineLineInfo',
+\   'gitbranch': 'LightLineGitBranch',
+\   'lineinfo' : 'LightLineLineInfo',
 \ },
 \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
 \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
