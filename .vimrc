@@ -94,17 +94,14 @@ let g:clipboard = {
 filetype plugin indent on
 syntax enable
 
-let g:language_types = ['python', 'javascript', 'vim', 'autohotkey']
+let g:language_types = ['python', 'javascript', 'vim', 'autohotkey', 'c', 'cpp']
 call plug#begin("~/vimfiles/plugged")
 " Plug {{{1
 Plug 'morhetz/gruvbox'
 Plug 'yianwillis/vimcdoc'
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'maximbaz/lightline-ale',        { 'for': g:language_types }
-Plug 'mhinz/vim-startify'
 Plug 'junegunn/vim-easy-align'
 Plug 'neoclide/coc.nvim',             { 'branch': 'release' }
 Plug 'dense-analysis/ale',            { 'for': g:language_types }
