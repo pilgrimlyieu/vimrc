@@ -506,7 +506,7 @@ noremap <silent><leader>pp       :LeaderfSelf<Cr>
 noremap <silent><leader>pl       :LeaderfLine<Cr>
 noremap <silent><leader>pf       :LeaderfFile<Cr>
 noremap <unique><leader>pr       <Plug>LeaderfRgPrompt
-noremap <expr><silent><leader>pt ":let g:Lf_WindowPosition = '" . (g:Lf_WindowPosition == "popup" ? "bottom" : "popup") . "'<Cr>"
+noremap <expr><silent><leader>pt ":let g:Lf_WindowPosition = '" . (g:Lf_WindowPosition == "popup" ? "bottom" : "popup") . "' \| echo 'g:Lf_WindowPosition has been switched to \"' . g:Lf_WindowPosition . '\".'<Cr>"
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
