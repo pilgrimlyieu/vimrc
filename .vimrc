@@ -107,7 +107,7 @@ syntax enable
 let g:language_types = ['python', 'javascript', 'vim', 'autohotkey', 'c', 'cpp']
 call plug#begin("~/vimfiles/plugged")
 " Plug {{{1
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 Plug 'yianwillis/vimcdoc'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
@@ -129,13 +129,13 @@ Plug 'Yggdroot/indentLine'
 Plug 'lervag/vimtex',                 { 'for': ['tex', 'markdown'] }
 Plug 'pilgrimlyieu/md-img-paste.vim', { 'for': 'markdown' }
 Plug 'mzlogin/vim-markdown-toc',      { 'for': 'markdown'}
-Plug 'python-mode/python-mode',       { 'for': 'python', 'branch': 'develop' }
 Plug 'rrethy/vim-hexokinase',         { 'do': 'make hexokinase' }
 Plug 'vim-autoformat/vim-autoformat'
 Plug 'github/copilot.vim'
 " }}}1
 call plug#end()
 
+let g:gruvbox_italic = 1
 colorscheme gruvbox
 let g:Hexokinase_highlighters = ['backgroundfull']
 
@@ -298,6 +298,22 @@ let g:vmt_list_item_char      = '-'
 let g:mdip_imgdir             = 'images'
 let g:mdip_imgname            = ''
 " }}}1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                                              "
+"                                           Gruvbox                                            "
+"                                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:gruvbox_contrast_dark  = 'soft'
+let g:gruvbox_contrast_light = 'soft'
+nnoremap <expr><silent>gt ':set background=' . (&background == 'dark' ?  'light' : 'dark') . '<CR>'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -868,7 +884,7 @@ let g:lightline = {
 \ },
 \ 'tabline': {
 \   'left'  : [ ['buffers'] ],
-\   'right' : [ ]
+\   'right' : [ ],
 \ },
 \ 'component_expand': {
 \   'buffers'        : 'lightline#bufferline#buffers',
@@ -903,7 +919,9 @@ function! LightLineLineInfo()
 endfunction
 
 let s:palette = g:lightline#colorscheme#gruvbox#palette
+let s:palette.tabline.middle = [['#282C34', '#3c3836', 235, 243]]
 let s:palette.tabline.ale = [['#282C34', '#92A4A4', 0, 21]]
+
 
 let g:lightline#ale#indicator_checking     = '⏳'
 let g:lightline#ale#indicator_infos        = '📜'
