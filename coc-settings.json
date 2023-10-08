@@ -14,6 +14,8 @@
         "gitcommit"
     ],
 
+    "yank.highlight.enable": false,
+
     "markdown-preview-enhanced.enableScriptExecution": true,
     "markdown-preview-enhanced.previewTheme": "one-dark.css",
     "markdown-preview-enhanced.codeBlockTheme": "monokai.css",
@@ -47,22 +49,14 @@
             ]
     ],
 
-    "snippets.ultisnips.enable": true,
-    "snippets.ultisnips.directories": [
-            "Snips"
-    ],
-    "snippets.autoTrigger": false,
-    "snippets.shortcut": "Ulti",
-    "snippets.snipmate.enable": false,
-    
     "languageserver": {
         "lsp-ahk2": {
             "module": "C:/Users/Fesmoph/vimfiles/extra/vscode-autohotkey2-lsp/server/dist/server.js",
             "filetypes": ["autohotkey"],
             "args": ["--node-ipc"],
             "initializationOptions": {
-                "locale": "zh-cn", // or "zh-cn"
-                "AutoLibInclude": "All", // or "Local" or "User and Standard" or "All"
+                "locale": "zh-cn",
+                "AutoLibInclude": "All",
                 "CommentTags": "^;;\\s*(?<tag>.+)",
                 "CompleteFunctionParens": false,
                 "Diagnostics": {
@@ -73,10 +67,10 @@
                 "FormatOptions": {
                     "break_chained_methods": false,
                     "ignore_comment": false,
-                    "indent_string": "\t",
+                    "indent_string": "    ",
                     "keep_array_indentation": true,
                     "max_preserve_newlines": 2,
-                    "brace_style": "One True Brace", // or "Allman" or "One True Brace Variant"
+                    "brace_style": "One True Brace",
                     "preserve_newlines": true,
                     "space_after_double_colon": true,
                     "space_before_conditional": true,
