@@ -143,6 +143,8 @@ function! Execute(cmd)
     return ''
 endfunction
 
+nnoremap <silent><C-A-d> <Esc>:so $MYVIMRC<Cr>
+
 inoremap jk      <Esc>
 inoremap kj      <Esc>
 nnoremap U       <C-r>
@@ -188,10 +190,10 @@ nnoremap gj j
 
 nnoremap gA ga
 
-inoremap <silent><C-s>     <Esc>:w<Cr>
-inoremap <silent><C-q>     <Esc>:x<Cr>
-inoremap <silent><C-S-q>   <Esc>:q!<Cr>
-inoremap <silent><C-S-c>   <Esc>:bw<Cr>
+inoremap <silent><C-s>     <Esc>:w!<Cr>a
+inoremap <silent><C-q>     <Esc>:x!<Cr>a
+inoremap <silent><C-S-q>   <Esc>:q!<Cr>a
+inoremap <silent><C-S-c>   <Esc>:bw!<Cr>a
 nnoremap <C-q>             ZZ
 nnoremap <C-S-q>           ZQ
 nnoremap <silent><C-s>     :w<Cr>
@@ -245,6 +247,10 @@ let g:surround_{char2nr('‘')}  = "「\r」"
 let g:surround_{char2nr('’')}  = "「\r」"
 let g:surround_{char2nr('“')}  = "『\r』"
 let g:surround_{char2nr('”')}  = "『\r』"
+let g:surround_{char2nr('「')} = "「\r」"
+let g:surround_{char2nr('」')} = "「\r」"
+let g:surround_{char2nr('『')} = "『\r』"
+let g:surround_{char2nr('』')} = "『\r』"
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -399,7 +405,7 @@ snoremap <silent><A-F12>   <Esc>:exec (Ulti_JumpOrExpand_and_getRes() > 0) ? "" 
 inoremap <silent><C-A-F12> <C-r>=UltiSnips#JumpForwards()<Cr>
 snoremap <silent><C-A-F12> <Esc>:call UltiSnips#JumpForwards()<Cr>
 " Debug
-nnoremap <silent><C-d> <Esc>:call UltiSnips#RefreshSnippets()<Cr>
+nnoremap <silent><C-S-A-d> <Esc>:call UltiSnips#RefreshSnippets()<Cr>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -498,12 +504,12 @@ let g:Lf_PopupColorscheme = 'gruvbox_material'
 let g:Lf_WindowPosition   = 'popup' " Use <leader>pt to switch between 'popup' & 'bottom' to avoid 'Replace can not be used in popout window' issue
 let g:Lf_PreviewInPopup   = 1
 
-noremap <unique><leader>p        <Nop>
-noremap <silent><leader>pp       :LeaderfSelf<Cr>
-noremap <silent><leader>pl       :LeaderfLine<Cr>
-noremap <silent><leader>pf       :LeaderfFile<Cr>
-noremap <unique><leader>pr       <Plug>LeaderfRgPrompt
-noremap <expr><silent><leader>pt ":let g:Lf_WindowPosition = '" . (g:Lf_WindowPosition == "popup" ? "bottom" : "popup") . "' \| echo 'g:Lf_WindowPosition has been switched to \"' . g:Lf_WindowPosition . '\".'<Cr>"
+" noremap <unique><leader>p        <Nop>
+nnoremap <silent><leader>pp       :LeaderfSelf<Cr>
+nnoremap <silent><leader>pl       :LeaderfLine<Cr>
+nnoremap <silent><leader>pf       :LeaderfFile<Cr>
+nnoremap <leader>pr               <Plug>LeaderfRgPrompt
+nnoremap <expr><silent><leader>pt ":let g:Lf_WindowPosition = '" . (g:Lf_WindowPosition == "popup" ? "bottom" : "popup") . "' \| echo 'g:Lf_WindowPosition has been switched to \"' . g:Lf_WindowPosition . '\".'<Cr>"
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
