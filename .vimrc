@@ -31,11 +31,11 @@ set guioptions-=r
 set guioptions-=L
 set guioptions-=t
 set guioptions-=T
+set guifont=JetBrains_Mono:h15
+set guifontwide=Microsoft_YaHei_Mono:h15
 set autoindent
 set smartindent
 set foldmethod=marker
-set guifont=JetBrains_Mono:h15
-set guifontwide=Microsoft_YaHei_Mono:h15
 set conceallevel=2
 set wildmenu
 set scrolloff=10
@@ -75,6 +75,16 @@ augroup spell_check
     autocmd FileType tex,markdown,gitcommit inoremap <silent><C-n> <C-g>u<Esc>[s1z=`'a<C-g>u
 " }}}1
 augroup end
+
+if &term =~ 'xterm' || &term == 'win32'
+  " Use DECSCUSR escape sequences
+  set termguicolors
+  let &t_SI = "\e[5 q"    " blink bar
+  let &t_SR = "\e[3 q"    " blink underline
+  let &t_EI = "\e[1 q"    " blink block
+  let &t_ti .= "\e[1 q"   " blink block
+  let &t_te .= "\e[0 q"   " default (depends on terminal, normally blink block)
+endif
 
 " win-clipboard {{{1
 let g:clipboard = {
@@ -579,7 +589,6 @@ let g:coc_global_extensions = [
         \ 'coc-highlight',
         \ 'coc-pyright',
         \ 'coc-pydocstring',
-        \ 'coc-snippets',
         \ 'coc-ltex',
         \ 'coc-pairs',
         \ 'coc-tsserver',
@@ -1041,6 +1050,8 @@ noremap <silent><F3> :Autoformat<Cr>
 
 let g:copilot_filetypes = {
     \ 'gitcommit': v:true,
+    \ 'markdown': v:true,
+    \ 'snippets': v:true,
     \}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
