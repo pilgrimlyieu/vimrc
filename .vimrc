@@ -148,11 +148,6 @@ let g:Hexokinase_highlighters = ['backgroundfull']
 " Key Mappings {{{1
 let g:mapleader = " "
 
-function! Execute(cmd)
-    execute a:cmd
-    return ''
-endfunction
-
 nnoremap <silent><C-A-d> <Cmd>so $MYVIMRC<Cr>
 
 inoremap jk      <Esc>
@@ -172,8 +167,8 @@ nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <C-f> <C-d>
 nnoremap <C-b> <C-u>
 
-nnoremap <silent> <leader>o <Cmd>call append(line("."),   repeat([""], v:count1))<CR>
-nnoremap <silent> <leader>O <Cmd>call append(line(".")-1, repeat([""], v:count1))<CR>
+nnoremap <silent> <leader>o <Cmd>call append(line("."),   repeat([""], v:count1))<Cr>
+nnoremap <silent> <leader>O <Cmd>call append(line(".")-1, repeat([""], v:count1))<Cr>
 
 nnoremap <silent><leader>/ <Cmd>noh<Cr>
 vnoremap /                 /\v
@@ -222,11 +217,6 @@ vnoremap <C-S-q>           <Esc>ZQ
 vnoremap <silent><C-s>     <Cmd>w<Cr>
 " vnoremap <silent><C-S-c>   <Cmd>bw<Cr>
 vnoremap <silent><S-Esc>   <Cmd>qa!<Cr>
-
-tnoremap <F1>           <C-\><C-N>
-tnoremap <S-F1>         <C-W><C-C>
-tnoremap <silent><S-F5> <C-W>N:bw!<Cr>
-nnoremap <silent><S-F5> <Cmd>call CloseTerminal()<CR>
 
 nnoremap Q  <Nop>
 nnoremap gq Q
@@ -281,8 +271,8 @@ let g:surround_{char2nr('』')} = "『\r』"
 
 " Markdown {{{1
 " autocmd FileType markdown inoremap <silent><C-x>      <Cr><Cr><hr class='section'><Cr><Cr>
-autocmd FileType markdown inoremap <silent><C-p>      <C-r>=Execute('call mdip#MarkdownClipboardImage()')<Cr>
-autocmd FileType markdown inoremap <silent><C-t>      <C-r>=Execute('UpdateToc')<Cr>
+autocmd FileType markdown inoremap <silent><C-p>      <Cmd>call mdip#MarkdownClipboardImage()<Cr>
+autocmd FileType markdown inoremap <silent><C-t>      <Cmd>UpdateToc<Cr>
 autocmd FileType markdown nnoremap <silent><leader>mt <Cmd>UpdateToc<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vl <Plug>(EasyAlign)*<C-x>\\\@<!<Bar><Cr>
 autocmd FileType markdown vnoremap <silent><leader>vr <Plug>(EasyAlign)*<C-a><Bs>r<Cr><C-x>\\\@<!<Bar><Cr>
@@ -291,7 +281,7 @@ autocmd FileType markdown nnoremap <silent><leader>vl <Plug>(EasyAlign)ip*<C-x>\
 autocmd FileType markdown nnoremap <silent><leader>vr <Plug>(EasyAlign)ip*<C-a><Bs>r<Cr><C-x>\\\@<!<Bar><Cr>
 autocmd FileType markdown nnoremap <silent><leader>vv <Plug>(EasyAlign)ip*<C-a><Bs>c<Cr><C-x>\\\@<!<Bar><Cr>
 
-autocmd FileType markdown inoreabbr <silent>toc <C-r>=Execute('GenTocGFM')<Cr>
+autocmd FileType markdown inoreabbr <silent>toc <Cmd>GenTocGFM<Cr>
 
 autocmd FileType markdown let b:coc_pairs_disabled = ["'"]
 
@@ -317,7 +307,7 @@ let g:mdip_imgname            = ''
 
 let g:gruvbox_contrast_dark  = 'soft'
 let g:gruvbox_contrast_light = 'soft'
-nnoremap <silent>gt <Cmd>let &background = (&background == 'dark' ?  'light' : 'dark')<CR>
+nnoremap <silent>gt <Cmd>let &background = (&background == 'dark' ?  'light' : 'dark')<Cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -342,7 +332,7 @@ let g:tex_conceal = ''
 let g:vimtex_view_general_viewer = 'SumatraPDF' 
 
 " SumatraPDF Setting
-" gvim --servername GVIM --remote-send "<C-\><C-n>:drop %f<CR>:%l<CR>:normal! zzzv<CR>:execute 'drop ' . fnameescape('%f')<CR>:%l<CR>:normal! zzzv<CR>:call remote_foreground('GVIM')<CR><CR>"
+" gvim --servername GVIM --remote-send "<C-\><C-n>:drop %f<Cr>:%l<Cr>:normal! zzzv<Cr>:execute 'drop ' . fnameescape('%f')<Cr>:%l<Cr>:normal! zzzv<Cr>:call remote_foreground('GVIM')<Cr><Cr>"
 
 let g:vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
 
@@ -361,7 +351,7 @@ let g:tex_flavor = "latex"
 
 let g:vimtex_texcount_custom_arg = " -ch -total"
 
-autocmd FileType tex noremap <buffer> <silent> <leader>lw <Cmd>VimtexCountWords! <CR><CR>
+autocmd FileType tex noremap <buffer> <silent> <leader>lw <Cmd>VimtexCountWords! <Cr><Cr>
 
 let g:Tex_ViewRule_pdf = 'D:\Software\SumatraPDF\SumatraPDF.exe -reuse-instance -inverse-search "gvim -c \":RemoteOpen +\%l \%f\""'
 
@@ -430,8 +420,8 @@ let g:UltiSnipsListSnippets        = "<C-S-A-F12>"
 let g:UltiSnipsExpandTrigger       = "<A-F12>"
 let g:UltiSnipsJumpBackwardTrigger = "<A-S-F12>"
 
-inoremap <silent><A-F12>   <C-r>=(Ulti_JumpOrExpand_and_getRes() > 0) ? "" : IncreaseColNumber()<Cr>
-snoremap <silent><A-F12>   <Cmd>exec (Ulti_JumpOrExpand_and_getRes() > 0) ? "" : IncreaseColNumber()<Cr>
+inoremap <silent><A-F12>   <C-r>=(Ulti_JumpOrExpand_and_getRes() > 0) ? "" : endout#IncreaseColNumber()<Cr>
+snoremap <silent><A-F12>   <Cmd>exec (Ulti_JumpOrExpand_and_getRes() > 0) ? "" : endout#IncreaseColNumber()<Cr>
 inoremap <silent><C-A-F12> <C-r>=UltiSnips#JumpForwards()<Cr>
 snoremap <silent><C-A-F12> <Cmd>call UltiSnips#JumpForwards()<Cr>
 " Debug
@@ -649,10 +639,10 @@ inoremap <silent><expr> <C-z>
       \ coc#refresh()
 inoremap <silent><expr><C-S-z> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" Make <CR> to accept selected completion item or notify coc.nvim to format
+" Make <Cr> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <C-c> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+                              \: "\<C-g>u\<Cr>\<c-r>=coc#on_enter()\<Cr>"
 
 function! CheckBackspace() abort
   let col = col('.') - 1
@@ -674,7 +664,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K <Cmd>call ShowDocumentation()<CR>
+nnoremap <silent> K <Cmd>call ShowDocumentation()<Cr>
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
@@ -762,22 +752,22 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 
 " Mappings for CoCList
 " Show all diagnostics.
-" nnoremap <silent><nowait> <space>a  <Cmd>CocList diagnostics<cr>
+" nnoremap <silent><nowait> <space>a  <Cmd>CocList diagnostics<Cr>
 " Manage extensions.
-" nnoremap <silent><nowait> <space>e  <Cmd>CocList extensions<cr>
+" nnoremap <silent><nowait> <space>e  <Cmd>CocList extensions<Cr>
 " Show commands.
-" nnoremap <silent><nowait> <space>c  <Cmd>CocList commands<cr>
+" nnoremap <silent><nowait> <space>c  <Cmd>CocList commands<Cr>
 " Find symbol of current document.
-" nnoremap <silent><nowait> <space>o  <Cmd>CocList outline<cr>
+" nnoremap <silent><nowait> <space>o  <Cmd>CocList outline<Cr>
 " Search workspace symbols.
-" nnoremap <silent><nowait> <space>s  <Cmd>CocList -I symbols<cr>
+" nnoremap <silent><nowait> <space>s  <Cmd>CocList -I symbols<Cr>
 " Do default action for next item.
-" nnoremap <silent><nowait> <space>j  <Cmd>CocNext<CR>
+" nnoremap <silent><nowait> <space>j  <Cmd>CocNext<Cr>
 " Do default action for previous item.
-" nnoremap <silent><nowait> <space>k  <Cmd>CocPrev<CR>
+" nnoremap <silent><nowait> <space>k  <Cmd>CocPrev<Cr>
 " Resume latest coc list.
-" nnoremap <silent><nowait> <space>p  <Cmd>CocListResume<CR>
-" nnoremap <silent><nowait> <space>l  <Cmd>CocList<CR>
+" nnoremap <silent><nowait> <space>p  <Cmd>CocListResume<Cr>
+" nnoremap <silent><nowait> <space>l  <Cmd>CocList<Cr>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -793,75 +783,20 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Python {{{1
-nnoremap <silent><F5> <Cmd>call RunProgram()<CR>
-inoremap <silent><F5> <C-r>=Execute('call RunProgram()')<Cr>
+nnoremap <silent><F5> <Cmd>call biterm#RunProgram()<Cr>
+inoremap <silent><F5> <Cmd>call biterm#RunProgram()<Cr>
+tnoremap <F1>           <C-\><C-N>
+tnoremap <S-F1>         <C-W><C-C>
+tnoremap <silent><S-F5> <C-W>N:bw!<Cr>
+nnoremap <silent><S-F5> <Cmd>call biterm#Close()<Cr>
 
-autocmd FileType python,javascript nnoremap <silent><leader>Q <Cmd>call CloseTerminal()<CR>
+autocmd FileType python,javascript nnoremap <silent><leader>Q <Cmd>call biterm#Close()<Cr>
 
 let g:python3_host_skip_check = 1
 let g:python3_host_prog       = '/usr/local/bin/python3'
 let g:terminal_settings       = {'vertical': 1, 'term_cols': 60}
 
 highlight default link Terminal Normal
-
-function! RunProgram()
-    if &filetype == ''
-        return
-    endif
-
-    silent execute 'w'
-    let l:filename = expand('%')
-    let l:opts     = g:terminal_settings
-
-    if &filetype == 'python'
-        let l:term_col = OpenTerminal()
-        let l:opts.term_name = 'python_terminal'
-        if l:term_col
-            let l:opts.term_cols = l:term_col
-        endif
-        call term_start('python "' . l:filename . '"', l:opts)
-    elseif &filetype == 'javascript'
-        let l:term_col = OpenTerminal()
-        let l:opts.term_name = 'javascript_terminal'
-        if l:term_col
-            let l:opts.term_cols = l:term_col
-        endif
-        call term_start('node "'. l:filename . '"', l:opts)
-    elseif &filetype == 'autohotkey'
-        let l:autohotkey_ux_path = $ProgramFiles . '/AutoHotkey/UX/'
-        silent execute '!start "' . l:autohotkey_ux_path . 'AutoHotkeyUX.exe" "' . l:autohotkey_ux_path . 'launcher.ahk" /restart "%:p"'
-    elseif &filetype == 'markdown'
-        silent execute 'CocCommand markdown-preview-enhanced.openPreview'
-    elseif &filetype == 'dosbatch'
-        silent !%
-    else
-        let l:term_col = OpenTerminal()
-        let l:opts.term_name = 'Terminal'
-        if l:term_col
-            let l:opts.term_cols = l:term_col
-        endif
-        call term_start('cmd', l:opts)
-    endif
-endfunction
-
-function! OpenTerminal()
-    let l:windowsWithTerminal = filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") ==# "terminal" || term_getstatus(winbufnr(v:val))')
-    if !empty(l:windowsWithTerminal)
-        silent execute l:windowsWithTerminal[0] . 'wincmd w'
-        let l:current_col = winwidth(l:windowsWithTerminal[0])
-        call CloseTerminal()
-        return l:current_col
-    endif
-endfunction
-
-function! CloseTerminal()
-    let l:winnumber = winnr()
-    if getwinvar(l:winnumber, "&buftype") ==# "terminal" || term_getstatus(winbufnr(l:winnumber))
-        silent execute winbufnr(l:winnumber) . 'bw!'
-    else
-        silent execute 'q!'
-    endif
-endfunction
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -905,27 +840,18 @@ let g:lightline = {
 \   'linter_ok'      : 'ale',
 \ },
 \ 'component_function': {
-\   'gitbranch': 'LightLineGitBranch',
-\   'lineinfo' : 'LightLineLineInfo',
+\   'gitbranch': 'lightlinefunc#GitBranch',
+\   'lineinfo' : 'lightlinefunc#LineInfo',
 \ },
 \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
 \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
 \}
 
-function! LightLineGitBranch() 
-    return "\uE0A0" . (exists('*FugitiveHead') ? " " . FugitiveHead() : "")
-endfunction
-
 let g:viewplugins = 'NERD_tree\|\[Plugins\]\|\[coc-explorer\]'
-
-function! LightLineLineInfo()
-  return expand('%:t') =~# g:viewplugins ? '' : printf(' %d/%d | %d/%d', line('.'), line('$'), col('.'), col('$'))
-endfunction
 
 let s:palette = g:lightline#colorscheme#gruvbox#palette
 let s:palette.tabline.middle = [['#282C34', '#3c3836', 235, 243]]
 let s:palette.tabline.ale = [['#282C34', '#92A4A4', 0, 21]]
-
 
 let g:lightline#ale#indicator_checking     = '⏳'
 let g:lightline#ale#indicator_infos        = '📜'
@@ -1087,30 +1013,12 @@ let g:copilot_filetypes = {
 "                                            Tabout                                            "
 "                                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://stackoverflow.com/questions/20038550/step-over-bracket-parenthesis-etc-with-tab-in-vim
 
 " Tabout {{{1
-inoremap <silent><A-S-F12> <C-r>=DecreaseColNumber()<Cr>
-inoremap <silent><End>     <C-r>=IncreaseColNumber()<Cr>
-inoremap <silent><S-End>   <C-r>=DecreaseColNumber()<Cr>
+inoremap <silent><A-S-F12> <C-r>=endout#DecreaseColNumber()<Cr>
+inoremap <silent><End>     <C-r>=endout#IncreaseColNumber()<Cr>
+inoremap <silent><S-End>   <C-r>=endout#DecreaseColNumber()<Cr>
 
-let s:delimiters_exp = '[\[\]{}()$&"' . "'" . '<>]'
-
-function! IncreaseColNumber()
-    let l:line = getline('.')
-    if l:line[col('.') - 1] =~# s:delimiters_exp
-        return "\<Right>"
-    endif
-    return ""
-endfunction
-
-function! DecreaseColNumber()
-    let l:line = getline('.')
-    if l:line[col('.') - 2] =~# s:delimiters_exp
-        return "\<Left>"
-    endif
-    return ""
-endfunction
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
