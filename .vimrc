@@ -153,7 +153,7 @@ function! Execute(cmd)
     return ''
 endfunction
 
-nnoremap <silent><C-A-d> <Esc>:so $MYVIMRC<Cr>
+nnoremap <silent><C-A-d> <Cmd>so $MYVIMRC<Cr>
 
 inoremap jk      <Esc>
 inoremap kj      <Esc>
@@ -172,10 +172,10 @@ nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <C-f> <C-d>
 nnoremap <C-b> <C-u>
 
-nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
-nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
+nnoremap <silent> <leader>o <Cmd>call append(line("."),   repeat([""], v:count1))<CR>
+nnoremap <silent> <leader>O <Cmd>call append(line(".")-1, repeat([""], v:count1))<CR>
 
-nnoremap <silent><leader>/ :noh<Cr>
+nnoremap <silent><leader>/ <Cmd>noh<Cr>
 vnoremap /                 /\v
 nnoremap ?                 ?\v
 vnoremap ?                 ?\v
@@ -194,35 +194,39 @@ nnoremap <C-S-h>       <C-W><
 nnoremap <C-S-l>       <C-W>>
 
 nnoremap k  gk
+vnoremap k  gk
 nnoremap gk k
+vnoremap gk k
 nnoremap j  gj
+vnoremap j  gj
 nnoremap gj j
+vnoremap gj j
 
 nnoremap gA ga
 
-inoremap <silent><C-s>     <Esc>:w!<Cr>a
-inoremap <silent><C-q>     <Esc>:x!<Cr>a
-inoremap <silent><C-S-q>   <Esc>:q!<Cr>a
-inoremap <silent><C-S-c>   <Esc>:bw!<Cr>a
+inoremap <silent><C-s>     <Cmd>w!<Cr>a
+inoremap <silent><C-q>     <Cmd>x!<Cr>a
+inoremap <silent><C-S-q>   <Cmd>q!<Cr>a
+inoremap <silent><C-S-c>   <Cmd>bw!<Cr>a
 nnoremap <C-q>             ZZ
 nnoremap <C-S-q>           ZQ
-nnoremap <silent><C-s>     :w<Cr>
-" nnoremap <silent><C-S-c>   :bw<Cr>
+nnoremap <silent><C-s>     <Cmd>w<Cr>
+" nnoremap <silent><C-S-c>   <Cmd>bw<Cr>
 nnoremap <leader>q         ZZ
 nnoremap <leader>Q         ZQ
-nnoremap <silent><leader>w :w<Cr>
-" nnoremap <silent><leader>C :bw<Cr>
-nnoremap <silent><S-Esc>   :qa!<Cr>
+nnoremap <silent><leader>w <Cmd>w<Cr>
+" nnoremap <silent><leader>C <Cmd>bw<Cr>
+nnoremap <silent><S-Esc>   <Cmd>qa!<Cr>
 vnoremap <C-q>             <Esc>ZZ
 vnoremap <C-S-q>           <Esc>ZQ
-vnoremap <silent><C-s>     <Esc>:w<Cr>
-" vnoremap <silent><C-S-c>   <Esc>:bw<Cr>
-vnoremap <silent><S-Esc>   <Esc>:qa!<Cr>
+vnoremap <silent><C-s>     <Cmd>w<Cr>
+" vnoremap <silent><C-S-c>   <Cmd>bw<Cr>
+vnoremap <silent><S-Esc>   <Cmd>qa!<Cr>
 
 tnoremap <F1>           <C-\><C-N>
 tnoremap <S-F1>         <C-W><C-C>
 tnoremap <silent><S-F5> <C-W>N:bw!<Cr>
-nnoremap <silent><S-F5> :call CloseTerminal()<CR>
+nnoremap <silent><S-F5> <Cmd>call CloseTerminal()<CR>
 
 nnoremap Q  <Nop>
 nnoremap gq Q
@@ -279,7 +283,7 @@ let g:surround_{char2nr('』')} = "『\r』"
 " autocmd FileType markdown inoremap <silent><C-x>      <Cr><Cr><hr class='section'><Cr><Cr>
 autocmd FileType markdown inoremap <silent><C-p>      <C-r>=Execute('call mdip#MarkdownClipboardImage()')<Cr>
 autocmd FileType markdown inoremap <silent><C-t>      <C-r>=Execute('UpdateToc')<Cr>
-autocmd FileType markdown nnoremap <silent><leader>mt :UpdateToc<Cr>
+autocmd FileType markdown nnoremap <silent><leader>mt <Cmd>UpdateToc<Cr>
 autocmd FileType markdown vnoremap <silent><leader>vl <Plug>(EasyAlign)*<C-x>\\\@<!<Bar><Cr>
 autocmd FileType markdown vnoremap <silent><leader>vr <Plug>(EasyAlign)*<C-a><Bs>r<Cr><C-x>\\\@<!<Bar><Cr>
 autocmd FileType markdown vnoremap <silent><leader>vv <Plug>(EasyAlign)*<C-a><Bs>c<Cr><C-x>\\\@<!<Bar><Cr>
@@ -313,7 +317,7 @@ let g:mdip_imgname            = ''
 
 let g:gruvbox_contrast_dark  = 'soft'
 let g:gruvbox_contrast_light = 'soft'
-nnoremap <expr><silent>gt ':set background=' . (&background == 'dark' ?  'light' : 'dark') . '<CR>'
+nnoremap <silent>gt <Cmd>let &background = (&background == 'dark' ?  'light' : 'dark')<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -357,7 +361,7 @@ let g:tex_flavor = "latex"
 
 let g:vimtex_texcount_custom_arg = " -ch -total"
 
-autocmd FileType tex noremap <buffer> <silent> <leader>lw :VimtexCountWords! <CR><CR>
+autocmd FileType tex noremap <buffer> <silent> <leader>lw <Cmd>VimtexCountWords! <CR><CR>
 
 let g:Tex_ViewRule_pdf = 'D:\Software\SumatraPDF\SumatraPDF.exe -reuse-instance -inverse-search "gvim -c \":RemoteOpen +\%l \%f\""'
 
@@ -427,11 +431,11 @@ let g:UltiSnipsExpandTrigger       = "<A-F12>"
 let g:UltiSnipsJumpBackwardTrigger = "<A-S-F12>"
 
 inoremap <silent><A-F12>   <C-r>=(Ulti_JumpOrExpand_and_getRes() > 0) ? "" : IncreaseColNumber()<Cr>
-snoremap <silent><A-F12>   <Esc>:exec (Ulti_JumpOrExpand_and_getRes() > 0) ? "" : IncreaseColNumber()<Cr>
+snoremap <silent><A-F12>   <Cmd>exec (Ulti_JumpOrExpand_and_getRes() > 0) ? "" : IncreaseColNumber()<Cr>
 inoremap <silent><C-A-F12> <C-r>=UltiSnips#JumpForwards()<Cr>
-snoremap <silent><C-A-F12> <Esc>:call UltiSnips#JumpForwards()<Cr>
+snoremap <silent><C-A-F12> <Cmd>call UltiSnips#JumpForwards()<Cr>
 " Debug
-nnoremap <silent><C-S-A-d> <Esc>:call UltiSnips#RefreshSnippets()<Cr>
+nnoremap <silent><C-S-A-d> <Cmd>call UltiSnips#RefreshSnippets()<Cr>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -530,12 +534,12 @@ let g:Lf_PopupColorscheme = 'gruvbox_material'
 let g:Lf_WindowPosition   = 'popup' " Use <leader>pt to switch between 'popup' & 'bottom' to avoid 'Replace can not be used in popout window' issue
 let g:Lf_PreviewInPopup   = 1
 
-" noremap <unique><leader>p        <Nop>
-nnoremap <silent><leader>pp       :LeaderfSelf<Cr>
-nnoremap <silent><leader>pl       :LeaderfLine<Cr>
-nnoremap <silent><leader>pf       :LeaderfFile<Cr>
-nnoremap <leader>pr               <Plug>LeaderfRgPrompt
-nnoremap <expr><silent><leader>pt ":let g:Lf_WindowPosition = '" . (g:Lf_WindowPosition == "popup" ? "bottom" : "popup") . "' \| echo 'g:Lf_WindowPosition has been switched to \"' . g:Lf_WindowPosition . '\".'<Cr>"
+" noremap <unique><leader>p   <Nop>
+nnoremap <silent><leader>pp <Cmd>LeaderfSelf<Cr>
+nnoremap <silent><leader>pl <Cmd>LeaderfLine<Cr>
+nnoremap <silent><leader>pf <Cmd>LeaderfFile<Cr>
+nnoremap <leader>pr         <Plug>LeaderfRgPrompt
+nnoremap <silent><leader>pt <Cmd>let g:Lf_WindowPosition = (g:Lf_WindowPosition == 'popup' ? 'bottom' : 'popup') \| echo 'g:Lf_WindowPosition has been switched to "' . g:Lf_WindowPosition . '".'<Cr>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -559,7 +563,7 @@ vnoremap <silent>g:             <Plug>(EasyAlign)*<C-l>0<Cr><C-x>\\\@<!:\(=\)\@!
 nnoremap <silent>g=             <Plug>(EasyAlign)ip=<Cr>
 vnoremap <silent>g=             <Plug>(EasyAlign)*=<Cr>
 nnoremap <silent><expr>g<Space> '<C-u><Plug>(EasyAlign)ip' . v:count1 . ' \<Cr>'
-vnoremap <silent><expr>g<Space> '<Plug>(EasyAlign)' . v:count1 . ' \<Cr>'
+vnoremap <silent><expr>g<Space> '<C-u><Plug>(EasyAlign)' . v:count1 . ' \<Cr>'
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -617,8 +621,8 @@ let g:coc_global_extensions = [
         \ 'coc-clang-format-style-options',
         \]
 
-nnoremap <silent><leader>E :CocCommand explorer<Cr>
-nnoremap <silent><leader>y :<C-u>CocList -A --normal yank<Cr>
+nnoremap <silent><leader>E <Cmd>CocCommand explorer<Cr>
+nnoremap <silent><leader>y <Cmd>CocList -A --normal yank<Cr>
 
 " Git Config
 " [coc-git]
@@ -670,7 +674,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call ShowDocumentation()<CR>
+nnoremap <silent> K <Cmd>call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
@@ -758,22 +762,22 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 
 " Mappings for CoCList
 " Show all diagnostics.
-" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" nnoremap <silent><nowait> <space>a  <Cmd>CocList diagnostics<cr>
 " Manage extensions.
-" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" nnoremap <silent><nowait> <space>e  <Cmd>CocList extensions<cr>
 " Show commands.
-" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" nnoremap <silent><nowait> <space>c  <Cmd>CocList commands<cr>
 " Find symbol of current document.
-" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" nnoremap <silent><nowait> <space>o  <Cmd>CocList outline<cr>
 " Search workspace symbols.
-" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" nnoremap <silent><nowait> <space>s  <Cmd>CocList -I symbols<cr>
 " Do default action for next item.
-" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" nnoremap <silent><nowait> <space>j  <Cmd>CocNext<CR>
 " Do default action for previous item.
-" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" nnoremap <silent><nowait> <space>k  <Cmd>CocPrev<CR>
 " Resume latest coc list.
-" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-" nnoremap <silent><nowait> <space>l  :<C-u>CocList<CR>
+" nnoremap <silent><nowait> <space>p  <Cmd>CocListResume<CR>
+" nnoremap <silent><nowait> <space>l  <Cmd>CocList<CR>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -789,10 +793,10 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Python {{{1
-nnoremap <silent><F5> :call RunProgram()<CR>
+nnoremap <silent><F5> <Cmd>call RunProgram()<CR>
 inoremap <silent><F5> <C-r>=Execute('call RunProgram()')<Cr>
 
-autocmd FileType python,javascript nnoremap <silent><leader>Q :call CloseTerminal()<CR>
+autocmd FileType python,javascript nnoremap <silent><leader>Q <Cmd>call CloseTerminal()<CR>
 
 let g:python3_host_skip_check = 1
 let g:python3_host_prog       = '/usr/local/bin/python3'
@@ -1032,9 +1036,9 @@ let g:indent_guides_start_level  = 1
 " fugitive {{{1
 nnoremap <silent>mm :G<Cr>
 
-autocmd FileType fugitive nnoremap <silent>mp  :G push<Cr>
-autocmd FileType fugitive nnoremap <silent>mq  :G pull<Cr>
-autocmd FileType fugitive nnoremap <silent>mus :G submodule update --remote<Cr>
+autocmd FileType fugitive nnoremap <silent>mp  <Cmd>G push<Cr>
+autocmd FileType fugitive nnoremap <silent>mq  <Cmd>G pull<Cr>
+autocmd FileType fugitive nnoremap <silent>mus <Cmd>G submodule update --remote<Cr>
 " }}}1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1050,7 +1054,7 @@ autocmd FileType fugitive nnoremap <silent>mus :G submodule update --remote<Cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " autoformat {{{1
-noremap <silent><F3> :Autoformat<Cr>
+noremap <silent><F3> <Cmd>Autoformat<Cr>
 " npm install -g js-beautify
 " }}}1
 
