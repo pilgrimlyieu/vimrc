@@ -2,30 +2,32 @@ let g:mapleader = " "
 
 nnoremap <silent><C-A-d> <Cmd>so $MYVIMRC<Cr>
 
-inoremap jk      <Esc>
-inoremap kj      <Esc>
-nnoremap U       <C-r>
-vnoremap ;       :
-nnoremap ;       :
-nnoremap :       ,
-nnoremap ,       ;
-nnoremap `       '
-nnoremap '       `
-noremap  H       0
-onoremap H       0
-noremap  L       $
-onoremap L       $
+inoremap jk <Esc>
+inoremap kj <Esc>
+nnoremap U  <C-r>
+vnoremap ;  :
+nnoremap ;  :
+nnoremap :  ,
+nnoremap ,  ;
+nnoremap `  '
+nnoremap '  `
+noremap  H  0
+onoremap H  0
+noremap  L  $
+onoremap L  $
+
 nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <C-f> <C-d>
 nnoremap <C-b> <C-u>
 
-nnoremap <silent> <leader>o <Cmd>call append(line("."),   repeat([""], v:count1))<Cr>
-nnoremap <silent> <leader>O <Cmd>call append(line(".")-1, repeat([""], v:count1))<Cr>
+nnoremap <silent> <leader>o <Cmd>call append(line("."),     repeat([""], v:count1))<Cr>
+nnoremap <silent> <leader>O <Cmd>call append(line(".") - 1, repeat([""], v:count1))<Cr>
 
 nnoremap <silent><leader>/ <Cmd>noh<Cr>
 vnoremap /                 /\v
 nnoremap ?                 ?\v
 vnoremap ?                 ?\v
+cnoremap s/                s/\v
 
 inoremap <silent><C-j> <Esc><C-w>ja
 inoremap <silent><C-k> <Esc><C-w>ka
@@ -79,6 +81,6 @@ noremap  <ScrollWheelDown> <nop>
 inoremap <ScrollWheelUp>   <nop>
 inoremap <ScrollWheelDown> <nop>
 
-inoremap <silent><A-S-F12> <C-r>=endout#DecreaseColNumber()<Cr>
-inoremap <silent><End>     <C-r>=endout#IncreaseColNumber()<Cr>
-inoremap <silent><S-End>   <C-r>=endout#DecreaseColNumber()<Cr>
+inoremap <silent><A-S-F12> <Cmd>call endout#DecreaseColNumber()<Cr>
+inoremap <silent><End>     <Cmd>call endout#IncreaseColNumber()<Cr>
+inoremap <silent><S-End>   <Cmd>call endout#DecreaseColNumber()<Cr>

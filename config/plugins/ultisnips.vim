@@ -10,9 +10,9 @@ let g:UltiSnipsListSnippets        = "<C-S-A-F12>"
 let g:UltiSnipsExpandTrigger       = "<A-F12>"
 let g:UltiSnipsJumpBackwardTrigger = "<A-S-F12>"
 
-inoremap <silent><A-F12>   <C-r>=(Ulti_JumpOrExpand_and_getRes() > 0) ? "" : endout#IncreaseColNumber()<Cr>
+inoremap <silent><A-F12>   <Cmd>exec (Ulti_JumpOrExpand_and_getRes() > 0) ? "" : endout#IncreaseColNumber()<Cr>
 snoremap <silent><A-F12>   <Cmd>exec (Ulti_JumpOrExpand_and_getRes() > 0) ? "" : endout#IncreaseColNumber()<Cr>
-inoremap <silent><C-A-F12> <C-r>=UltiSnips#JumpForwards()<Cr>
+inoremap <silent><C-A-F12> <Cmd>call UltiSnips#JumpForwards()<Cr>
 snoremap <silent><C-A-F12> <Cmd>call UltiSnips#JumpForwards()<Cr>
 " Debug
 nnoremap <silent><C-S-A-d> <Cmd>call UltiSnips#RefreshSnippets()<Cr>
