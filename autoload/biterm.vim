@@ -1,4 +1,4 @@
-function! builtin_terminal#RunProgram()
+function! biterm#RunProgram()
     if &filetype == ''
         return
     endif
@@ -38,7 +38,7 @@ function! builtin_terminal#RunProgram()
     endif
 endfunction
 
-function! builtin_terminal#Open()
+function! biterm#Open()
     let l:windowsWithTerminal = filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") ==# "terminal" || term_getstatus(winbufnr(v:val))')
     if !empty(l:windowsWithTerminal)
         silent execute l:windowsWithTerminal[0] . 'wincmd w'
@@ -48,7 +48,7 @@ function! builtin_terminal#Open()
     endif
 endfunction
 
-function! builtin_terminal#Close()
+function! biterm#Close()
     let l:winnumber = winnr()
     if getwinvar(l:winnumber, "&buftype") ==# "terminal" || term_getstatus(winbufnr(l:winnumber))
         silent execute winbufnr(l:winnumber) . 'bw!'

@@ -51,10 +51,15 @@ set gdefault
 set pythonthreedll=D:\Software\Python\Python310\python310.dll
 set titlestring=%{mode()}\&%{v:servername}
 
-let $LANG = 'en_US.UTF-8'
-
 filetype plugin indent on
 syntax enable
+highlight default link Terminal Normal
 
-let g:python3_host_skip_check = 1
-let g:python3_host_prog       = '/usr/local/bin/python3'
+augroup auto_view
+    autocmd!
+    autocmd BufWinLeave *.* mkview
+    autocmd BufWinEnter *.* silent loadview
+augroup end
+
+let $LANG = 'en_US.UTF-8'
+let g:terminal_settings = { 'vertical': 1, 'term_cols': 60 }

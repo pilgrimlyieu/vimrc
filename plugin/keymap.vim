@@ -2,6 +2,8 @@ let g:mapleader = " "
 
 nnoremap <silent><C-A-d> <Cmd>so $MYVIMRC<Cr>
 
+nnoremap <silent>gt <Cmd>let &background = (&background == 'dark' ? 'light' : 'dark')<Cr>
+
 inoremap jk <Esc>
 inoremap kj <Esc>
 nnoremap U  <C-r>
@@ -84,3 +86,10 @@ inoremap <ScrollWheelDown> <nop>
 inoremap <silent><A-S-F12> <Cmd>call endout#DecreaseColNumber()<Cr>
 inoremap <silent><End>     <Cmd>call endout#IncreaseColNumber()<Cr>
 inoremap <silent><S-End>   <Cmd>call endout#DecreaseColNumber()<Cr>
+
+nnoremap <silent><F5> <Cmd>call biterm#RunProgram()<Cr>
+inoremap <silent><F5> <Cmd>call biterm#RunProgram()<Cr>
+tnoremap <F1>           <C-\><C-N>
+tnoremap <S-F1>         <C-W><C-C>
+tnoremap <silent><S-F5> <C-W>N:bw!<Cr>
+nnoremap <silent><S-F5> <Cmd>call biterm#Close()<Cr>

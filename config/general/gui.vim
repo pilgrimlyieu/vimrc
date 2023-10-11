@@ -1,9 +1,0 @@
-set guioptions-=e
-set guioptions-=g
-set guioptions-=m
-set guioptions-=r
-set guioptions-=L
-set guioptions-=t
-set guioptions-=T
-set guifont=JetBrains_Mono:h15
-set guifontwide=Microsoft_YaHei_Mono:h15
