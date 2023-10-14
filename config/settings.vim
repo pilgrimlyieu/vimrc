@@ -37,19 +37,28 @@ set expandtab
 set softtabstop=4
 set shiftwidth=4
 set viewoptions-=options
-set undofile
 
-set undodir=D:\Temp\vim\.undo\
-set directory=D:\Temp\vim\.swap\
-set viewdir=D:\Temp\vim\.view\
+set undofile
+if &term =~ "xterm"
+    set undodir=~/.vim/temp/undo
+    set directory=~/.vim/temp/swap
+    set viewdir=~/.vim/temp/view
+else
+    set undodir=D:\Temp\vim\.undo\
+    set directory=D:\Temp\vim\.swap\
+    set viewdir=D:\Temp\vim\.view\
+endif
 
 set shortmess+=F
 set background=dark
 set listchars=tab:!>,trail:·,lead:·
 set list
 set gdefault
-set pythonthreedll=D:\Software\Python\Python310\python310.dll
-set titlestring=%{mode()}\&%{v:servername}
+if &term !~ "xterm"
+    set pythonthreedll=D:\Software\Python\Python310\python310.dll
+endif
+set title
+set titlestring=%{mode()}🏷️%t✏️
 
 filetype plugin indent on
 syntax enable
@@ -63,3 +72,16 @@ augroup end
 
 let $LANG = 'en_US.UTF-8'
 let g:terminal_settings = { 'vertical': 1, 'term_cols': 60 }
+
+let g:clipboard = {
+          \   'name': 'win32yank',
+          \   'copy': {
+          \      '+': 'win32yank.exe -i --crlf',
+          \      '*': 'win32yank.exe -i --crlf',
+          \    },
+          \   'paste': {
+          \      '+': 'win32yank.exe -o --lf',
+          \      '*': 'win32yank.exe -o --lf',
+          \   },
+          \   'cache_enabled': 0,
+          \ }

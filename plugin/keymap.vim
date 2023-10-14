@@ -35,14 +35,16 @@ inoremap <silent><C-j> <Esc><C-w>ja
 inoremap <silent><C-k> <Esc><C-w>ka
 inoremap <silent><C-h> <Esc><C-w>ha
 inoremap <silent><C-l> <Esc><C-w>la
-nnoremap <C-j>         <C-W>j
-nnoremap <C-k>         <C-W>k
-nnoremap <C-h>         <C-W>h
-nnoremap <C-l>         <C-W>l
-nnoremap <C-S-j>       <C-W>-
-nnoremap <C-S-k>       <C-W>+
-nnoremap <C-S-h>       <C-W><
-nnoremap <C-S-l>       <C-W>>
+nnoremap <C-j>         <C-w>j
+nnoremap <C-k>         <C-w>k
+nnoremap <C-h>         <C-w>h
+nnoremap <C-l>         <C-w>l
+if has("gui_running")
+    nnoremap <C-S-j>       <C-w>-
+    nnoremap <C-S-k>       <C-w>+
+    nnoremap <C-S-h>       <C-w><
+    nnoremap <C-S-l>       <C-w>>
+endif
 
 nnoremap k  gk
 vnoremap k  gk
@@ -57,10 +59,10 @@ nnoremap gA ga
 
 inoremap <silent><C-s>     <Cmd>w!<Cr>a
 inoremap <silent><C-q>     <Cmd>x!<Cr>a
-inoremap <silent><C-S-q>   <Cmd>q!<Cr>a
-inoremap <silent><C-S-c>   <Cmd>bw!<Cr>a
+" inoremap <silent><C-S-q>   <Cmd>q!<Cr>a
+" inoremap <silent><C-S-c>   <Cmd>bw!<Cr>a
 nnoremap <C-q>             ZZ
-nnoremap <C-S-q>           ZQ
+" nnoremap <C-S-q>           ZQ
 nnoremap <silent><C-s>     <Cmd>w<Cr>
 " nnoremap <silent><C-S-c>   <Cmd>bw<Cr>
 nnoremap <leader>q         ZZ
@@ -68,24 +70,22 @@ nnoremap <leader>Q         ZQ
 nnoremap <silent><leader>w <Cmd>w<Cr>
 " nnoremap <silent><leader>C <Cmd>bw<Cr>
 nnoremap <silent><S-Esc>   <Cmd>qa!<Cr>
-vnoremap <C-q>             <Esc>ZZ
-vnoremap <C-S-q>           <Esc>ZQ
-vnoremap <silent><C-s>     <Cmd>w<Cr>
-" vnoremap <silent><C-S-c>   <Cmd>bw<Cr>
-vnoremap <silent><S-Esc>   <Cmd>qa!<Cr>
+vnoremap <C-c>             <Esc>
 
 nnoremap Q  <Nop>
 nnoremap gq Q
 
 set mouse=
-noremap  <ScrollWheelUp>   <nop>
-noremap  <ScrollWheelDown> <nop>
-inoremap <ScrollWheelUp>   <nop>
-inoremap <ScrollWheelDown> <nop>
+noremap  <ScrollWheelUp>   <Nop>
+noremap  <ScrollWheelDown> <Nop>
+inoremap <ScrollWheelUp>   <Nop>
+inoremap <ScrollWheelDown> <Nop>
 
-inoremap <silent><A-S-F12> <Cmd>call endout#DecreaseColNumber()<Cr>
-inoremap <silent><End>     <Cmd>call endout#IncreaseColNumber()<Cr>
-inoremap <silent><S-End>   <Cmd>call endout#DecreaseColNumber()<Cr>
+if has("gui_running")
+    inoremap <silent><A-S-F12> <Cmd>call endout#DecreaseColNumber()<Cr>
+    inoremap <silent><End>     <Cmd>call endout#IncreaseColNumber()<Cr>
+    inoremap <silent><S-End>   <Cmd>call endout#DecreaseColNumber()<Cr>
+endif
 
 nnoremap <silent><F5> <Cmd>call biterm#RunProgram()<Cr>
 inoremap <silent><F5> <Cmd>call biterm#RunProgram()<Cr>
@@ -93,3 +93,62 @@ tnoremap <F1>           <C-\><C-N>
 tnoremap <S-F1>         <C-W><C-C>
 tnoremap <silent><S-F5> <C-W>N:bw!<Cr>
 nnoremap <silent><S-F5> <Cmd>call biterm#Close()<Cr>
+
+if &term !~ "xterm"
+    finish
+endif
+
+inoremap <Esc>[lyieu;CL~ <Esc>
+map <Esc> <Nop>
+imap <Esc> <Nop>
+
+map <Esc>[lyieu;h~ <C-w><
+map <Esc>[lyieu;j~ <C-w>-
+map <Esc>[lyieu;k~ <C-w>+
+map <Esc>[lyieu;l~ <C-w>>
+
+map <Esc>q <A-q>
+map <Esc>w <A-w>
+map <Esc>e <A-e>
+map <Esc>r <A-r>
+map <Esc>t <A-t>
+map <Esc>y <A-y>
+map <Esc>u <A-u>
+map <Esc>i <A-i>
+map <Esc>o <A-o>
+map <Esc>p <A-p>
+map <Esc>a <A-a>
+map <Esc>s <A-s>
+map <Esc>d <A-d>
+map <Esc>f <A-f>
+map <Esc>g <A-g>
+map <Esc>h <A-h>
+map <Esc>j <A-j>
+map <Esc>k <A-k>
+map <Esc>l <A-l>
+map <Esc>z <A-z>
+map <Esc>x <A-x>
+map <Esc>c <A-c>
+map <Esc>v <A-v>
+map <Esc>b <A-b>
+map <Esc>n <A-n>
+map <Esc>m <A-m>
+
+imap <Esc>[24;3~ <A-F12>
+imap <Esc>[24;4~ <A-S-F12>
+imap <Esc>[24;7~ <C-A-F12>
+imap <Esc>[24;8~ <C-A-S-F12>
+smap <Esc>[24;3~ <A-F12>
+smap <Esc>[24;4~ <A-S-F12>
+smap <Esc>[24;7~ <C-A-F12>
+smap <Esc>[24;8~ <C-A-S-F12>
+inoremap <silent><A-S-F12> <Cmd>call endout#DecreaseColNumber()<Cr>
+
+map <Esc>[lyieu;E~ <End>
+map <Esc>[lyieu;SE~ <S-End>
+imap <Esc>[lyieu;E~ <End>
+imap <Esc>[lyieu;SE~ <S-End>
+inoremap <silent><End>     <Cmd>call endout#IncreaseColNumber()<Cr>
+inoremap <silent><S-End>   <Cmd>call endout#DecreaseColNumber()<Cr>
+
+map <Esc>[lyieu;CAd~ <Cmd>so $MYVIMRC<Cr>

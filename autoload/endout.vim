@@ -4,7 +4,7 @@ let s:delimiters_exp = '[\[\]{}()$&"' . "'" . '<>]'
 function! endout#IncreaseColNumber()
     let l:line = getline('.')
     if l:line[col('.') - 1] =~# s:delimiters_exp
-        return "\<Right>"
+        call cursor(line('.'), col('.') + 1)
     endif
     return ""
 endfunction
@@ -12,7 +12,7 @@ endfunction
 function! endout#DecreaseColNumber()
     let l:line = getline('.')
     if l:line[col('.') - 2] =~# s:delimiters_exp
-        return "\<Left>"
+        call cursor(line('.'), col('.') - 1)
     endif
     return ""
 endfunction

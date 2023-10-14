@@ -1,0 +1,54 @@
+{
+    "list.insertMappings": {
+        "<Tab>": "do:togglemode"
+    },
+    "list.normalMappings": {
+        "<Tab>": "do:togglemode"
+    },
+
+    "suggest.enablePreview": true,
+    "diagnostic.displayByAle": true,
+
+    "coc.source.issues.shortcut": "[Issue]",
+    "coc.source.issues.filetypes": [
+        "gitcommit"
+    ],
+
+    "yank.highlight.enable": false,
+
+    "markdown-preview-enhanced.enableScriptExecution": true,
+    "markdown-preview-enhanced.previewTheme": "one-dark.css",
+    "markdown-preview-enhanced.codeBlockTheme": "monokai.css",
+    "markdown-preview-enhanced.mathRenderingOption": "KaTeX",
+    "markdown-preview-enhanced.printBackground": true,
+    "markdown-preview-enhanced.useGitHubStylePipedLink": true,
+    "markdown-preview-enhanced.configPath": "~/.vim/extra/.mume",
+    "markdown-preview-enhanced.enableEmojiSyntax": true,
+    "markdown-preview-enhanced.enableCriticMarkupSyntax": true,
+    "markdown-preview-enhanced.enableExtendedTableSyntax": true,
+    "markdown-preview-enhanced.enableLinkify": true,
+    "markdown-preview-enhanced.enableTypographer": true,
+    "markdown-preview-enhanced.mathInlineDelimiters": [
+            [
+                    "$",
+                    "$"
+            ],
+            [
+                    "\\(",
+                    "\\)"
+            ]
+    ],
+    "markdown-preview-enhanced.mathBlockDelimiters": [
+            [
+                    "$$",
+                    "$$"
+            ],
+            [
+                    "\\[",
+                    "\\]"
+            ]
+    ],
+
+    "languageserver": {
+    }
+}

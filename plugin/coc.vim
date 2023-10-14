@@ -1,4 +1,8 @@
-let g:coc_data_home = $USERPROFILE . '/vimfiles/extra/coc'
+if &term =~ "xterm"
+    let g:coc_data_home = '~/.vim/extra/coc'
+else
+    let g:coc_data_home = $USERPROFILE . '/vimfiles/extra/coc'
+endif
 let g:coc_global_extensions = [
         \ 'coc-explorer',
         \ 'coc-yank',
@@ -25,10 +29,6 @@ let g:coc_global_extensions = [
 
 nnoremap <silent><leader>E <Cmd>CocCommand explorer<Cr>
 nnoremap <silent><leader>y <Cmd>CocList -A --normal yank<Cr>
-
-" Git Config
-" [coc-git]
-"     issuesources = github/pilgrimlyieu/School-Note,github/pilgrimlyieu/vimrc,github/pilgrimlyieu/Snippets,github/pilgrimlyieu/Snippets-Dependencies,github/pilgrimlyieu/AutoHotkey-Script,github/pilgrimlyieu/Python-Script
 
 " Some servers have issues with backup files, see #649.
 set nobackup
