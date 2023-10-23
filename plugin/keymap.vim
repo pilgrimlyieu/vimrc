@@ -57,10 +57,10 @@ vnoremap gj j
 
 nnoremap gA ga
 
-inoremap <silent><C-s>     <Cmd>w!<Cr>a
-inoremap <silent><C-q>     <Cmd>x!<Cr>a
-" inoremap <silent><C-S-q>   <Cmd>q!<Cr>a
-" inoremap <silent><C-S-c>   <Cmd>bw!<Cr>a
+inoremap <silent><C-s>     <Cmd>w!<Cr>
+inoremap <silent><C-q>     <Cmd>x!<Cr>
+" inoremap <silent><C-S-q>   <Cmd>q!<Cr>
+" inoremap <silent><C-S-c>   <Cmd>bw!<Cr>
 nnoremap <C-q>             ZZ
 " nnoremap <C-S-q>           ZQ
 nnoremap <silent><C-s>     <Cmd>w<Cr>

@@ -181,7 +181,7 @@ class SnippetManager:
 
     @err_to_scratch_buffer.wrap
     def expand_or_jump(self):
-        """This function is used for people who wants to have the same trigger
+        """This function is used for people who want to have the same trigger
         for expansion and forward jumping.
 
         It first tries to expand a snippet, if this fails, it tries to
@@ -196,10 +196,10 @@ class SnippetManager:
         if not rv:
             vim_helper.command("let g:ulti_expand_or_jump_res = 0")
             # self._handle_failure(self.expand_trigger, True) # MODIFED
-    # MODIFED START
+
     @err_to_scratch_buffer.wrap
     def jump_or_expand(self):
-        """This function is used for people who wants to have the same trigger
+        """This function is used for people who want to have the same trigger
         for expansion and forward jumping.
 
         It first tries to jump forward, if this fails, it tries to
@@ -214,7 +214,6 @@ class SnippetManager:
         if not rv:
             vim_helper.command("let g:ulti_expand_or_jump_res = 0")
             # self._handle_failure(self.expand_trigger, True)
-    # MODIFED END
 
     @err_to_scratch_buffer.wrap
     def snippets_in_current_scope(self, search_all):
@@ -613,7 +612,7 @@ class SnippetManager:
                     self._should_reset_visual = False
                     self._active_snippets[0].update_textobjects(vim_helper.buf)
                     # Open any folds this might have created
-                    vim_helper.command("normal! zv")
+                    # vim_helper.command("normal! zv")
                     self._vstate.remember_buffer(self._active_snippets[0])
 
                     if ntab.number == 0 and self._active_snippets:

@@ -11,7 +11,7 @@ set history=1024
 set autochdir
 set whichwrap=b,<,>,[,]
 set backspace=indent,eol,start
-set clipboard+=unnamed
+set clipboard^=unnamed,unnamedplus
 set winaltkeys=no
 set langmenu=zh_CN
 set cursorline

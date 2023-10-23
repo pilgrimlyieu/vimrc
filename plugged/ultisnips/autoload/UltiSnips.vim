@@ -87,13 +87,11 @@ function! UltiSnips#ExpandSnippetOrJump() abort
     return ""
 endfunction
 
-" MODIFIED START
 function! UltiSnips#JumpOrExpandSnippet() abort
     call s:compensate_for_pum()
     py3 UltiSnips_Manager.jump_or_expand()
     return ""
 endfunction
-" MODIFIED END
 
 function! UltiSnips#ListSnippets() abort
     py3 UltiSnips_Manager.list_snippets()
