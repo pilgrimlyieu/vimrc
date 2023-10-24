@@ -70,6 +70,11 @@ augroup auto_view
     autocmd BufWinEnter *.* silent loadview
 augroup end
 
+augroup auto_update_title
+    autocmd!
+    autocmd CmdlineEnter * set titlestring=%{mode()}🏷️%t✏️ | redraw
+augroup end
+
 let $LANG = 'en_US.UTF-8'
 let g:terminal_settings = { 'vertical': 1, 'term_cols': 60 }
 
