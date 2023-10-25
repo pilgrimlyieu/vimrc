@@ -4,19 +4,20 @@ nnoremap <silent><C-A-d> <Cmd>so $MYVIMRC<Cr>
 
 nnoremap <silent>gt <Cmd>let &background = (&background == 'dark' ? 'light' : 'dark')<Cr>
 
-inoremap jk <Esc>
-inoremap kj <Esc>
-nnoremap U  <C-r>
-vnoremap ;  :
-nnoremap ;  :
-nnoremap :  ,
-nnoremap ,  ;
-nnoremap `  '
-nnoremap '  `
-noremap  H  0
-onoremap H  0
-noremap  L  $
-onoremap L  $
+inoremap jk  <Esc>
+inoremap kj  <Esc>
+inoremap jjj <Esc>
+nnoremap U   <C-r>
+vnoremap ;   :
+nnoremap ;   :
+nnoremap :   ,
+nnoremap ,   ;
+nnoremap `   '
+nnoremap '   `
+noremap  H   0
+onoremap H   0
+noremap  L   $
+onoremap L   $
 
 nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <C-f> <C-d>

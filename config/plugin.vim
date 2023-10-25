@@ -52,3 +52,11 @@ else
     Plug 'github/copilot.vim'
     call plug#end()
 endif
+
+let g:I_will_load_lightline_bufferline = 1
+let g:I_will_load_lightline_ale        = 1
+let g:I_will_load_coc                  = 1
+let g:I_will_load_ale                  = 1
+let g:I_will_load_leaderf              = 1
+let g:I_will_load_fugitive             = 1
+let g:I_will_load_autoformat           = 1

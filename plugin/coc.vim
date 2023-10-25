@@ -1,3 +1,7 @@
+if !g:I_will_load_coc
+    finish
+endif
+
 if &term =~ "xterm"
     let g:coc_data_home = '~/.vim/extra/coc'
 else

@@ -6,7 +6,7 @@ set nobomb
 set magic
 set smartcase
 set laststatus=2
-set showtabline=2
+set showtabline=0
 set history=1024
 set autochdir
 set whichwrap=b,<,>,[,]
@@ -36,6 +36,7 @@ set tabstop=4
 set expandtab
 set softtabstop=4
 set shiftwidth=4
+set viewoptions+=unix,slash
 set viewoptions-=options
 
 set undofile
@@ -72,7 +73,7 @@ augroup end
 
 augroup auto_update_title
     autocmd!
-    autocmd CmdlineEnter * set titlestring=%{mode()}🏷️%t✏️ | redraw
+    autocmd CmdlineEnter * redraw
 augroup end
 
 let $LANG = 'en_US.UTF-8'

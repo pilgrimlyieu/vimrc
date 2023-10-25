@@ -1,3 +1,7 @@
+if !g:I_will_load_leaderf
+    finish
+endif
+
 let g:Lf_WorkingDirectoryMode = 'AF'
 let g:Lf_RootMarkers          = ['.git', '.root']
 let g:Lf_DefaultExternalTool  = 'rg'
