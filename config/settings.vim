@@ -1,5 +1,6 @@
 set nocompatible
 set fileformat=unix
+set fileformats=unix,dos
 set fileencodings=utf-8,gbk2312,gbk,gb18030,cp936
 set encoding=utf-8
 set nobomb
@@ -59,7 +60,7 @@ if &term !~ "xterm"
     set pythonthreedll=D:\Software\Python\Python310\python310.dll
 endif
 set title
-set titlestring=%{mode()}🏷️%t✏️
+set titlestring=%t✏️%{mode()}
 
 filetype plugin indent on
 syntax enable

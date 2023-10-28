@@ -8,28 +8,28 @@ function! biterm#RunProgram()
     let l:opts     = g:terminal_settings
 
     if &filetype == 'python'
-        let l:term_col = Open()
+        let l:term_col = biterm#Open()
         let l:opts.term_name = 'python_terminal'
         if l:term_col
             let l:opts.term_cols = l:term_col
         endif
         call term_start('python "' . l:filename . '"', l:opts)
     elseif &filetype == 'javascript'
-        let l:term_col = Open()
+        let l:term_col = biterm#Open()
         let l:opts.term_name = 'javascript_terminal'
         if l:term_col
             let l:opts.term_cols = l:term_col
         endif
         call term_start('node "'. l:filename . '"', l:opts)
     elseif &filetype == 'autohotkey'
-        let l:autohotkey_ux_path = $ProgramFiles . '/AutoHotkey/UX/'
+        let l:autohotkey_ux_path = 'C:/Program Files/AutoHotkey/UX/'
         silent execute '!start "' . l:autohotkey_ux_path . 'AutoHotkeyUX.exe" "' . l:autohotkey_ux_path . 'launcher.ahk" /restart "%:p"'
     elseif &filetype == 'markdown'
         silent execute 'CocCommand markdown-preview-enhanced.openPreview'
     elseif &filetype == 'dosbatch'
         silent !%
     else
-        let l:term_col = Open()
+        let l:term_col = biterm#Open()
         let l:opts.term_name = 'Terminal'
         if l:term_col
             let l:opts.term_cols = l:term_col
@@ -43,7 +43,7 @@ function! biterm#Open()
     if !empty(l:windowsWithTerminal)
         silent execute l:windowsWithTerminal[0] . 'wincmd w'
         let l:current_col = winwidth(l:windowsWithTerminal[0])
-        call Close()
+        call biterm#Close()
         return l:current_col
     endif
 endfunction
