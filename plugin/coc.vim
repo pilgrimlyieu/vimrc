@@ -57,7 +57,7 @@ inoremap <silent><expr><C-S-z> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <Cr> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
-inoremap <silent><expr> <C-c> coc#pum#visible() ? coc#pum#confirm()
+inoremap <silent><expr> <C-x> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<Cr>\<c-r>=coc#on_enter()\<Cr>"
 
 function! CheckBackspace() abort
