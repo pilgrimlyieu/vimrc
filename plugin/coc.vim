@@ -53,7 +53,11 @@ inoremap <silent><expr> <C-z>
       \ coc#pum#visible() ? coc#pum#next(1):
       \ CheckBackspace() ? "\<C-z>" :
       \ coc#refresh()
-inoremap <silent><expr><C-S-z> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+if has("gui_running")
+    inoremap <silent><expr><C-S-z> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+else
+    inoremap <silent><expr><Esc>[lyieu;z~ coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+endif
 
 " Make <Cr> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.

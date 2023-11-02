@@ -1,23 +1,23 @@
-let g:tex_conceal = ''
+if has("gui_running")
+    finish
+endif
+
+let g:tex_conceal = 'abdg'
 
 " Viewer options: One may configure the viewer either by specifying a built-in
 " viewer method:
-" let g:vimtex_view_method = 'SumatraPDF'
+let g:vimtex_view_method = 'zathura'
 
 " Or with a generic interface:
-let g:vimtex_view_general_viewer = 'SumatraPDF' 
-
-" SumatraPDF Setting
-" gvim --servername GVIM --remote-send "<C-\><C-n>:drop %f<Cr>:%l<Cr>:normal! zzzv<Cr>:execute 'drop ' . fnameescape('%f')<Cr>:%l<Cr>:normal! zzzv<Cr>:call remote_foreground('GVIM')<Cr><Cr>"
-
-let g:vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
+" let g:vimtex_view_general_viewer = 'okular'
+" let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 
 " VimTeX uses latexmk as the default compiler backend. If you use it, which is
 " strongly recommended, you probably don't need to configure anything. If you
 " want another compiler backend, you can change it as follows. The list of
 " supported backends and further explanation is provided in the documentation,
 " see ":help vimtex-compiler".
-let g:vimtex_compiler_method = 'latexmk'
+" let g:vimtex_compiler_method = 'latexmk'
 
 " Most VimTeX mappings rely on localleader and this can be changed with the
 " following line. The default is usually fine and is the symbol "\".
@@ -27,12 +27,11 @@ let g:tex_flavor = "latex"
 
 let g:vimtex_texcount_custom_arg = " -ch -total"
 
-autocmd FileType tex noremap <buffer> <silent> <leader>lw <Cmd>VimtexCountWords! <Cr><Cr>
-
-let g:Tex_ViewRule_pdf = 'D:\Software\SumatraPDF\SumatraPDF.exe -reuse-instance -inverse-search "gvim -c \":RemoteOpen +\%l \%f\""'
+autocmd FileType tex noremap <buffer> <silent> ,lw <Cmd>VimtexCountWords! <Cr>
+autocmd FileType tex imap <plug>(disable-]]) <plug>(vimtex-delim-close)
 
 let g:vimtex_compiler_latexmk_engines = {
-    \ '_'                : '-pdf',
+    \ '_'                : '-xelatex',
     \ 'pdflatex'         : '-pdf',
     \ 'dvipdfex'         : '-pdfdvi',
     \ 'lualatex'         : '-lualatex',
@@ -57,7 +56,7 @@ let g:vimtex_compiler_latexmk = {
     \ ],
     \}
 
-let g:vimtex_syntax_conceal_disable   = 1
+let g:vimtex_quickfix_mode = 0
 let g:vimtex_quickfix_open_on_warning = 0
 
 let g:vimtex_toggle_fractions = {
@@ -65,7 +64,7 @@ let g:vimtex_toggle_fractions = {
         \ 'dfrac': 'frac',
     \}
 
-" augroup vimtex_config
-"   autocmd!
-"   autocmd User VimtexEventQuit call vimtex#compiler#clean(0)
-" augroup end
+augroup vimtex_config
+  autocmd!
+  autocmd User VimtexEventQuit call vimtex#compiler#clean(0)
+augroup end
