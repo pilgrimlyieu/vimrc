@@ -7,3 +7,5 @@ else
     source ~/vimfiles/config/plugin.vim
     source ~/vimfiles/config/scheme.vim
 endif
+
+let g:mapleader = " "
