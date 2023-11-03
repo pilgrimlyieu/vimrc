@@ -25,3 +25,5 @@ let g:gruvbox_contrast_dark  = 'soft'
 let g:gruvbox_contrast_light = 'soft'
 
 colorscheme gruvbox
+
+highlight! SpecialKey ctermfg=238 guifg=#585452

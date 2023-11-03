@@ -19,7 +19,6 @@ if &term !~ "xterm"
     Plug 'ZSaberLv0/vim-easymotion-chs'
     Plug 'mg979/vim-visual-multi'
     Plug 'luochen1990/rainbow'
-    Plug 'Yggdroot/indentLine'
     Plug 'lervag/vimtex',                 { 'for': ['tex', 'markdown'] }
     Plug 'pilgrimlyieu/md-img-paste.vim', { 'for': 'markdown' }
     Plug 'mzlogin/vim-markdown-toc',      { 'for': 'markdown'}
@@ -47,7 +46,6 @@ else
     Plug 'ZSaberLv0/vim-easymotion-chs'
     Plug 'mg979/vim-visual-multi'
     Plug 'luochen1990/rainbow'
-    Plug 'Yggdroot/indentLine'
     Plug 'lervag/vimtex',                 { 'for': ['tex', 'markdown'] }
     Plug 'github/copilot.vim'
     call plug#end()

@@ -26,6 +26,10 @@ set linebreak
 set splitbelow
 set splitright
 
+set list
+set listchars=tab:!>,trail:·,leadmultispace:¦···
+autocmd OptionSet shiftwidth execute 'setlocal listchars=tab:!>,trail:·,leadmultispace:¦' . repeat('·', shiftwidth() - 1)
+
 set autoindent
 set smartindent
 set foldmethod=marker
@@ -53,12 +57,13 @@ endif
 
 set shortmess+=F
 set background=dark
-set listchars=tab:!>,trail:·,lead:·
-set list
+
 set gdefault
+
 if &term !~ "xterm"
     set pythonthreedll=D:\Software\Python\Python310\python310.dll
 endif
+
 set title
 set titlestring=%t✏️%{mode()}
 
