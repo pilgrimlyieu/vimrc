@@ -2,7 +2,7 @@ if has("gui_running")
     finish
 endif
 
-let g:tex_conceal = 'abdg'
+let g:tex_conceal = 'abdgs'
 
 " Viewer options: One may configure the viewer either by specifying a built-in
 " viewer method:
@@ -26,9 +26,6 @@ let maplocalleader = ","
 let g:tex_flavor = "latex"
 
 let g:vimtex_texcount_custom_arg = " -ch -total"
-
-autocmd FileType tex noremap <buffer> <silent> ,lw <Cmd>VimtexCountWords! <Cr>
-autocmd FileType tex imap <plug>(disable-]]) <plug>(vimtex-delim-close)
 
 let g:vimtex_compiler_latexmk_engines = {
     \ '_'                : '-xelatex',
@@ -63,6 +60,22 @@ let g:vimtex_toggle_fractions = {
         \ 'frac': 'dfrac',
         \ 'dfrac': 'frac',
     \}
+
+let g:vimtex_syntax_conceal = {
+            \ 'accents': 1,
+            \ 'ligatures': 1,
+            \ 'cites': 1,
+            \ 'fancy': 1,
+            \ 'spacing': 1,
+            \ 'greek': 1,
+            \ 'math_bounds': 0,
+            \ 'math_delimiters': 1,
+            \ 'math_fracs': 1,
+            \ 'math_super_sub': 1,
+            \ 'math_symbols': 1,
+            \ 'sections': 0,
+            \ 'styles': 1,
+            \}
 
 augroup vimtex_config
   autocmd!

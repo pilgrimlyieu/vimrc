@@ -1,5 +1,3 @@
-let g:mapleader = " "
-
 nnoremap <silent><C-A-d> <Cmd>so $MYVIMRC<Cr>
 
 nnoremap <silent>gt <Cmd>let &background = (&background == 'dark' ? 'light' : 'dark')<Cr>
