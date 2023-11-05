@@ -6,7 +6,7 @@ if has("gui_running")
     set guioptions-=L
     set guioptions-=t
     set guioptions-=T
-    set guifont=JetBrains_Mono:h15
+    set guifont=JetBrainsMono_NFM:h15
     set guifontwide=Microsoft_YaHei_Mono:h15
 endif
 

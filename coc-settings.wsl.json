@@ -22,7 +22,7 @@
     "markdown-preview-enhanced.mathRenderingOption": "KaTeX",
     "markdown-preview-enhanced.printBackground": true,
     "markdown-preview-enhanced.useGitHubStylePipedLink": true,
-    "markdown-preview-enhanced.configPath": "~/.vim/extra/.mume",
+    "markdown-preview-enhanced.configPath": "${userHome}/.vim/extra/.mume",
     "markdown-preview-enhanced.enableEmojiSyntax": true,
     "markdown-preview-enhanced.enableCriticMarkupSyntax": true,
     "markdown-preview-enhanced.enableExtendedTableSyntax": true,

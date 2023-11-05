@@ -22,7 +22,7 @@
     "markdown-preview-enhanced.mathRenderingOption": "KaTeX",
     "markdown-preview-enhanced.printBackground": true,
     "markdown-preview-enhanced.useGitHubStylePipedLink": true,
-    "markdown-preview-enhanced.configPath": "C:/Users/Fesmoph/vimfiles/extra/.mume",
+    "markdown-preview-enhanced.configPath": "${userHome}/vimfiles/extra/.mume",
     "markdown-preview-enhanced.enableEmojiSyntax": true,
     "markdown-preview-enhanced.enableCriticMarkupSyntax": true,
     "markdown-preview-enhanced.enableExtendedTableSyntax": true,
@@ -51,7 +51,7 @@
 
     "languageserver": {
         "lsp-ahk2": {
-            "module": "C:/Users/Fesmoph/vimfiles/extra/vscode-autohotkey2-lsp/server/dist/server.js",
+            "module": "${userHome}/vimfiles/extra/vscode-autohotkey2-lsp/server/dist/server.js",
             "filetypes": ["autohotkey"],
             "args": ["--node-ipc"],
             "initializationOptions": {

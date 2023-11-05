@@ -85,7 +85,7 @@ tnoremap <S-F1>         <C-W><C-C>
 tnoremap <silent><S-F5> <C-W>N:bw!<Cr>
 nnoremap <silent><S-F5> <Cmd>call biterm#Close()<Cr>
 
-if &term !~ "xterm" || &term !~ "win32"
+if &term !~# "xterm" || &term =~# "win32"
     finish
 endif
 
