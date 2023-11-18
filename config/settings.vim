@@ -22,6 +22,7 @@ set number
 set relativenumber
 set wrap
 set linebreak
+set autoread
 
 set splitbelow
 set splitright

@@ -30,20 +30,30 @@ module.exports = {
       "\\nimplies": "\\mathrel{\\kern13mu\\not\\kern-13mu\\implies}",//无法推出
       "\\nimpliedby": "\\mathrel{\\kern13mu\\not\\kern-13mu\\impliedby}",//无法被推出
       "\\niff": "\\mathrel{\\kern13mu\\not\\kern-13mu\\iff}",//不等价
+      // 若不可用则使用下列宏
+      // "\\par": "/\\kern-5mu/",//平行
+      // "\\npar": "/\\kern-13mu\\smallsetminus\\kern-13mu/",//不平行
+      // "\\nimplies": "\\kern13mu\\not\\kern-13mu\\implies",//无法推出
+      // "\\nimpliedby": "\\kern13mu\\not\\kern-13mu\\impliedby",//无法被推出
+      // "\\niff": "\\kern13mu\\not\\kern-13mu\\iff",//不等价
       //5 函数
+      "\\arccot": "\\operatorname{arccot}",//反余切函数
       "\\arsinh": "\\operatorname{arsinh}",//反双曲正弦函数
       "\\arcosh": "\\operatorname{arcosh}",//反双曲余弦函数
       "\\artanh": "\\operatorname{artanh}",//反双曲正切函数
       "\\arcoth": "\\operatorname{arcoth}",//反双曲余切函数
       //6 特殊
+      "\\ssd": "{\\mathrm{\\degree\\kern-0.2em C}}",//摄氏度
+      "\\hsd": "{\\mathrm{\\degree\\kern-0.2em F}}",//华氏度
+      //7 旧项（如有依赖则取消注释）
+      // "\\env": "\\begin{#1}#2\\end{#1}",//环境
+      // "\\envo": "\\begin{#1}{#2}#3\\end{#1}",//环境+选项
       // "\\pe": "\\kern-0.023em\\boxed{\\uparrow\\downarrow}\\kern-0.023em",//电子对
       // "\\npe": "\\kern-0.023em\\boxed{\\uparrow\\uparrow}\\kern-0.023em",//错误电子对
       // "\\nnpe": "\\kern-0.023em\\boxed{\\downarrow\\downarrow}\\kern-0.023em",//错误电子对
       // "\\se": "\\kern-0.023em\\boxed{\\kern0.25em\\uparrow\\kern0.25em}\\kern-0.023em",//单电子
       // "\\nse": "\\kern-0.023em\\boxed{\\kern0.25em\\downarrow\\kern0.25em}\\kern-0.023em",//单电子
       // "\\oe": "\\kern-0.023em\\boxed{\\kern0.25em\\phantom\\uparrow\\kern0.25em}\\kern-0.023em",//空电子
-      "\\ssd": "{\\mathrm{\\degree\\kern-0.2em C}}",//摄氏度
-      "\\hsd": "{\\mathrm{\\degree\\kern-0.2em F}}",//华氏度
   },
 }
 ////注意事项

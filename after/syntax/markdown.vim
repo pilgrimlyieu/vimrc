@@ -1,4 +1,4 @@
-if exists('b:current_syntax')
+if exists("b:current_syntax")
   unlet b:current_syntax
 endif
 
@@ -8,4 +8,4 @@ syntax region markdownMath start="\\\@<!\$\$" end="\$\$" skip="\\\$" contains=@t
 syntax region markdownMath start="\\\@<!\\(" end="\\)" contains=@tex keepend
 syntax region markdownMath start="\\\@<!\\\[" end="\\\]" contains=@tex keepend
 
-let b:current_syntax = 'markdown'
+let b:current_syntax = "markdown"
