@@ -16,6 +16,7 @@ module.exports = {
       "\\as": "\\bigg\\vert",//代入符号
       "\\c": "\\operatorname{C}",//组合符号
       "\\r": "\\operatorname{r}",//秩
+      "\\tr": "\\operatorname{tr}",//迹
       "\\Re": "\\operatorname{Re}\\left(#1\\right)",//实数部分//替换//原\Re为\real
       "\\Im": "\\operatorname{Im}\\left(#1\\right)",//虚数部分//替换//原\Im为\image
       "\\le": "\\leqslant",//小于等于//替换//原\le为\leq
