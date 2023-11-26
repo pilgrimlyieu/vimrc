@@ -18,6 +18,8 @@ nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <C-f>   <C-d>
 nnoremap <C-b>   <C-u>
 
+inoremap <expr><Cr> "<Cr>" . (strpart(getline('.'), col('.') - 2, 2) =~# '\[\]\<Bar>{}\<Bar>()' ? "<Esc>O" : "")
+
 nnoremap <silent> <leader>o <Cmd>call append(line("."),     repeat([""], v:count1))<Cr>
 nnoremap <silent> <leader>O <Cmd>call append(line(".") - 1, repeat([""], v:count1))<Cr>
 
@@ -88,6 +90,9 @@ nnoremap <silent><S-F5> <Cmd>call biterm#Close()<Cr>
 if &term !~# "xterm" || &term =~# "win32"
     finish
 endif
+
+noremap <silent><expr>p 'p' . (&ff ==# 'unix' ? '<Cmd>silent %s/<Bslash>r$//e <Bar> noh<Cr>' : '')
+noremap <silent><expr>P 'P' . (&ff ==# 'unix' ? '<Cmd>silent %s/<Bslash>r$//e <Bar> noh<Cr>' : '')
 
 inoremap <Esc>[lyieu;CL~ <Esc>
 map      <Esc>           <Nop>
