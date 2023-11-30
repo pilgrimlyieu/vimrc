@@ -91,6 +91,8 @@ if &term !~# "xterm" || &term =~# "win32"
     finish
 endif
 
+cmap w!! w !sudo tee > /dev/null %
+
 noremap <silent><expr>p 'p' . (&ff ==# 'unix' ? '<Cmd>silent %s/<Bslash>r$//e <Bar> noh<Cr>' : '')
 noremap <silent><expr>P 'P' . (&ff ==# 'unix' ? '<Cmd>silent %s/<Bslash>r$//e <Bar> noh<Cr>' : '')
 

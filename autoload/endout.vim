@@ -1,5 +1,5 @@
 " https://stackoverflow.com/questions/20038550/step-over-bracket-parenthesis-etc-with-tab-in-vim
-let s:delimiters_exp = '[\[\]{}()$&"' . "'" . '<>]'
+let s:delimiters_exp = '[\[\]{}()$&"' . "'" . '<>`]'
 
 function! endout#IncreaseColNumber()
     let l:line = getline('.')
