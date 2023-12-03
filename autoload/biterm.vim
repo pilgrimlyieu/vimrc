@@ -25,7 +25,13 @@ function! biterm#RunProgram()
         let l:autohotkey_ux_path = 'C:/Program Files/AutoHotkey/UX/'
         silent execute '!start "' . l:autohotkey_ux_path . 'AutoHotkeyUX.exe" "' . l:autohotkey_ux_path . 'launcher.ahk" /restart "%:p"'
     elseif &filetype == 'markdown'
-        silent execute 'CocCommand markdown-preview-enhanced.openPreview'
+        silent execute 'CocCommand markdown-preview-enhanced.openPreviewBackground'
+        if &term =~ 'xterm'
+            silent execute '!"/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" --app="http://localhost:15567/webview/markdown-preview-enhanced"'
+            silent execute 'redraw!'
+        else
+            silent execute '!"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe" --app="http://localhost:15567/webview/markdown-preview-enhanced"'
+        endif
     elseif &filetype == 'dosbatch'
         silent !%
     else
