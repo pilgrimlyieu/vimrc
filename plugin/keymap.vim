@@ -1,18 +1,15 @@
 nnoremap <silent><C-A-d> <Cmd>so $MYVIMRC<Cr>
 
-nnoremap <silent>gt <Cmd>let &background = (&background == 'dark' ? 'light' : 'dark')<Cr>
-
-inoremap jk  <Esc>
-inoremap kj  <Esc>
-inoremap jjj <Esc>
-nnoremap U   <C-r>
-noremap  ;   :
-noremap  :   ,
-noremap  ,   ;
-noremap  `   '
-noremap  '   `
-noremap  H   0
-noremap  L   $
+inoremap jk <Esc>
+inoremap kj <Esc>
+nnoremap U  <C-r>
+noremap  ;  :
+noremap  :  ,
+noremap  ,  ;
+noremap  `  '
+noremap  '  `
+noremap  H  0
+noremap  L  $
 
 nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <C-f>   <C-d>
@@ -20,8 +17,8 @@ nnoremap <C-b>   <C-u>
 
 inoremap <expr><Cr> "<Cr>" . (strpart(getline('.'), col('.') - 2, 2) =~# '\[\]\<Bar>{}\<Bar>()' ? "<Esc>O" : "")
 
-nnoremap <silent> <leader>o <Cmd>call append(line("."),     repeat([""], v:count1))<Cr>
-nnoremap <silent> <leader>O <Cmd>call append(line(".") - 1, repeat([""], v:count1))<Cr>
+nnoremap <silent><leader>o <Cmd>call append(line("."),     repeat([""], v:count1))<Cr>
+nnoremap <silent><leader>O <Cmd>call append(line(".") - 1, repeat([""], v:count1))<Cr>
 
 nnoremap Y <Cmd>%y<Cr>
 
@@ -30,19 +27,15 @@ vnoremap /                 /\v
 noremap  ?                 ?\v
 cnoremap s/                s/\v
 
-inoremap <silent><C-j> <Esc><C-w>ja
-inoremap <silent><C-k> <Esc><C-w>ka
-inoremap <silent><C-h> <Esc><C-w>ha
-inoremap <silent><C-l> <Esc><C-w>la
-nnoremap <C-j>         <C-w>j
-nnoremap <C-k>         <C-w>k
-nnoremap <C-h>         <C-w>h
-nnoremap <C-l>         <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 if has("gui_running")
-    nnoremap <C-S-j>       <C-w>-
-    nnoremap <C-S-k>       <C-w>+
-    nnoremap <C-S-h>       <C-w><
-    nnoremap <C-S-l>       <C-w>>
+    nnoremap <C-S-j> <C-w>-
+    nnoremap <C-S-k> <C-w>+
+    nnoremap <C-S-h> <C-w><
+    nnoremap <C-S-l> <C-w>>
 endif
 
 noremap k  gk
