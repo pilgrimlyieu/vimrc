@@ -23,6 +23,9 @@ set relativenumber
 set wrap
 set linebreak
 set autoread
+set guicursor=n-v-c:block-Cursor/lCursor-blinkwait700-blinkoff600-blinkon600,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor/lCursor-blinkwait700-blinkoff600-blinkon600,r-cr:hor20-Cursor/lCursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
+set formatoptions+=mBj
+" set selection=exclusive " Conflict with vim-visual-multi :(
 
 set splitbelow
 set splitright
@@ -47,13 +50,13 @@ set viewoptions-=options
 
 set undofile
 if &term =~ "xterm"
-    set undodir=~/.vim/temp/undo
-    set directory=~/.vim/temp/swap
-    set viewdir=~/.vim/temp/view
+    set undodir=~/.vim/temp/undo//
+    set directory=~/.vim/temp/swap//
+    set viewdir=~/.vim/temp/view//
 else
-    set undodir=D:\Temp\vim\.undo\
-    set directory=D:\Temp\vim\.swap\
-    set viewdir=D:\Temp\vim\.view\
+    set undodir=D:/Temp/vim/.undo//
+    set directory=D:/Temp/vim/.swap//
+    set viewdir=D:/Temp/vim/.view//
 endif
 
 set shortmess+=F
@@ -62,7 +65,7 @@ set background=dark
 set gdefault
 
 if &term !~ "xterm"
-    set pythonthreedll=D:\Software\Python\Python310\python310.dll
+    set pythonthreedll=D:\Software\Python\python311.dll
 endif
 
 set title
