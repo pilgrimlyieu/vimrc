@@ -1,4 +1,4 @@
-if !g:I_will_load_ale
+if !g:plugins_loaded_status.ale
     finish
 endif
 

@@ -1,3 +1,7 @@
+if !g:plugins_loaded_status.easy_align
+    finish
+endif
+
 nnoremap ga <Plug>(EasyAlign)
 vnoremap ga <Plug>(EasyAlign)
 

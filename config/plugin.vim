@@ -51,10 +51,22 @@ else
     call plug#end()
 endif
 
-let g:I_will_load_lightline_bufferline = 1
-let g:I_will_load_lightline_ale        = 1
-let g:I_will_load_coc                  = 1
-let g:I_will_load_ale                  = 1
-let g:I_will_load_leaderf              = 1
-let g:I_will_load_fugitive             = 1
-let g:I_will_load_autoformat           = 1
+let g:plugins_loaded_status = {
+            \ 'ale':                  1,
+            \ 'coc':                  1,
+            \ 'copilot':              1,
+            \ 'leaderf':              1,
+            \ 'lightline':            1,
+            \ 'lightline_ale':        1,
+            \ 'lightline_bufferline': 1,
+            \ 'rainbow':              1,
+            \ 'ultisnips':            1,
+            \ 'autoformat':           1,
+            \ 'easy_align':           1,
+            \ 'easymotion':           1,
+            \ 'fugitive':             1,
+            \ 'hexokinase':           1,
+            \ 'surround':             1,
+            \ 'vimtex':               1,
+            \ 'visual_multi':         1
+            \}

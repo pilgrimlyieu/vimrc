@@ -1,3 +1,7 @@
+if !g:plugins_loaded_status.visual_multi
+    finish
+endif
+
 let g:VM_theme = 'iceblue'
 
 let g:VM_maps                    = {}

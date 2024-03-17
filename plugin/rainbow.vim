@@ -1,3 +1,7 @@
+if !g:plugins_loaded_status.rainbow
+    finish
+endif
+
 let g:rainbow_active = 1
 let g:rainbow_conf   = {
 \    'guifgs': ['#858580', '#8FBCBB', '#D08770', '#A3BE8C', '#EBCB8B', '#B48EAD', '#80a880', '#887070'],

@@ -1,3 +1,7 @@
+if !g:plugins_loaded_status.easymotion
+    finish
+endif
+
 let g:EasyMotion_enter_jump_first = 1
 
 nmap <leader>j         <Plug>(easymotion-j)

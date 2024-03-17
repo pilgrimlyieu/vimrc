@@ -9,7 +9,7 @@ noremap  ,  ;
 noremap  `  '
 noremap  '  `
 noremap  H  0
-noremap  L  $
+noremap  L  g_
 
 nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <C-f>   <C-d>

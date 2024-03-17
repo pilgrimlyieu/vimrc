@@ -2,7 +2,7 @@ if has("gui_running")
     finish
 endif
 
-let g:tex_conceal = 'abdgs'
+let g:tex_conceal = 'abgs'
 
 " Viewer options: One may configure the viewer either by specifying a built-in
 " viewer method:

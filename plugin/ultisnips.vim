@@ -1,3 +1,7 @@
+if !g:plugins_loaded_status.ultisnips
+    finish
+endif
+
 let g:ulti_expand_or_jump_res = 0
 function! Ulti_JumpOrExpand_and_getRes()
   call UltiSnips#ExpandSnippetOrJump()

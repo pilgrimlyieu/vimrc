@@ -1,3 +1,7 @@
+if !g:plugins_loaded_status.lightline
+    finish
+endif
+
 let g:lightline = {
 \ 'colorscheme': 'gruvbox',
 \ 'tabline': { },
@@ -21,7 +25,7 @@ let g:viewplugins = 'NERD_tree\|\[Plugins\]\|\[coc-explorer\]'
 
 let s:palette = g:lightline#colorscheme#gruvbox#palette
 
-if g:I_will_load_lightline_ale
+if g:plugins_loaded_status.lightline_ale
     let s:palette.tabline.ale = [ ['#282C34', '#92A4A4', 0, 21] ]
     let g:lightline.active.right = [ [ 'lineinfo' ],
 \                                    [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
@@ -46,7 +50,7 @@ if g:I_will_load_lightline_ale
     let g:lightline#ale#indicator_ok           = '✨'
 endif
 
-if g:I_will_load_lightline_bufferline
+if g:plugins_loaded_status.lightline_bufferline
     set showtabline=2
     let s:palette.tabline.middle = [['#282C34', '#3c3836', 235, 243]]
     let g:lightline.tabline = {

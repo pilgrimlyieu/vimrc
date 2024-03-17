@@ -1,4 +1,4 @@
-if !g:I_will_load_fugitive
+if !g:plugins_loaded_status.fugitive
     finish
 endif
 

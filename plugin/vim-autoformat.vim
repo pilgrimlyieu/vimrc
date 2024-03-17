@@ -1,4 +1,4 @@
-if !g:I_will_load_autoformat
+if !g:plugins_loaded_status.autoformat
     finish
 endif
 

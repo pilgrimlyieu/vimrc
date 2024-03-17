@@ -1,4 +1,4 @@
-if !g:I_will_load_leaderf
+if !g:plugins_loaded_status.leaderf
     finish
 endif
 
