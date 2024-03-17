@@ -10,6 +10,8 @@ module.exports = {
       "\\empty": "\\varnothing",//空集//替换//原\empty为\emptyset
       "\\circle": "\\odot",//圆
       "\\circled": "\\textcircled{\\footnotesize\\text{#1}}",//圆圈
+      "\\Forall": "\\operatornamewithlimits{\\Large\\forall}_{#1}",//大全称量词
+      "\\Exists": "\\operatornamewithlimits{\\Large\\exists}_{#1}",//大存在量词
       //3 运算符
       "\\d": "\\mathop{}\\!\\mathrm{d}",//微分符号
       "\\pd": "\\mathop{}\\!\\partial",//偏微分符号
