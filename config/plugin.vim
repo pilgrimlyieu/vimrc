@@ -19,7 +19,7 @@ if &term !~ "xterm"
     Plug 'ZSaberLv0/vim-easymotion-chs'
     Plug 'mg979/vim-visual-multi'
     Plug 'luochen1990/rainbow'
-    Plug 'lervag/vimtex',                 { 'for': ['tex', 'markdown'] }
+    Plug 'lervag/vimtex'
     Plug 'pilgrimlyieu/md-img-paste.vim', { 'for': 'markdown' }
     Plug 'mzlogin/vim-markdown-toc',      { 'for': 'markdown'}
     Plug 'rrethy/vim-hexokinase',         { 'do': 'make hexokinase' }
@@ -46,7 +46,7 @@ else
     Plug 'ZSaberLv0/vim-easymotion-chs'
     Plug 'mg979/vim-visual-multi'
     Plug 'luochen1990/rainbow'
-    Plug 'lervag/vimtex',                 { 'for': ['tex', 'markdown'] }
+    Plug 'lervag/vimtex'
     Plug 'github/copilot.vim'
     call plug#end()
 endif

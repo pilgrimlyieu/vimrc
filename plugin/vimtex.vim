@@ -21,7 +21,7 @@ let g:vimtex_view_method = 'zathura'
 
 " Most VimTeX mappings rely on localleader and this can be changed with the
 " following line. The default is usually fine and is the symbol "\".
-let maplocalleader = ","
+let maplocalleader = "\\"
 
 let g:tex_flavor = "latex"
 
@@ -60,6 +60,14 @@ let g:vimtex_toggle_fractions = {
         \ 'frac': 'dfrac',
         \ 'dfrac': 'frac',
     \}
+
+let g:vimtex_delim_toggle_mod_list = [
+        \ ['\left', '\right'],
+        \ ['\bigl', '\bigr'],
+        \ ['\Bigl', '\Bigr'],
+        \ ['\biggl', '\biggr'],
+        \ ['\Biggl', '\Biggr'],
+    \]
 
 let g:vimtex_syntax_conceal = {
             \ 'accents': 1,

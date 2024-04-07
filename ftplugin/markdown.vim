@@ -42,3 +42,6 @@ if !has("gui_running")
 else
     let g:vimtex_syntax_conceal_disable = 1
 endif
+
+let g:vimtex_mappings_enabled = 0
+let g:vimtex_imaps_enabled = 0
