@@ -1,0 +1,111 @@
+diff --git a/autoload/UltiSnips/map_keys.vim b/autoload/UltiSnips/map_keys.vim
+index 0f3321e..d73f5c8 100644
+--- a/autoload/UltiSnips/map_keys.vim
++++ b/autoload/UltiSnips/map_keys.vim
+@@ -54,19 +54,19 @@ if !exists("g:UltiSnipsEnableSnipMate")
+ endif
+ 
+ function! UltiSnips#map_keys#MapKeys() abort
+-    if exists("g:UltiSnipsExpandOrJumpTrigger")
+-        exec "inoremap <silent> " . g:UltiSnipsExpandOrJumpTrigger . " <C-R>=UltiSnips#ExpandSnippetOrJump()<cr>"
+-        exec "snoremap <silent> " . g:UltiSnipsExpandOrJumpTrigger . " <Esc>:call UltiSnips#ExpandSnippetOrJump()<cr>"
+-    elseif exists("g:UltiSnipsJumpOrExpandTrigger")
+-        exec "inoremap <silent> " . g:UltiSnipsJumpOrExpandTrigger . " <C-R>=UltiSnips#JumpOrExpandSnippet()<cr>"
+-        exec "snoremap <silent> " . g:UltiSnipsJumpOrExpandTrigger . " <Esc>:call UltiSnips#JumpOrExpandSnippet()<cr>"
+-    elseif g:UltiSnipsExpandTrigger == g:UltiSnipsJumpForwardTrigger
+-        exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=UltiSnips#ExpandSnippetOrJump()<cr>"
+-        exec "snoremap <silent> " . g:UltiSnipsExpandTrigger . " <Esc>:call UltiSnips#ExpandSnippetOrJump()<cr>"
+-    else
+-        exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=UltiSnips#ExpandSnippet()<cr>"
+-        exec "snoremap <silent> " . g:UltiSnipsExpandTrigger . " <Esc>:call UltiSnips#ExpandSnippet()<cr>"
+-    endif
++    " if exists("g:UltiSnipsExpandOrJumpTrigger")
++    "     exec "inoremap <silent> " . g:UltiSnipsExpandOrJumpTrigger . " <C-R>=UltiSnips#ExpandSnippetOrJump()<cr>"
++    "     exec "snoremap <silent> " . g:UltiSnipsExpandOrJumpTrigger . " <Esc>:call UltiSnips#ExpandSnippetOrJump()<cr>"
++    " elseif exists("g:UltiSnipsJumpOrExpandTrigger")
++    "     exec "inoremap <silent> " . g:UltiSnipsJumpOrExpandTrigger . " <C-R>=UltiSnips#JumpOrExpandSnippet()<cr>"
++    "     exec "snoremap <silent> " . g:UltiSnipsJumpOrExpandTrigger . " <Esc>:call UltiSnips#JumpOrExpandSnippet()<cr>"
++    " elseif g:UltiSnipsExpandTrigger == g:UltiSnipsJumpForwardTrigger
++    "     exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=UltiSnips#ExpandSnippetOrJump()<cr>"
++    "     exec "snoremap <silent> " . g:UltiSnipsExpandTrigger . " <Esc>:call UltiSnips#ExpandSnippetOrJump()<cr>"
++    " else
++    "     exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=UltiSnips#ExpandSnippet()<cr>"
++    "     exec "snoremap <silent> " . g:UltiSnipsExpandTrigger . " <Esc>:call UltiSnips#ExpandSnippet()<cr>"
++    " endif
+     exec "xnoremap <silent> " . g:UltiSnipsExpandTrigger. " :call UltiSnips#SaveLastVisualSelection()<cr>gvs"
+     if len(g:UltiSnipsListSnippets) > 0
+        exec "inoremap <silent> " . g:UltiSnipsListSnippets . " <C-R>=UltiSnips#ListSnippets()<cr>"
+diff --git a/ftplugin/snippets.vim b/ftplugin/snippets.vim
+index cc81417..148cef5 100644
+--- a/ftplugin/snippets.vim
++++ b/ftplugin/snippets.vim
+@@ -9,12 +9,12 @@ let s:save_cpo = &cpo
+ set cpo&vim
+ 
+ " Fold by syntax, but open all folds by default
+-setlocal foldmethod=syntax
++" setlocal foldmethod=syntax
+ setlocal foldlevel=99
+ 
+ setlocal commentstring=#%s
+ 
+-setlocal noexpandtab
++" setlocal noexpandtab
+ setlocal autoindent nosmartindent nocindent
+ 
+ " Whenever a snippets file is written, we ask UltiSnips to reload all snippet
+diff --git a/pythonx/UltiSnips/snippet_manager.py b/pythonx/UltiSnips/snippet_manager.py
+index 99bb44b..fa7d760 100644
+--- a/pythonx/UltiSnips/snippet_manager.py
++++ b/pythonx/UltiSnips/snippet_manager.py
+@@ -182,7 +182,7 @@ class SnippetManager:
+         vim_helper.command("let g:ulti_expand_res = 1")
+         if not self._try_expand():
+             vim_helper.command("let g:ulti_expand_res = 0")
+-            self._handle_failure(self.expand_trigger, True)
++            # self._handle_failure(self.expand_trigger, True)
+ 
+     @err_to_scratch_buffer.wrap
+     def expand_or_jump(self):
+@@ -200,7 +200,7 @@ class SnippetManager:
+             rv = self._jump(JumpDirection.FORWARD)
+         if not rv:
+             vim_helper.command("let g:ulti_expand_or_jump_res = 0")
+-            self._handle_failure(self.expand_trigger, True)
++            # self._handle_failure(self.expand_trigger, True)
+ 
+     @err_to_scratch_buffer.wrap
+     def jump_or_expand(self):
+@@ -218,7 +218,7 @@ class SnippetManager:
+             rv = self._try_expand()
+         if not rv:
+             vim_helper.command("let g:ulti_expand_or_jump_res = 0")
+-            self._handle_failure(self.expand_trigger, True)
++            # self._handle_failure(self.expand_trigger, True)
+ 
+     @err_to_scratch_buffer.wrap
+     def snippets_in_current_scope(self, search_all):
+@@ -617,7 +617,7 @@ class SnippetManager:
+                     self._should_reset_visual = False
+                     self._active_snippets[0].update_textobjects(vim_helper.buf)
+                     # Open any folds this might have created
+-                    vim_helper.command("normal! zv")
++                    # vim_helper.command("normal! zv")
+                     self._vstate.remember_buffer(self._active_snippets[0])
+ 
+                     if ntab.number == 0 and self._active_snippets:
+diff --git a/syntax/snippets.vim b/syntax/snippets.vim
+index 6409d58..54e9d85 100644
+--- a/syntax/snippets.vim
++++ b/syntax/snippets.vim
+@@ -74,8 +74,8 @@ syn match snipSnippetTrigger "\S\+" contained nextgroup=snipSnippetDocString,sni
+ " trailing " as the doc comment, and once for the case of the multiword
+ " delimiter using " that has more constraints
+ syn match snipSnippetTrigger ,".\{-}"\ze\%(\s\+"\%(\s*\S\)\@=[^"]*\%("\s\+[^"[:space:]]\+\|"\)\=\)\=\s*$, contained nextgroup=snipSnippetDocString skipwhite
+-syn match snipSnippetTrigger ,\%(\(\S\).\{-}\1\|\S\+\)\ze\%(\s\+"[^"]*\%("\s\+\%("[^"]\+"\s\+[^"[:space:]]*e[^"[:space:]]*\)\|"\)\=\)\=\s*$, contained nextgroup=snipSnippetDocContextString skipwhite
+-syn match snipSnippetTrigger ,\([^"[:space:]]\).\{-}\1\%(\s*$\)\@!\ze\%(\s\+"[^"]*\%("\s\+\%("[^"]\+"\s\+[^"[:space:]]*e[^"[:space:]]*\|[^"[:space:]]\+\)\|"\)\=\)\=\s*$, contained nextgroup=snipSnippetDocString skipwhite
++" syn match snipSnippetTrigger ,\%(\(\S\).\{-}\1\|\S\+\)\ze\%(\s\+"[^"]*\%("\s\+\%("[^"]\+"\s\+[^"[:space:]]*e[^"[:space:]]*\)\|"\)\=\)\=\s*$, contained nextgroup=snipSnippetDocContextString skipwhite
++" syn match snipSnippetTrigger ,\([^"[:space:]]\).\{-}\1\%(\s*$\)\@!\ze\%(\s\+"[^"]*\%("\s\+\%("[^"]\+"\s\+[^"[:space:]]*e[^"[:space:]]*\|[^"[:space:]]\+\)\|"\)\=\)\=\s*$, contained nextgroup=snipSnippetDocString skipwhite
+ syn match snipSnippetTriggerInvalid ,\S\@=.\{-}\S\ze\%(\s\+"[^"]*\%("\s\+[^"[:space:]]\+\s*\|"\s*\)\=\|\s*\)$, contained nextgroup=snipSnippetDocString skipwhite
+ syn match snipSnippetDocString ,"[^"]*", contained nextgroup=snipSnippetOptions skipwhite
+ syn match snipSnippetDocContextString ,"[^"]*", contained nextgroup=snipSnippetContext skipwhite
