@@ -19,6 +19,7 @@ module.exports = {
       "\\combination": "\\operatorname{C}",//组合符号
       "\\rank": "\\operatorname{r}",//秩
       "\\trace": "\\operatorname{tr}",//迹
+      "\\grad": "\\boldsymbol{\\nabla}",//梯度
       "\\span": "\\operatorname{span}",//向量空间
       "\\dim": "\\operatorname{dim}",//维数
       "\\Re": "\\operatorname{Re}\\left(#1\\right)",//实数部分//替换//原\Re为\real
