@@ -1,0 +1,14 @@
+*.un~
+.*
+*.spl
+
+!.gitignore
+
+plugged
+plugin
+temp
+sessions
+
+extra/coc
+
+autoload/plug.vim*
