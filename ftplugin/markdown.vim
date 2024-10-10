@@ -14,7 +14,7 @@ inoremap <buffer><silent><C-n>      <C-g>u<Esc>[s1z=`'a<C-g>u
 
 inoreabbr <buffer><silent>toc <Cmd>GenTocGFM<Cr>
 
-let b:coc_pairs_disabled = ["'"]
+let b:coc_pairs_disabled = ["'", "<"]
 
 let g:vmt_auto_update_on_save = 0
 let g:vmt_fence_text          = 'TOC Start'
@@ -43,5 +43,6 @@ else
     let g:vimtex_syntax_conceal_disable = 1
 endif
 
+let g:vimtex_compiler_enabled = 0
 let g:vimtex_mappings_enabled = 0
 let g:vimtex_imaps_enabled = 0

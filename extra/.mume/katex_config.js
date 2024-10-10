@@ -22,8 +22,10 @@ module.exports = {
       "\\grad": "\\boldsymbol{\\nabla}",//梯度
       "\\span": "\\operatorname{span}",//向量空间
       "\\dim": "\\operatorname{dim}",//维数
-      "\\Re": "\\operatorname{Re}\\left(#1\\right)",//实数部分//替换//原\Re为\real
-      "\\Im": "\\operatorname{Im}\\left(#1\\right)",//虚数部分//替换//原\Im为\image
+      "\\real": "\\mathord{\\char\"211c}",//原\real
+      "\\Re": "\\operatorname{Re}",//实数部分//替换//原\Re为\real
+      "\\image": "\\mathord{\\char\"2111}",//原\image
+      "\\Im": "\\operatorname{Im}",//虚数部分//替换//原\Im为\image
       "\\le": "\\leqslant",//小于等于//替换//原\le为\leq
       "\\ge": "\\geqslant",//大于等于//替换//原\ge为\geq
       "\\nle": "\\nleqslant",//不小于等于

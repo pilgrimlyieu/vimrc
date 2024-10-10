@@ -22,10 +22,11 @@
     ],
 
     "yank.highlight.enable": false,
+    "yank.list.maxsize": 1000,
 
     "markdown-preview-enhanced.enableScriptExecution": true,
-    "markdown-preview-enhanced.previewTheme": "one-dark.css",
-    "markdown-preview-enhanced.codeBlockTheme": "monokai.css",
+    "markdown-preview-enhanced.previewTheme": "one-light.css",
+    "markdown-preview-enhanced.codeBlockTheme": "auto.css",
     "markdown-preview-enhanced.mathRenderingOption": "KaTeX",
     "markdown-preview-enhanced.printBackground": true,
     "markdown-preview-enhanced.useGitHubStylePipedLink": true,

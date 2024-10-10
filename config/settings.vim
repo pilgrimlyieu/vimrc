@@ -23,6 +23,7 @@ set relativenumber
 set wrap
 set linebreak
 set autoread
+set smoothscroll
 set guicursor=n-v-c:block-Cursor/lCursor-blinkwait700-blinkoff600-blinkon600,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-Cursor/lCursor-blinkwait700-blinkoff600-blinkon600,r-cr:hor20-Cursor/lCursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
 set formatoptions+=mBj
 " set selection=exclusive " Conflict with vim-visual-multi :(
