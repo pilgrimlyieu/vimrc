@@ -9,7 +9,7 @@ noremap  ,  ;
 noremap  `  '
 noremap  '  `
 noremap  H  0
-noremap  L  g_
+noremap  L  $
 
 nnoremap <expr>0 col('.') == 1 ? '^' : '0'
 nnoremap <C-f>   <C-d>
@@ -79,6 +79,8 @@ tnoremap <F1>           <C-\><C-N>
 tnoremap <S-F1>         <C-W><C-C>
 tnoremap <silent><S-F5> <C-W>N:bw!<Cr>
 nnoremap <silent><S-F5> <Cmd>call biterm#Close()<Cr>
+
+vnoremap gC <Cmd>s/\v([一-龟])@<=(\w+)([一-龟])@=/ \2 / <Bar> s/\v([一-龟])@<=(\w+)([一-龟])@!/ \2/ <Bar> s/\v([一-龟])@<!(\w+)([一-龟])@=/\2 /<Cr>
 
 if &term !~# "xterm" || &term =~# "win32"
     finish

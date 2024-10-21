@@ -3,9 +3,11 @@
 *.spl
 
 !.gitignore
+!.gitmodules
+!.vimrc
+!.gvimrc
 
 plugged
-plugin
 temp
 sessions
 
