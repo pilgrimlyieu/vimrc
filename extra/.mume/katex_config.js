@@ -1,5 +1,6 @@
 module.exports = {
   trust: true,
+  // trust: (context) => ['\\htmlId', '\\href'].includes(context.command), // https://github.com/KaTeX/KaTeX/issues/2003#issuecomment-843991794
   macros: {
       //1 常数
       "\\e": "\\mathrm{e}",//自然对数
@@ -62,6 +63,14 @@ module.exports = {
       // "\\se": "\\kern-0.023em\\boxed{\\kern0.25em\\uparrow\\kern0.25em}\\kern-0.023em",//单电子
       // "\\nse": "\\kern-0.023em\\boxed{\\kern0.25em\\downarrow\\kern0.25em}\\kern-0.023em",//单电子
       // "\\oe": "\\kern-0.023em\\boxed{\\kern0.25em\\phantom\\uparrow\\kern0.25em}\\kern-0.023em",//空电子
+      // 8 公式引用
+      "\\eqref": "\\href{##label-#1}{(\\text{#1})}",
+      "\\ref": "\\href{##label-#1}{\\text{#1}}",
+      "\\label": "\\htmlId{label-#1}{}",
+      "\\@eqref": "\\href{##label-#1}{(\\text{#2})}",
+      "\\@ref": "\\href{##label-#1}{\\text{#2}}",
+      "\\@label": "\\htmlId{label-#1}{\\tag{#2}}",
+      "\\@@label": "\\htmlId{label-#1}{\\tag*{#2}}",
   },
 }
 ////注意事项
