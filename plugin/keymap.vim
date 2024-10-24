@@ -80,7 +80,7 @@ tnoremap <S-F1>         <C-W><C-C>
 tnoremap <silent><S-F5> <C-W>N:bw!<Cr>
 nnoremap <silent><S-F5> <Cmd>call biterm#Close()<Cr>
 
-vnoremap gC <Cmd>s/\v([一-龟])@<=(\w+)([一-龟])@=/ \2 / <Bar> s/\v([一-龟])@<=(\w+)([一-龟])@!/ \2/ <Bar> s/\v([一-龟])@<!(\w+)([一-龟])@=/\2 /<Cr>
+vnoremap gC <Cmd>'<,'>s/\v([一-龟])@<=(\w+)([一-龟])@=/ \2 /e <Bar> '<,'>s/\v([一-龟])@<=(\w+)([一-龟])@!/ \2/e <Bar> '<,'>s/\v([一-龟])@<!(\w+)([一-龟])@=/\2 /e<Cr>
 
 if &term !~# "xterm" || &term =~# "win32"
     finish
