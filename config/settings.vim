@@ -37,6 +37,8 @@ autocmd OptionSet shiftwidth execute 'setlocal listchars=tab:!>,trail:·,leadmul
 
 set autoindent
 set smartindent
+set breakindent
+set showbreak=\ ↪
 set foldmethod=marker
 set conceallevel=2
 set wildmenu

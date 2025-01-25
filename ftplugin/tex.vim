@@ -5,3 +5,8 @@ nnoremap <buffer><silent>\lw   <Cmd>VimtexCountWords!<Cr>
 imap     <Plug>(disable-]])    <Plug>(vimtex-delim-close)
 
 let b:coc_pairs_disabled = ["'", "<"]
+
+augroup vimtex_config
+  autocmd!
+  autocmd User VimtexEventQuit call vimtex#compiler#clean(0)
+augroup end

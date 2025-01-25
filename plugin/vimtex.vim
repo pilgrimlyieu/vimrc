@@ -84,8 +84,3 @@ let g:vimtex_syntax_conceal = {
             \ 'sections': 0,
             \ 'styles': 1,
             \}
-
-augroup vimtex_config
-  autocmd!
-  autocmd User VimtexEventQuit call vimtex#compiler#clean(0)
-augroup end
