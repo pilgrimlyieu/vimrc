@@ -25,31 +25,6 @@ let g:viewplugins = 'NERD_tree\|\[Plugins\]\|\[coc-explorer\]'
 
 let s:palette = g:lightline#colorscheme#gruvbox#palette
 
-if g:plugins_loaded_status.lightline_ale
-    let s:palette.tabline.ale = [ ['#282C34', '#92A4A4', 0, 21] ]
-    let g:lightline.active.right = [ [ 'lineinfo' ],
-\                                    [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
-\                                    [ 'fileformat', 'fileencoding', 'filetype' ] ]
-    call extend(g:lightline.component_expand, {
-                \   'linter_checking': 'lightline#ale#checking',
-                \   'linter_infos'   : 'lightline#ale#infos',
-                \   'linter_warnings': 'lightline#ale#warnings',
-                \   'linter_errors'  : 'lightline#ale#errors',
-                \   'linter_ok'      : 'lightline#ale#ok',
-                \ })
-    call extend(g:lightline.component_type, {
-                \   'linter_warnings': 'warning',
-                \   'linter_errors'  : 'error',
-                \   'linter_ok'      : 'ale',
-                \ })
-
-    let g:lightline#ale#indicator_checking     = '⏳'
-    let g:lightline#ale#indicator_infos        = '📜'
-    let g:lightline#ale#indicator_errors       = '💥'
-    let g:lightline#ale#indicator_warnings     = '⚡'
-    let g:lightline#ale#indicator_ok           = '✨'
-endif
-
 if g:plugins_loaded_status.lightline_bufferline
     set showtabline=2
     let s:palette.tabline.middle = [['#282C34', '#3c3836', 235, 243]]

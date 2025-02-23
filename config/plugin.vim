@@ -5,10 +5,8 @@ if &term !~ "xterm"
     Plug 'yianwillis/vimcdoc'
     Plug 'itchyny/lightline.vim'
     Plug 'mengelbrecht/lightline-bufferline'
-    Plug 'maximbaz/lightline-ale',        { 'for': g:language_types }
     Plug 'junegunn/vim-easy-align'
     Plug 'neoclide/coc.nvim',             { 'branch': 'release' }
-    Plug 'dense-analysis/ale',            { 'for': g:language_types }
     Plug 'SirVer/ultisnips'
     Plug 'Yggdroot/LeaderF'
     Plug 'tpope/vim-fugitive'
@@ -32,10 +30,8 @@ else
     Plug 'yianwillis/vimcdoc'
     Plug 'itchyny/lightline.vim'
     Plug 'mengelbrecht/lightline-bufferline'
-    Plug 'maximbaz/lightline-ale',        { 'for': g:language_types }
     Plug 'junegunn/vim-easy-align'
     Plug 'neoclide/coc.nvim',             { 'branch': 'release' }
-    Plug 'dense-analysis/ale',            { 'for': g:language_types }
     Plug 'SirVer/ultisnips'
     Plug 'Yggdroot/LeaderF'
     Plug 'tpope/vim-fugitive'
@@ -52,12 +48,10 @@ else
 endif
 
 let g:plugins_loaded_status = {
-            \ 'ale':                  1,
             \ 'coc':                  1,
             \ 'copilot':              1,
             \ 'leaderf':              1,
             \ 'lightline':            1,
-            \ 'lightline_ale':        1,
             \ 'lightline_bufferline': 1,
             \ 'rainbow':              1,
             \ 'ultisnips':            1,
